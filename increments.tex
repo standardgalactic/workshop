@@ -1,0 +1,242 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage{microtype}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\R}{\mathbb R}
+
+\title{Increments Are Not Contributions:\\Sequential Ablation, Interaction, and What a Table Can Establish}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A sequential ablation table adds components to a baseline one at a time and reports the performance after each addition. The difference between consecutive rows is routinely read as the intrinsic contribution of the component just added, and the largest difference is read as identifying the key component. These readings conflate quantities that coincide only when components do not interact. This essay separates four of them: the sequential increment, the standalone gain, the leave-one-out loss, and the Shapley allocation averaged over insertion orders. Two small examples show that all four can differ widely when every reported measurement is exact. A multi-component robotics paper then serves as a measured instance. Its progressive table is shown to be consistent with very different allocations, and the unreported configurations that would be required are enumerated. Dependencies among components can make some configurations undefined, in which case the reported chain may already be exhaustive, but the increments remain conditional on prerequisites. Allocations further depend on the baseline, on how the architecture is partitioned into components, and on the performance metric, and the two metrics reported in the robotics paper already imply different shares. A parallel case from evidence synthesis, in which a pooled estimate is reported to hinge on whether a single trial is included, shows the same structure outside machine learning. The essay closes with reporting practices that make component claims warranted.
+\end{abstract}
+
+\section{Introduction}
+
+An ablation table is among the most common forms of evidence in empirical machine learning. A baseline is taken, components are added, performance is reported after each addition, and the text states which component matters most. A typical sentence reads that the largest gain comes from the first module, which confirms that it addresses the main limitation of prior methods. Every number in such a table can be accurate and the sentence can still be unsupported, because the table measures one thing and the sentence asserts another.
+
+What the table measures is the benefit of adding a component to a particular configuration, namely the one that precedes it in the chosen order. What the sentence asserts is that the component carries a benefit of its own, one that would be found whatever it was combined with. The two coincide when the effect of a component does not depend on what else is present. When components interact, they differ, and the size of the difference is not bounded by anything in the table.
+
+The aim here is to develop this point as an argument independent of any one paper. Section~\ref{sec:quantities} defines the quantities. Section~\ref{sec:toy} gives two small examples. Section~\ref{sec:paper} applies the definitions to a published progressive ablation and Section~\ref{sec:exist} asks which configurations exist. Section~\ref{sec:completions} shows how little the reported chain constrains the allocation, Section~\ref{sec:relative} identifies what any allocation is relative to, and Section~\ref{sec:more} extracts what the same paper's other experiments say. Section~\ref{sec:meta} gives a parallel from evidence synthesis. Section~\ref{sec:noise} treats measurement error, Section~\ref{sec:report} gives reporting practices, and Section~\ref{sec:context} states the general principle.
+
+The robotics example is the active-mapping paper of Li et al.~\cite{li2026roads}, whose progressive ablation (arXiv:2609.36889v1, Table 5) is public. Some additional configurations come from the extended copy of that paper distributed through a public project-page repository, which is marked as a confidential reviewer copy, and are identified as such where used. None of the figures has been reproduced.
+
+\section{Four quantities and an interaction}\label{sec:quantities}
+
+Let $N$ be a finite set of optional components, and let $v(S)$ denote the measured performance of the configuration containing exactly the components in $S\subseteq N$, with $v(\emptyset)$ the baseline. For now every subset is assumed to be a meaningful configuration, a restriction relaxed in Section~\ref{sec:exist}. Four quantities are in common use, whether or not they are named.
+
+\begin{itemize}
+\item The \emph{sequential increment} of component $i$ along an order $\pi$ of $N$ is $\Delta_i^\pi=v(P_i^\pi\cup\{i\})-v(P_i^\pi)$, where $P_i^\pi$ is the set of components inserted before $i$. A progressive ablation table reports the increments along one chosen order.
+\item The \emph{standalone gain} is $s_i=v(\{i\})-v(\emptyset)$, the effect of adding $i$ to the baseline alone.
+\item The \emph{leave-one-out loss} is $\ell_i=v(N)-v(N\setminus\{i\})$, the effect of removing $i$ from the full model. It is also the increment of $i$ when inserted last.
+\item The \emph{Shapley allocation}~\cite{shapley1953} is the average of the sequential increment over all $|N|!$ orders,
+\[
+\phi_i=\frac{1}{|N|!}\sum_{\pi}\Delta_i^\pi .
+\]
+\end{itemize}
+For three components $\{i,j,k\}$ this reduces to
+\begin{equation}\label{eq:shap3}
+\phi_i=\tfrac13\,\Delta_i(\emptyset)+\tfrac16\,\Delta_i(\{j\})+\tfrac16\,\Delta_i(\{k\})+\tfrac13\,\Delta_i(\{j,k\}),\qquad \Delta_i(S)=v(S\cup\{i\})-v(S).
+\end{equation}
+The \emph{pairwise interaction} of $i$ and $j$ in context $S$ is $I_{ij}(S)=v(S\cup\{i,j\})-v(S\cup\{i\})-v(S\cup\{j\})+v(S)$. It measures how far the gain from adding $j$ depends on whether $i$ is present.
+
+\begin{proposition}\label{prop:facts}
+(a) For every order $\pi$, $\sum_i\Delta_i^\pi=v(N)-v(\emptyset)$, and $\sum_i\phi_i=v(N)-v(\emptyset)$.
+(b) If $v$ is additive, meaning $v(S)=v(\emptyset)+\sum_{i\in S}a_i$ for constants $a_i$, then $\Delta_i^\pi=s_i=\ell_i=\phi_i=a_i$ for every $\pi$ and $i$.
+(c) For two components $A$ and $B$ with interaction $I=v(AB)-v(A)-v(B)+v(\emptyset)$, the quantities for $A$ are $s_A=v(A)-v(\emptyset)$, increment $s_A$ when $A$ is first and $s_A+I$ when $A$ is second, $\ell_A=s_A+I$, and $\phi_A=s_A+I/2$. The same holds for $B$ by symmetry.
+\end{proposition}
+\begin{proof}
+(a) The sum telescopes along any order. Averaging over orders preserves the identity.
+(b) Each marginal gain $v(S\cup\{i\})-v(S)$ equals $a_i$ regardless of $S$, so all four quantities equal $a_i$.
+(c) With $A$ first, the increment of $A$ is $v(A)-v(\emptyset)=s_A$. With $B$ first, it is $v(AB)-v(B)=s_A+I$ by the definition of $I$, and this is also the leave-one-out loss. The Shapley value is the average of the two orders, $s_A+I/2$.
+\end{proof}
+
+Part (a) is the reason sequential tables look reliable: whichever order is chosen, the increments sum to the total improvement. Part (b) states that the contested readings are harmless when components are additive. Part (c) shows that, for two components, the quantities are separated exactly by the interaction: the standalone gain and the leave-one-out loss differ by $I$, and the Shapley value sits halfway between them. With more components the same dependence on context holds, with more contexts to average over. The leave-one-out losses need not sum to the total, so they are not an allocation of it. Nothing in the table indicates which regime holds.
+
+\section{Two small cases}\label{sec:toy}
+
+Consider two components $A$ and $B$ with measured performance given by the first and second rows below, in arbitrary units.
+
+\begin{center}
+\small
+\begin{tabular}{lcccc}
+\toprule
+ & $v(\emptyset)$ & $v(A)$ & $v(B)$ & $v(AB)$\\
+\midrule
+Weak alone, strong together & 0 & 1 & 1 & 10\\
+Both required (conjunction) & 0 & 0 & 0 & 10\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{center}
+\small
+\begin{tabular}{lcccccccc}
+\toprule
+ & \multicolumn{2}{c}{Increment, $A$ first} & \multicolumn{2}{c}{Increment, $B$ first} & \multicolumn{2}{c}{Standalone} & \multicolumn{2}{c}{Leave-one-out}\\
+ & $A$ & $B$ & $A$ & $B$ & $A$ & $B$ & $A$ & $B$\\
+\midrule
+Weak alone, strong together & 1 & 9 & 9 & 1 & 1 & 1 & 9 & 9\\
+Both required & 0 & 10 & 10 & 0 & 0 & 0 & 10 & 10\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+In both cases the Shapley allocation is 5 for each component. In the first case, whichever component is inserted second receives nine tenths of the credit, and swapping the order reverses the attribution exactly. In the second, whichever is second receives all of it, the standalone gains are both zero, and the leave-one-out losses are both 10 and sum to 20 against a total improvement of 10. The measurements are identical in the two orders, since they are the same four numbers. A sequential table that reports only the $A$-first order would state that $B$ is the key component. One reporting the $B$-first order would state the opposite. Neither statement is false as a description of the increment, and neither supports a claim about intrinsic contribution.
+
+\section{A measured instance}\label{sec:paper}
+
+The robotics paper builds a pipeline of three optional modules added to a baseline method: multimodal anchor generation (MAG), exploration-mode clustering (EMC), and hierarchical mode and path selection (HMS). Its progressive table, trained on one dataset and tested on another, reports the following.
+
+\begin{center}
+\small
+\begin{tabular}{lccrr}
+\toprule
+Configuration & Comp.\ (\%) & Comp.\ (cm) & $\Delta$ (\%) & $\Delta$ (cm)\\
+\midrule
+Baseline & 61.81 & 10.22 & & \\
++ MAG & 66.21 & 9.64 & +4.40 & $-0.58$\\
++ MAG + EMC & 67.60 & 9.36 & +1.39 & $-0.28$\\
++ MAG + EMC + HMS & 68.45 & 9.11 & +0.85 & $-0.25$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The text reports that the largest gain comes from adding MAG, and that this is consistent with the claim that the main limitation of existing methods lies in deterministic single-goal prediction. The table supports a narrower statement: adding MAG to the baseline, as the first step, increases completion by 4.40 points. It does not report what MAG adds in the presence of EMC and HMS, or what EMC adds without MAG, and the increments of the later components are conditional on the earlier ones.
+
+Two features of the table are worth recording before any further analysis. First, the order is the pipeline's natural order, which also places the headline component first, where it receives credit for everything that is gained when a multi-proposal generator is introduced. Second, the shares depend on the metric. Of the total improvement, MAG accounts for 66.3\% in completion percentage, 20.9\% for EMC, and 12.8\% for HMS. In completion error in centimeters the shares are 52.3\%, 25.2\%, and 22.5\%. Both are accurate for the same experiments and the same order, so already within one table the apparent importance of the first component varies by about fourteen percentage points with the choice of metric.
+
+\section{Which configurations exist}\label{sec:exist}
+
+Section~\ref{sec:quantities} assumed that every subset of components is a meaningful configuration. For three independent components, computing the Shapley allocation requires $2^3=8$ measurements, the four in the paper's chain and four more: each of EMC alone, HMS alone, EMC with HMS, and MAG with HMS. The paper reports none of those four. The progressive table therefore cannot yield Shapley values, nor can it yield standalone or leave-one-out quantities for EMC or HMS.
+
+Whether those four configurations are defined is itself a question about the architecture. Components often depend on one another: clustering paths into modes presupposes more than one path, and a mode-level selector presupposes modes. Let $i\prec j$ mean that $j$ is defined only when $i$ is present. The feasible configurations are then the subsets closed under prerequisites, and for the strict chain MAG $\prec$ EMC $\prec$ HMS these are exactly the four configurations in the table. Under this reading the reported chain is exhaustive, the standalone gain of EMC is undefined and not merely unmeasured, and the only order consistent with the dependencies is the reported one. The Shapley value for games under precedence constraints~\cite{faigle1992}, which averages over feasible orders only, then coincides with the sequential increments by construction.
+
+That conclusion should not be read as vindicating the increments. When the table is exhaustive, the increments are all that can be measured, and each is still the benefit of the component conditional on its prerequisites. The question of whether EMC has an effect of its own has no answer because the architecture defines it only in a context.
+
+There is evidence in the paper that the dependencies are partly definitional. With a single sampled anchor, one path is produced, clustering yields one mode, and selection has nothing to choose between, so EMC and HMS have no effect by construction. The extended version reports completion of 64.92 with one sample against 68.45 with five (baseline 61.81). The gain attributed to MAG alone is therefore not a fixed quantity either: it is 3.11 at one sample, and the 4.40 reported in the progressive table presumably uses the default five samples, though the text does not say, and with no clustering or hierarchical selection it still requires some rule for choosing among the proposals. A component's contribution is a function of the hyperparameters of the others as well as of their presence.
+
+The strict chain is also a modeling choice. The paper's own motivation for clustering describes the alternative of scoring paths one by one, and its comparison with a post-hoc multi-goal baseline uses the baseline's own score-based rule. A learned selector that scores all candidate paths without grouping is therefore definable, and with it the lattice has more points: MAG with flat learned selection, MAG with clustering but a non-learned rule, and so on. Which configurations exist depends on how the architecture is divided into components, a point taken up in Section~\ref{sec:relative}.
+
+\section{How little the chain constrains the allocation}\label{sec:completions}
+
+If the four missing configurations were measured, the allocation could change substantially while the reported chain stayed fixed. Table~\ref{tab:comp} gives three hypothetical completions. They are constructed, not measured. Each agrees with the four reported values and differs on the four unreported ones. Completion A is additive. In B, EMC and HMS are inert without MAG, with HMS unaffected by EMC. In C, HMS has an effect on its own, EMC has none alone, and MAG and HMS are strongly synergistic.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+Unreported configuration & A (additive) & B (inert without MAG) & C (HMS works alone)\\
+\midrule
+EMC only & 63.20 & 61.81 & 61.81\\
+HMS only & 62.66 & 61.81 & 63.31\\
+EMC + HMS & 64.05 & 61.81 & 63.31\\
+MAG + HMS & 67.06 & 67.06 & 67.30\\
+\bottomrule
+\end{tabular}
+\caption{Hypothetical values of completion (\%) for the four configurations the paper does not report. The four reported configurations (61.81, 66.21, 67.60, 68.45) are fixed in all three completions.}\label{tab:comp}
+\end{table}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{llccc}
+\toprule
+Quantity & Completion & MAG & EMC & HMS\\
+\midrule
+Sequential increment (reported order) & all & 4.40 & 1.39 & 0.85\\
+\midrule
+Standalone gain & A & 4.40 & 1.39 & 0.85\\
+ & B & 4.40 & 0.00 & 0.00\\
+ & C & 4.40 & 0.00 & 1.50\\
+\midrule
+Leave-one-out loss & A & 4.40 & 1.39 & 0.85\\
+ & B & 6.64 & 1.39 & 0.85\\
+ & C & 5.14 & 1.15 & 0.85\\
+\midrule
+Shapley allocation (share of 6.64) & A & 4.40 (66\%) & 1.39 (21\%) & 0.85 (13\%)\\
+ & B & 5.52 (83\%) & 0.70 (10\%) & 0.43 (6\%)\\
+ & C & 4.81 (72\%) & 0.62 (9\%) & 1.22 (18\%)\\
+\bottomrule
+\end{tabular}
+\caption{Quantities from Section~\ref{sec:quantities} under the three hypothetical completions. The sequential increments are identical by construction. Shapley values are computed from Eq.~\eqref{eq:shap3}.}\label{tab:results}
+\end{table}
+
+The sequential increments are the same in all three completions, so the reported table cannot distinguish them. The Shapley shares of MAG range from 66\% to 83\%, and the share of HMS from 6\% to 18\%. In completion B the leave-one-out loss of MAG equals the entire improvement, 6.64, because removing it disables the other two. In completion C the standalone gain of HMS, 1.50, exceeds its sequential increment of 0.85 in the reported order. These are not extreme constructions. They are the kinds of interaction patterns that modules in a pipeline commonly exhibit, and each is consistent with every number the paper reports.
+
+\section{What any allocation is relative to}\label{sec:relative}
+
+Even when all configurations are measured, the Shapley allocation is a convention. It is the unique allocation satisfying efficiency, symmetry, a dummy-component property, and additivity over games~\cite{shapley1953}, and these properties are useful. They do not make it a causal measurement. It depends on at least four choices.
+
+\textbf{The baseline.} All quantities are differences from $v(\emptyset)$, and the empty configuration is a choice. Using a different baseline method changes every marginal gain. The paper's baseline is a strong prior method, and a weaker baseline would alter the credit for every module.
+
+\textbf{The partition.} The set $N$ of components is a decision about how to divide the architecture. The paper's three-way division is one of many. Its extended version reports a chain within the MAG module alone: regression head 62.47, diffusion generator 66.31, vanilla flow-matching generator 67.83, and the proposed task-specific generator 68.45, with increments 3.84, 1.52, and 0.62 summing to 5.98. If MAG is split into a generation step, a generator family, and a task-specific adaptation, the credit assigned to ``multimodal generation'' depends on which generator is taken as the first step. Shapley allocations are not in general invariant under merging or splitting players, so the shares in Table~\ref{tab:results} would change under a finer partition even with the same data.
+
+\textbf{The metric.} The shares differ between completion percentage and completion error in centimeters, as shown in Section~\ref{sec:paper}. Any nonlinear transformation of the metric, such as a log of the remaining incompleteness, changes the shares as well, because increments are not preserved by nonlinear maps. A linear change of units does not.
+
+\textbf{The measurement regime.} The values $v(S)$ are performance on a given dataset under a given protocol. The progressive ablation in the paper is on a transfer setting, and the allocations on other datasets may differ.
+
+\section{What the same paper's other experiments suggest}\label{sec:more}
+
+The extended version contains experiments that vary the module settings and thereby supply partial information about the missing configurations. They are not subsets of the three-module lattice, and the inferences below are suggestive only.
+
+The sensitivity of completion to the clustering threshold gives 67.88, 68.45, 68.07, and 67.31 at thresholds 0.25, 0.45, 0.65, and 0.85, with 5.8, 3.4, 2.1, and 1.3 modes realized on average. At the largest threshold, clustering is nearly collapsed and hierarchical selection operates over about one mode, so the configuration approximates MAG with a learned selector over all paths, which is not in the progressive chain. If it were a valid proxy, the learned selector over multiple proposals would be worth about 1.10 points over MAG alone (67.31 against 66.21), and the clustering and hierarchy together a further 1.14 (68.45 against 67.31). The progressive table divides the same 2.24 points as 1.39 to clustering and 0.85 to selection. The two divisions of the same 2.24 points are not like for like, since the proxy credits a learned selector first and bundles clustering with hierarchy, while the progressive table credits clustering first and hierarchical selection second. They differ by about 0.25 points in each direction, and the difference arises from how the components are defined and ordered, not from measurement noise. The proxy is imperfect, since an over-merged clustering is not the absence of clustering, so the point is the dependence on definitions and not the particular figures.
+
+Taken together with the dependence on the number of samples noted in Section~\ref{sec:exist}, the experiments indicate that the effect of each module is a function of the settings of the others. This is what the interaction terms of Section~\ref{sec:quantities} are meant to capture.
+
+\section{A parallel from evidence synthesis}\label{sec:meta}
+
+The same structure appears in a field far from machine learning. A Nature news report of 2 October 2026~\cite{vannoorden2026} describes a study of meta-analyses of fluoxetine for depression in children and adolescents. Two meta-analyses published in 2016 and 2020 found the drug better than placebo, while a 2021 Cochrane review found only a small and unimportant advantage. According to the report, the authors of the new study found that the disagreement came down to whether a single small trial published in 2006 was included. They report that re-running the earlier meta-analyses without that trial removed the outsized benefit, and that the 2021 review left the trial out because it had excluded comparisons with a drug class containing the comparator. The report also states that the trial's data imply a similar change in every participant's depression score and that the trial includes no description of its ethics-approval process, and that one co-author of the earlier analyses said the teams had discussed the trial but could not justify excluding it without a protocol for untrustworthy trials, which has since been introduced. The essay relies on this report and has not examined the underlying study. No clinical conclusion is drawn here.
+
+The structure is the one analyzed above. A pooled estimate is a performance function $v(S)$ of the set $S$ of included trials. The eligibility criteria of a review determine which configurations it considers, so that two reviews with different criteria evaluate different configurations, and a disagreement between them may reflect a difference in configuration and not in method. A leave-one-out analysis is the evidence-synthesis analogue of the leave-one-out loss, and a cumulative meta-analysis that adds trials in order of publication reports sequential increments along one order. Neither is an intrinsic effect of the trial, since a trial's influence on a pooled estimate depends on the other trials included and, in random-effects models, on the heterogeneity they imply.
+
+The case also illustrates a limit of the whole family of quantities. That the pooled result changes when one trial is removed is a statement about influence. Whether the trial should have been included is a statement about validity, and the report describes the case for removal as resting on an assessment of trustworthiness, namely the implausible effect size, the uniform change in scores, and the missing ethics description, not on the size of the influence. Influence analysis identifies where to look. It cannot decide what to do. The parallel for component ablations is that a large allocation to a component shows where the result is sensitive and does not by itself show that the component is the reason for the improvement.
+
+\section{Measurement error}\label{sec:noise}
+
+Every quantity above is built from differences of measured values, and the differences amplify error. If each configuration is measured with independent error of standard deviation $\sigma$, a sequential increment has standard deviation $\sqrt2\,\sigma$, and a pairwise interaction, which combines four measurements, has standard deviation $2\sigma$. With three components, the Shapley allocation of Eq.~\eqref{eq:shap3} combines all eight configurations, and its error depends on the weights and on correlations among configurations. Paired designs, in which every configuration is run on the same scenes and initial conditions, reduce the error of differences substantially by removing shared variation, and they are available whenever the evaluation shares starting conditions across methods.
+
+The robotics paper reports no uncertainty for its progressive table. An increment of 0.85 points or 0.25 centimeters cannot be interpreted without it, and interactions, which are second differences, are harder to detect than the main effects they modify. The resolution needed to detect an interaction of a given size is higher than that needed to detect a main effect of the same size, so a table that cannot support the latter certainly cannot support the former.
+
+\section{Reporting practices that make component claims warranted}\label{sec:report}
+
+The preceding analysis suggests the following practices.
+\begin{enumerate}
+\item \textbf{State what the table measures.} Describe each increment as the effect of adding the component to the preceding configuration, and avoid verbs such as ``attributes'' or ``contributes'' for sequential increments.
+\item \textbf{Report leave-one-out results.} Each component removed from the full model is a direct test of whether the full model depends on it.
+\item \textbf{Report all defined configurations.} For $n$ independent components this requires $2^n$ measurements, which is feasible for small $n$. State which configurations are undefined and why, in terms of the precedence structure.
+\item \textbf{Report interactions or an allocation with its convention.} If an allocation such as the Shapley value is reported, state the baseline, the partition, and the metric, and note that it is a convention.
+\item \textbf{Vary the hyperparameters that couple components.} For example, report the effect of a module at more than one value of the setting that determines whether another module is active.
+\item \textbf{Report paired uncertainty.} Give paired confidence intervals over shared evaluation conditions for every row.
+\item \textbf{Separate sensitivity from validity.} A component with a large allocation is one the result is sensitive to. Whether it is the cause of the improvement requires an argument about mechanism or a controlled experiment.
+\end{enumerate}
+
+\section{Context dependence as the general case}\label{sec:context}
+
+The argument can be stated without reference to any particular domain. A component is not a bearer of a fixed quantity of benefit. It is introduced into a configuration, and what it does depends on which configurations admit it and on what continuations of that configuration it permits. Clustering is admissible only where several proposals exist, and what it adds depends on how diverse they are. A selector adds what the candidates it is given allow it to add. In the vocabulary of Section~\ref{sec:exist}, the admissible configurations are the precedence-closed subsets, the effect of a component is a function on admissible configurations, and an increment is the value of that function at one of them.
+
+Reading an increment as an intrinsic contribution amounts to treating a function of context as a constant. The error is not in the arithmetic. It lies in attaching a context-free interpretation to a context-bound quantity, and it can be avoided only by specifying the context, which is what the reporting practices above are meant to do. A table whose increments are accurate but whose text asserts intrinsic contribution has not reported a wrong number. It has reported a right number about the wrong object.
+
+\section{Conclusion}
+
+Sequential ablation measures the benefit of adding a component to a specific configuration. Standalone gain, leave-one-out loss, Shapley allocation, and sequential increment are four different answers to four different questions, and they agree only when components are additive. In the robotics example, the reported chain is compatible with allocations in which the headline component receives between two thirds and five sixths of the improvement, the shares differ by metric within the paper's own table, and the configurations needed to say more are unreported and in part may be undefined. The same logic governs a pooled medical estimate that is reported to depend on one trial. A claim about which component matters can be warranted, but only by experiments designed to support it and by reporting that states the context in which each effect was measured.
+
+\begin{thebibliography}{9}
+\bibitem{li2026roads} Y.~Li, A.~Wu, Z.~Zhang, Z.~Han, S.~Zhang, and Y.~Han. All Roads Lead to Rome: Flow-driven Multi-Anchor Exploration for Open-Environment Active 3D Mapping. arXiv:2609.36889v1 [cs.RO], 29 September 2026. Version formatted for NeurIPS 2026. An extended 42-page copy with appendices is distributed at github.com/vollichor/FAME.
+\bibitem{shapley1953} L.~S.~Shapley. A Value for $n$-Person Games. In H.~W.~Kuhn and A.~W.~Tucker, editors, \emph{Contributions to the Theory of Games, Volume II}, pages 307--317. Princeton University Press, 1953.
+\bibitem{faigle1992} U.~Faigle and W.~Kern. The Shapley Value for Cooperative Games under Precedence Constraints. \emph{International Journal of Game Theory}, 21:249--266, 1992.
+\bibitem{vannoorden2026} R.~Van Noorden. Prozac use for childhood depression skewed by single flawed medical trial. \emph{Nature}, news, 2 October 2026.
+\end{thebibliography}
+
+\end{document}

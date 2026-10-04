@@ -1,0 +1,33 @@
+# LaTeX build artifacts (the .tex sources and final .pdf files stay tracked)
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Scratch folders from comparing old and new figures
+cmp/
+old_figs/
+
+
+# Editor and OS clutter
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+file-list.txt
+process_audio.sh

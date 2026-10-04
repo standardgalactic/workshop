@@ -1,0 +1,135 @@
+{
+ "crb": [
+  {
+   "M": 16,
+   "R": 10.0,
+   "known_end_over_unknown_theta": 0.3064138078182897,
+   "known_end_over_unknown_R": 0.5068367121587174,
+   "known_center_over_unknown_theta": 1.0,
+   "known_center_over_unknown_R": 0.4415829439376827,
+   "unknown_end_vs_center_theta": 14.392857138762256,
+   "unknown_end_vs_center_R": 1.0763982275577983,
+   "known_end_vs_center_theta": 4.410170161272798
+  },
+  {
+   "M": 16,
+   "R": 30.0,
+   "known_end_over_unknown_theta": 0.30641380775676724,
+   "known_end_over_unknown_R": 0.51236407194737,
+   "known_center_over_unknown_theta": 1.0,
+   "known_center_over_unknown_R": 0.44153082549948525,
+   "unknown_end_vs_center_theta": 14.392857143561892,
+   "unknown_end_vs_center_R": 1.025155953212951,
+   "known_end_vs_center_theta": 4.410170161857988
+  },
+  {
+   "M": 32,
+   "R": 10.0,
+   "known_end_over_unknown_theta": 0.2772714190696216,
+   "known_end_over_unknown_R": 0.46315980056955325,
+   "known_center_over_unknown_theta": 1.0,
+   "known_center_over_unknown_R": 0.44395573151497036,
+   "unknown_end_vs_center_theta": 15.132352924848286,
+   "unknown_end_vs_center_R": 1.1609378484401252,
+   "known_end_vs_center_theta": 4.195768969335024
+  },
+  {
+   "M": 32,
+   "R": 30.0,
+   "known_end_over_unknown_theta": 0.277271419208537,
+   "known_end_over_unknown_R": 0.47377392136869617,
+   "known_center_over_unknown_theta": 1.0,
+   "known_center_over_unknown_R": 0.4437456804939408,
+   "unknown_end_vs_center_theta": 15.132352901762609,
+   "unknown_end_vs_center_R": 1.0523315534645066,
+   "known_end_vs_center_theta": 4.195768965036141
+  },
+  {
+   "M": 64,
+   "R": 10.0,
+   "known_end_over_unknown_theta": 0.263407718764144,
+   "known_end_over_unknown_R": 0.43149814106639733,
+   "known_center_over_unknown_theta": 1.0000000000000002,
+   "known_center_over_unknown_R": 0.4452094143277902,
+   "unknown_end_vs_center_theta": 15.549120398474718,
+   "unknown_end_vs_center_R": 1.3392278839627798,
+   "known_end_vs_center_theta": 4.095758332951243
+  },
+  {
+   "M": 64,
+   "R": 30.0,
+   "known_end_over_unknown_theta": 0.2634077198414662,
+   "known_end_over_unknown_R": 0.45068188544047094,
+   "known_center_over_unknown_theta": 1.0,
+   "known_center_over_unknown_R": 0.4443687576969303,
+   "unknown_end_vs_center_theta": 15.549120094774024,
+   "unknown_end_vs_center_R": 1.1077358214854107,
+   "known_end_vs_center_theta": 4.095758269705549
+  }
+ ],
+ "threshold": [
+  [
+   -10,
+   0.4333464675413799,
+   0.00168740646625345,
+   256.8121411218362
+  ],
+  [
+   -5,
+   0.15209434890919285,
+   0.0005336047771856954,
+   285.031835193379
+  ],
+  [
+   0,
+   0.0022114479886923663,
+   0.000168740646625345,
+   13.105603379619886
+  ],
+  [
+   5,
+   5.222159997326271e-05,
+   5.3360477718569534e-05,
+   0.9786569049978634
+  ],
+  [
+   10,
+   1.716083557587806e-05,
+   1.68740646625345e-05,
+   1.0169947738780614
+  ],
+  [
+   15,
+   5.184497099543771e-06,
+   5.3360477718569525e-06,
+   0.9715987039860324
+  ],
+  [
+   20,
+   1.6731416399203732e-06,
+   1.68740646625345e-06,
+   0.9915463010137985
+  ],
+  [
+   25,
+   5.484027408419498e-07,
+   5.336047771856953e-07,
+   1.0277320674194503
+  ]
+ ],
+ "capacity": {
+  "0.0": 10.934394373553761,
+  "0.5": 9.691102433098868,
+  "0.7": 8.300776261809489,
+  "0.9": 6.02892511099554
+ },
+ "bestof5": {
+  "0.1": 0.40950999999999993,
+  "0.2": 0.6723199999999999,
+  "0.3": 0.8319300000000001,
+  "0.4": 0.9222400000000001,
+  "0.5": 0.96875,
+  "0.6": 0.98976,
+  "0.8": 0.99968
+ }
+}

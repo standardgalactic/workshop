@@ -1,0 +1,286 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,booktabs}
+\usepackage{microtype}
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\R}{\mathbb R}
+
+\title{What Averaging Discards: Multi-Anchor Exploration\\and the Limits of Its Evidence}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A recent active-mapping paper (Li et al.~\cite{li2026roads}) replaces single-goal prediction with a conditional flow-matching generator that proposes several exploration anchors, converts them to paths with an A* planner, clusters the paths into modes, and selects among them with a learned hierarchical scorer. Its central theoretical claim is that deterministic single-goal prediction is intrinsically mismatched to exploration under partial observability. This essay separates what the mathematics establishes from what the surrounding prose asserts, using both the 18-page arXiv version and a 42-page extended version with appendices. The valid core is narrow: squared-error regression returns a conditional mean, and a mean of separated feasible destinations need not be feasible or useful. Other deterministic decision rules do not share this property. A direct computation shows that the flow-matching velocity field is itself a conditional-mean construction, which resolves the apparent paradox between the paper's two propositions and locates where averaging reappears. The oracle training targets mix ambiguity caused by partial observation with diversity imposed by the construction of the target bank, and the paper does not report how much of each is present. The reported benchmark gains are numerically consistent, and the cross-dataset transfer result is the most informative. One of the extended version's own tables indicates that about two-fifths of the gain over a regression baseline is present when only a single proposal is sampled, so that portion cannot be attributed to retaining alternatives at a single decision. The stronger claims, that deterministic decision making is inadequate, that flow matching is uniquely suited, and that the system is robust in open environments, exceed what either version demonstrates.
+\end{abstract}
+
+\section{Introduction}
+
+Active three-dimensional mapping asks an embodied agent to choose its own observations so that a scene is reconstructed as completely and as quickly as possible under a finite sensing budget. The paper states that existing methods on the recent open-environment benchmarks~\cite{nbp2025,gleam2025} typically predict a coarse long-range goal from the current partial reconstruction and hand it to a planner, and argues that this goal-prediction stage is the weak point. Because one partial map may be compatible with several worthwhile continuations, a predictor that outputs a single goal is said to collapse them, to commit to the branch most familiar from training, and therefore to generalize poorly to unseen scenes. The proposed remedy is to model a conditional distribution over goals, called anchors, with conditional flow matching~\cite{lipman2023flow}, and to defer commitment until the anchors have been turned into paths and compared.
+
+The proposal is reasonable, and the reported results are encouraging. The question pursued here is narrower and concerns the relation between the argument and the evidence. Which parts of the stated justification follow from the mathematics given, which are imported from other work, and which are assertions about the task? Which of the experimental comparisons can distinguish the paper's explanation of its gains from alternatives? The essay proceeds in that order. Sections~\ref{sec:system}--\ref{sec:fm} treat the system and its two propositions. Section~\ref{sec:targets} examines what the training targets represent. Section~\ref{sec:evidence} examines the experiments, and Sections~\ref{sec:spec} and~\ref{sec:preserve} collect remaining specification questions and a broader observation about where the paper's premise applies. Section~\ref{sec:settle} lists experiments that would settle the open questions.
+
+\subsection*{Sources and scope}
+
+Two documents are considered. The first is arXiv:2609.36889v1, 18 pages, with proof sketches and a checklist stating that complete proofs and hyperparameters are omitted. The second is a 42-page copy distributed through a public project-page repository (github.com/vollichor/FAME, file \texttt{assets/paper/paper.pdf}). It carries identical main-text tables, adds appendices A through C, and is marked as a confidential reviewer copy of a NeurIPS 2026 submission. Statements attributed below to the extended version rest on that copy only.
+
+The repository itself holds a static project page and no implementation. Its README states that the page's videos are existing NextBestPath checkpoint runs and not a comparison with the proposed method, and that the benchmark numbers reproduce the manuscript instead of new experiments. The extended appendix refers to implementation functions by name, and the checklist says code will be released upon acceptance, so no code is available to inspect. All figures in this essay are the authors' reported figures. None has been reproduced.
+
+\section{The system}\label{sec:system}
+
+Let $E_t$ denote the state representation at decision step $t$: four horizontal density maps obtained by slicing the accumulated point cloud, together with a visitation map of the robot's own trajectory. An encoder $f_\phi$ maps $E_t$ to a context $z_t$, and a head $g_\psi$ predicts a local obstacle map $\hat O_t$ from $z_t$. A conditional flow-matching module samples $K$ anchors $a^{(k)}_t\sim p_\theta(a\mid z_t)$, each a goal position and orientation, which the paper writes as
+\[
+a=(x_a,y_a,\sin\theta_a,\cos\theta_a)\in\R^4 .
+\]
+A planner implementing A*~\cite{hart1968} maps each anchor to a path $\tau^{(k)}_t=\mathrm{Plan}(c_t,a^{(k)}_t,\hat O_t)$ from the current pose $c_t$. The paths are compared under a weighted distance
+\[
+d(\tau_i,\tau_j)=\lambda_1 d_{\mathrm{end}}+\lambda_2 d_{\mathrm{shape}}+\lambda_3 d_{\mathrm{prefix}}+\lambda_4 d_{\mathrm{topo}},
+\]
+with default weights $(0.35,0.25,0.25,0.15)$, and grouped by agglomerative clustering with a threshold $\delta_{\mathrm{mode}}=0.45$ into $M_t$ modes whose number is not fixed in advance. A mode scorer outputs five heads for gain, risk, uncertainty, cost, and diversity, which are combined as $S^{\mathrm{mode}}_m=w_GG_m-w_RR_m-w_UU_m-w_CC_m+w_DD_m$, and the highest-scoring mode is selected. A local reranker then selects the path within the mode by a second linear score. Only the first $L_c=5$ steps of the chosen path are committed before replanning.
+
+The division of labor is sensible. Proposing a destination, finding a route to it, and judging whether the journey is worth taking are different problems, and generating whole trajectories would burden the generative model with fine geometry that an explicit planner handles directly. The extended version supports this choice with a comparison against trajectory-space flow matching under identical budgets: 68.45 versus 67.28 completion, convergence in 8.6 versus 12.4 epochs, and 96.2\% versus 81.5\% of proposals executable. These are single measurements without uncertainty, but they point in the direction the paper claims.
+
+\section{Where the averaging argument holds}\label{sec:avg}
+
+Let $a$ be a desirable anchor drawn from $p(a\mid z)$. A deterministic predictor $\hat a(z)$ trained with squared error minimizes
+\[
+R(\hat a\mid z)=\E\big[\|\hat a-a\|^2\mid z\big].
+\]
+
+\begin{proposition}[Mean-seeking regression, paper's Proposition 3.1]\label{prop:mean}
+If $\E\|a\|^2<\infty$, then
+\[
+R(\hat a\mid z)=\|\hat a-\mu\|^2+\E\big[\|a-\mu\|^2\mid z\big],\qquad \mu=\E[a\mid z],
+\]
+so the unique minimizer is $\hat a^\star(z)=\mu$.
+\end{proposition}
+\begin{proof}
+Write $\|\hat a-a\|^2=\|\hat a-\mu\|^2+2(\hat a-\mu)^\top(\mu-a)+\|\mu-a\|^2$. Conditionally on $z$ the vector $\hat a-\mu$ is deterministic and $\E[\mu-a\mid z]=0$, so the cross term vanishes. The last term does not depend on $\hat a$.
+\end{proof}
+
+The consequence the paper draws is that when $p(a\mid z)$ is multimodal, $\mu$ lies between the modes. Take two equally good destinations at $(-2,0)$ and $(2,0)$ on opposite sides of a pillar. Their mean is $(0,0)$, which may lie inside the pillar. More generally, $\mu$ lies in the convex hull of the support of $p(\cdot\mid z)$, and the feasible set $F$ of anchors in an interior with walls is typically not convex, so $\mu\notin F$ is possible. Even when $\mu\in F$, it may sit in a region of negligible density and correspond to no useful strategy. This part of the argument is correct.
+
+Three qualifications bound what it shows.
+
+\textbf{It concerns a loss, not determinism.} The Bayes-optimal deterministic predictor depends on the loss. Under squared error it is the mean. Under absolute error applied coordinatewise it is the coordinatewise median, which can also leave the feasible set. Under a zero--one loss with tolerance $\epsilon$, it is the center of the density's highest-mass $\epsilon$-ball, which tends to a mode of the density as $\epsilon\to0$. A rule that maximizes expected utility over a feasible candidate set, $\arg\max_{a\in F}\E[U(a)\mid z]$, is deterministic and averages utilities, not coordinates. The paper's own pipeline ends in deterministic maximizations: the mode is $\arg\max_m S^{\mathrm{mode}}_m$ and the path is $\arg\max_\tau S^{\mathrm{local}}(\tau)$. The proposition therefore supports the narrower statement that premature coordinate averaging discards alternatives. It does not support the introduction's statement that deterministic single-goal prediction is ``intrinsically mismatched'' to exploration.
+
+\textbf{It depends on geometry.} The paper does not measure how often averaged anchors actually land in blocked space or in low-density regions, so the premise that the feasible support is nonconvex enough to matter is plausible but unquantified for these benchmarks.
+
+\textbf{The anchor is not a vector space point.} The orientation coordinates $(\sin\theta,\cos\theta)$ lie on the unit circle. The mean of two valid orientation pairs separated by an angle $\delta\in[0,\pi]$ has norm $\cos(\delta/2)$, which is 1 only when the orientations coincide, and for opposite orientations the mean is the zero vector, which corresponds to no orientation. Averaging therefore damages the orientation component even where positions are convex-feasible, and any generative model operating in ambient $\R^4$ needs a rule for returning to the circle. Section~\ref{sec:spec} reports what the extended version does.
+
+\section{Flow matching and an exact form of the paradox}\label{sec:fm}
+
+Let $s\in[0,1]$ denote artificial flow time, to keep it apart from the robot's exploration time $t$, and suppress the dependence on $z$. Training samples $x_0\sim\mathcal N(0,I)$, an oracle anchor $x_1\sim p_1$, and $s\sim U(0,1)$, and forms
+\[
+x_s=(1-s)x_0+s\,x_1,\qquad u_s=x_1-x_0,\qquad \mathcal L_{\mathrm{FM}}=\E\big[\|v_\theta(x_s,s,z)-u_s\|^2\big].
+\]
+The paper's second proposition states that the population minimizer is $v^\star(x,s)=\E[u_s\mid x_s=x]$. This seems to contradict the first proposition, since the paper has just argued against conditional averaging. The two statements can be reconciled exactly.
+
+Conditionally on the endpoint, $x_s\mid x_1\sim\mathcal N(s\,x_1,(1-s)^2I)$, and eliminating $x_0=(x_s-s\,x_1)/(1-s)$ gives
+\[
+u_s=\frac{x_1-x_s}{1-s}.
+\]
+Therefore
+\begin{equation}\label{eq:vstar}
+v^\star(x,s)=\E[u_s\mid x_s=x]=\frac{m(x,s)-x}{1-s},\qquad m(x,s)=\E[x_1\mid x_s=x].
+\end{equation}
+The optimal field points from the current position toward the \emph{posterior mean of the endpoint} given where the sample presently is. The averaging of Proposition~\ref{prop:mean} has not been avoided. It has been moved inside the dynamics and made local. At small $s$, the position carries little information about the endpoint, the posterior is close to $p_1$, and $m$ is close to the global mean $\E[x_1]$: the field initially heads for the average destination. As $s$ grows, the posterior given $x_s=x$ is proportional to $p_1(x_1)\exp\!\big(-\|x/s-x_1\|^2/(2((1-s)/s)^2)\big)$, a window of standard deviation $(1-s)/s$ centered at $x/s$. When the window is narrower than the separation between modes, $m$ is dominated by one mode and the field points to it. Different noise draws reach different positions by the time the window has narrowed, and therefore commit to different modes. Multimodality at the output comes from sensitivity to the initial draw, not from the field being anything other than a conditional mean. The two propositions are consistent because they average different quantities given different information.
+
+Two further consequences follow from Eq.~\eqref{eq:vstar}.
+
+\textbf{Regularity at the endpoint.} A direct computation using the exponential-family form of the posterior gives $\nabla_x m=\frac{s}{(1-s)^2}\operatorname{Cov}(x_1\mid x_s=x)$, hence
+\[
+\nabla_x v^\star=\frac{1}{1-s}\left(\frac{s}{(1-s)^2}\operatorname{Cov}(x_1\mid x_s=x)-I\right).
+\]
+Consider a target with two equally weighted atoms at $\pm b$ and a point $x$ on the bisector, meaning $x\perp b$. The posterior at that point stays split evenly between the atoms for every $s$, so $\operatorname{Cov}(x_1\mid x_s=x)=b\,b^\top$ does not decay, and the Jacobian grows like $(1-s)^{-3}$ along the bisector. No uniform Lipschitz bound then holds up to $s=1$. The example is special, since the posterior covariance need not remain of order one near every mode boundary of a general multimodal target, but separated atoms, which a finite anchor bank supplies, produce such boundaries. Standard local regularity arguments can establish uniqueness of the ODE solution on intervals bounded away from $s=1$ under assumptions on the target, but they do not by themselves establish a regular flow through the endpoint, and failure of a uniform Lipschitz bound does not by itself imply non-uniqueness. Exact transport onto a discrete or lower-dimensional target is therefore a statement about a limit, and a regularity argument would need to be supplemented by a convergence argument at $s=1$. The orientation targets lie on a circle and a finite anchor bank is discrete, so both cases arise.
+
+\textbf{The last Euler step.} The extended version integrates with explicit Euler steps of size $\Delta s=1/16$. If the field were exact, the last step from $s=1-\Delta s$ would output $x_{\mathrm{out}}=x+\Delta s\,v^\star(x,1-\Delta s)=m(x,1-\Delta s)$, which is a posterior mean with window standard deviation about $1/15$ in normalized anchor coordinates. Averaging therefore reappears at the resolution of the integrator. Averaging artifacts are possible when the posterior at the final step still combines separated, consequential modes, which depends on the window width relative to the mode separation and on how close the learned field is to exact. A posterior mean can remain feasible and useful even when several modes contribute. The reported sensitivity to the number of steps (completion 67.58, 68.12, 68.45, and 68.49 at 4, 8, 16, and 32 steps) does not identify this mechanism, since more accurate integration can help for other reasons, and without uncertainty the last increment cannot be interpreted.
+
+The extended appendix proves Proposition 3.2 in full. The proof is the same conditional least-squares decomposition as Proposition~\ref{prop:mean} applied to $u_s$. It identifies the minimizer and is correct. It does not establish that the minimizer transports $\mathcal N(0,I)$ to $p_1$. That requires showing that the marginal field $v^\star$ generates the marginal path $p_s$, which follows from linearity of the continuity equation in the conditional paths, together with regularity of the kind discussed above. That argument belongs to the established flow-matching framework~\cite{lipman2023flow}, and the conclusion is plausible, but it is imported in both versions. The population optimum also says nothing about what a finite network learns from limited data, how the learned distribution shifts on unfamiliar scenes, or what the trained model does once a diversity term is added to the objective (Section~\ref{sec:spec}).
+
+\section{What the training targets represent}\label{sec:targets}
+
+The extended appendix describes the targets. For each training state, high-gain and diverse candidate paths are generated on the \emph{ground-truth} obstacle map and scored by their actual accumulated coverage gain. Their endpoints form the oracle anchor set, and the flow is trained to reproduce the empirical distribution of these anchors given the context. Three consequences follow.
+
+First, the targets use privileged information, namely the true map and the true coverage gain, that the agent never has at test time. The learned $p_\theta(a\mid z)$ is therefore a distribution over destinations that an expert with full knowledge would have approved, marginalized over the scenes consistent with $z$.
+
+Second, the source of the multimodality can be written down. Let $S$ denote the full scene state and let $q(a\mid S)$ be the distribution of oracle anchors at that state. Then $p_1(a\mid z)=\E_{S\mid z}[q(a\mid S)]$, and the law of total variance gives
+\[
+\operatorname{Var}(a\mid z)=\underbrace{\E\big[\operatorname{Var}(a\mid S,z)\mid z\big]}_{\text{within-scene anchor dispersion}}+\underbrace{\operatorname{Var}\big(\E[a\mid S,z]\mid z\big)}_{\text{between-scene variation of mean anchors}} .
+\]
+The decomposition separates within-scene anchor dispersion from between-scene variation in the mean anchor. It does not fully separate diversity imposed by the construction of the bank from ambiguity due to partial observation. The first term can include genuinely useful alternatives, since several distinct high-gain paths may exist in a known scene. The second captures only differences in conditional means, so scene-conditioned distributions that differ in modes, covariance, or support while sharing a mean contribute nothing to it. Regression to the mean fails with respect to the total variance, and the narrative of Fig.~1, in which the unseen scene continuation determines which branch is correct, corresponds to variation across compatible scenes. The paper reports Distinct Modes@K, which counts separated proposals, but not how much of the observed multimodality survives when the scene is held fixed. A cleaner separation requires comparing the full conditional anchor distributions under controlled changes in scene information and in bank construction, for example by sampling oracle anchors at a fixed $S$ and by varying the bank's diversification rule.
+
+Third, the phrase ``plausible futures'' should be read with these limits. The system does not infer alternative environments, and it does not show that the probabilities it assigns to anchors are calibrated. What is learned is a distribution over approved destinations.
+
+\section{What the experiments support}\label{sec:evidence}
+
+The reported gains are numerically consistent, and the arithmetic in the text matches the tables, which are identical in both versions.
+
+\begin{center}
+\small
+\begin{tabular}{lccc}
+\toprule
+Setting & NBP & Ours & Difference\\
+\midrule
+AiMDoom Insane, final coverage & 0.472 & 0.534 & +0.062\\
+MP3D, completion (\%) & 79.38 & 82.67 & +3.29\\
+AiMDoom$\to$MP3D, completion (\%) & 61.81 & 68.45 & +6.64\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The transfer row is the most informative. The progressive ablation reports 4.40 points of the 6.64-point gain (61.81 to 66.21) arriving with multimodal anchor generation, followed by 1.39 from clustering and 0.85 from hierarchical selection. These are increments in one added-in-sequence ordering, not causal contributions of each module, since interactions among generation, clustering, and selection could change them under another ordering. Even so, the sequence supports the paper's central intuition better than the in-distribution tables do.
+
+\subsection{Controlled comparisons in the extended version}
+
+The appendix reports several comparisons in the transfer setting (train on AiMDoom, test on MP3D). Each is a single number without uncertainty.
+
+\begin{center}
+\small
+\begin{tabular}{lcc}
+\toprule
+Proposal mechanism, same pipeline & Comp.\ (\%) & Comp.\ (cm)\\
+\midrule
+Single-anchor regression & 62.47 & 10.04\\
+Diffusion anchor generator & 66.31 & 9.98\\
+Vanilla flow-matching generator & 67.83 & 9.78\\
+Ours (task-specific flow matching) & 68.45 & 9.11\\
+\midrule
+NBP & 61.81 & 10.22\\
+NBP with top-3 goals & 62.27 & 10.07\\
+NBP with top-5 goals & 62.54 & 9.93\\
+\bottomrule
+\end{tabular}
+\qquad
+\begin{tabular}{cccc}
+\toprule
+$K$ & Comp.\ (\%) & Comp.\ (cm) & Cost\\
+\midrule
+1 & 64.92 & 9.82 & 1.00$\times$\\
+3 & 67.71 & 9.29 & 1.31$\times$\\
+5 & 68.45 & 9.11 & 1.58$\times$\\
+8 & 68.34 & 9.15 & 2.07$\times$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The first group shows that the generator family and its task-specific adaptation matter somewhat. The vanilla generator trails the proposed one by 0.62 completion points, and what ``task-specific'' denotes beyond the anchor space and the diversity term is not itemized. The second group replaces the single-goal extraction in NBP with the top-3 or top-5 goals of its value map and gains only 0.46 and 0.73 points, which argues against the view that enumerating more candidates suffices.
+
+\subsection{What the $K$ sweep implies}
+
+The sweep over the number of sampled anchors permits a decomposition that the paper does not carry out. Let $A_K$ denote the completion of the full system with $K$ samples and $A_{\mathrm{reg}}$ that of the regression head in the same pipeline. Then
+\[
+\underbrace{A_5-A_{\mathrm{reg}}}_{5.98}=\underbrace{A_1-A_{\mathrm{reg}}}_{2.45}+\underbrace{A_5-A_1}_{3.53}.
+\]
+With $K=1$ the generator returns a single sample, so no alternatives are retained within a decision, and the clustering and selection stages have nothing to choose between. Yet completion is 64.92 against 62.47 for regression. About 41\% of the reported 5.98-point gap is therefore present without retaining multiple proposals at a single decision, and about 59\% accompanies the growth of $K$ from 1 to 5. This is a descriptive comparison across reported configurations. If the sweep changed anything besides inference sampling, such as training or selector calibration, it does not isolate retention, and even with a fixed checkpoint $K=1$ removes comparison within a decision while preserving stochastic variation across decisions and episodes. The $K=1$ sample also differs from a regression output in training signal, stochasticity, and sampling procedure. The comparison does indicate that part of what the paper credits to retaining several hypotheses may reflect how the single proposal is trained and sampled.
+
+The comparison most needed is therefore against alternatives that retain several proposals by other means, such as a mixture density head with $K$ components, several prediction heads, or sampling $K$ feasible frontier goals, trained on the same oracle bank so that targets are matched, together with a $K=1$ stochastic control. This combination would separate the effect of retention from the effect of the training signal. None appears in either version. The case against diffusion is partly made, the case against these simpler mechanisms is untested, and so the claim that flow matching is uniquely suited remains unsupported. Flow matching can still be a principled choice because an established framework motivates it, even when simpler alternatives are untested. What remains open is comparative advantage.
+
+\subsection{Further limits on the evidence}
+
+\textbf{Scope of ``open environment.''} The tests are unfamiliar scenes and specified difficulty shifts within benchmark families. The extended version adds GLEAM-Bench~\cite{gleam2025}, where overall coverage rises from 66.50\% to 68.90\%, a gain of 2.4 points over the previous best method there. There is no physical deployment and no demonstration of unrestricted generalization.
+
+\textbf{Uneven gains under shift.} The text says the method consistently outperforms the strongest baseline under both difficulty-shift protocols, with especially clear gains on harder splits. In Protocol A on the Hard split, the AUC values are 0.403 for the method and 0.401 for NBP, a difference of 0.002 against standard deviations above 0.12. That difference does not establish a clear advantage. Marginal standard deviations cannot settle the significance of a paired difference, especially when methods share initial poses, which is why a paired analysis is needed.
+
+\textbf{The generalization claim and the regression comparison.} The appendix section reporting the proposal comparison is titled as showing why single-goal prediction limits \emph{generalization}, but the regression variant is evaluated only in the transfer setting. Without the same variant evaluated in distribution, a general deficit cannot be separated from a generalization deficit.
+
+\textbf{Statistics.} The AiMDoom tables report standard deviations across testing trajectories, but the MP3D, ablation, proposal-comparison, and sensitivity tables report none, and there are no paired significance analyses. Differences of a few tenths of a point, such as $K=5$ versus $K=8$ or 16 versus 32 steps, cannot be interpreted without them.
+
+\textbf{Efficiency.} Coverage AUC measures how quickly reconstruction improves within an episode, counted in decision steps. The reported 1.75-fold per-step latency is moderate, but because benchmark budgets are in steps and not in wall-clock time, the comparison does not penalize the slower method for its extra compute.
+
+\section{Specification questions}\label{sec:spec}
+
+\textbf{The diversity term.} The extended version confirms that $\mathcal L_{\mathrm{div}}$ enters training, as $\mathcal L_{\mathrm{anchor}}=\mathcal L_{\mathrm{FM}}+\lambda_{\mathrm{div}}\mathcal L_{\mathrm{div}}$ with $\lambda_{\mathrm{div}}=0.05$ and bandwidth $\sigma=0.35$. The term is a mean of pairwise Gaussian-kernel similarities among sampled anchors, so it rewards dispersion, not useful or feasible diversity. Because the population optimum of Proposition 3.2 is the minimizer of $\mathcal L_{\mathrm{FM}}$ alone, it does not in general characterize the optimum of the combined objective, which depends on $\lambda_{\mathrm{div}}$ and on how the diversity gradient is propagated. The term is defined on generated anchors, and how its gradient reaches the velocity network, whether through the Euler chain or a surrogate, is not described in the portions reviewed. The sensitivity results show a trade-off: moving $\lambda_{\mathrm{div}}$ from 0 to 0.10 raises the number of distinct modes from 2.3 to 3.8, while completion peaks at 0.05 (67.74, 68.45, 68.11 at 0, 0.05, 0.10). More modes are not monotonically better. The difference between $\lambda_{\mathrm{div}}=0$ and 0.05 is 0.71 completion points, reported without uncertainty.
+
+\textbf{The anchor representation.} The implementation text states that the anchor dimension is 4. Its description of post-sampling constraints lists three groups: the first two components clamped to $[-1,1]$, the middle two components normalized to unit vectors, and a final dimension mapped through a sigmoid. Two plus two plus one is five, so either the anchor has a fifth component not defined in the text or the description is inexact. The text does not allow this to be resolved as a typo or as a substantive ambiguity. The orientation question of Section~\ref{sec:avg} is answered by post-hoc projection onto the circle. The consequence is that the object passed to the planner is the projection of the transported sample and not the transported sample itself.
+
+\textbf{Accounting inconsistencies.} The checklist answers ``Yes'' on error bars while its justification says error bars are not reported, and answers ``Yes'' on open code while stating that release follows acceptance. The short version also states that network and compute details are absent. The extended version supplies them: about 30 hours of training on two 48\,GB GPUs against 26 hours on one for the baseline, peak training memory of 53.8\,GB against 42.4\,GB, and inference of 112\,ms per decision step against 64\,ms, of which 34\,ms is proposal generation and 78\,ms is planning and selection. One number is inconsistent: the effective batch size is given as 448 in the implementation text and as 56 in the cost table.
+
+\textbf{The redundancy argument.} The paper says redundant paths interfere with selection. For an ideal independent scorer followed by an argmax, duplicates change nothing. The argument holds only for scorers whose inputs depend on the set, and the mode statistics (size, dispersion of gain and risk, radius) are such inputs. The benefit of clustering is therefore tied to how the selector is built and trained. The threshold sweep shows sensitivity in both directions: completion is 67.88, 68.45, 68.07, and 67.31 at $\delta_{\mathrm{mode}}=0.25$, 0.45, 0.65, and 0.85, with 5.8, 3.4, 2.1, and 1.3 modes realized on average.
+
+\textbf{Selector training.} The extended appendix specifies the supervision that the short version omits: a classification loss on an oracle positive mode, a ranking loss within the mode, and auxiliary regression of gain, risk, cost, continuity, and uncertainty against targets derived from the ground-truth map. The equations specify a plausible architecture and its supervision. They do not show that the learned scores remain accurate on unfamiliar scenes, and the oracle labels again depend on information the agent lacks at test time.
+
+\section{The preservation question recurs}\label{sec:preserve}
+
+The averaging argument identifies one place where a distinction that matters for action is lost: two branches, enter the left room and enter the right room, are merged into a point between them. The diagnosis is more specific than information loss. It is the loss of an action-guiding distinction, which is why a deterministic representation that keeps the branches can be adequate while a probabilistic one that compresses them badly is not. This framing is an interpretation offered here, not a claim made by the authors. It has the advantage of locating the same question at the pipeline's later stages, where the paper does not ask it.
+
+\textbf{Clustering.} Grouping paths into modes is useful only because some differences between paths can be discarded. Two paths that look alike geometrically may differ in return accessibility, exposure to uncertainty, or dependence on a narrow passage, and two geometrically different paths may be interchangeable for a coverage objective. The adequacy condition is that a decision-relevant property $\Phi$ survive the compression $T$ from paths to modes, meaning $\Phi=\overline{\Phi}\circ T$ for some $\overline{\Phi}$ that recovers it. This is an exact sufficiency condition, appropriate when $\Phi$ must be preserved exactly. For approximate scoring a weaker requirement suffices, namely that $\overline{\Phi}\circ T$ approximate $\Phi$ to within a tolerance that does not change the selected action, and the stronger form should not be imposed as an absolute standard on clustering. The paper's distance combines endpoint, shape, prefix, and topology terms with fixed weights and a threshold, a plausible heuristic with no such preservation argument. Its own sensitivity table shows the stakes: the coarsest clustering tested lowers completion from 68.45 to 67.31.
+
+\textbf{Selection.} The mode score is a weighted sum of gain, risk, uncertainty, cost, and diversity, so every consideration is compensable: enough predicted gain can outweigh a risk penalty. That is appropriate for preferences. Conditions a task treats as obligations, for example an energy reserve or a return route, would instead determine eligibility before ranking, so that the choice is $\arg\max_{\tau\in\mathcal T_{\mathrm{adm}}(h)}U(\tau)$ over paths admissible given the history $h$. The paper's planner already imposes one hard condition, collision-freedom against the predicted obstacle map, and every other consideration in the selector is a soft term. This is a design observation, not a defect, since the benchmark task has no such obligations.
+
+\textbf{After the step.} Coverage and its area under the curve measure what a path reveals. They do not measure what remains possible once it is executed. A route can reveal much of the scene while leaving the robot poorly placed to return, repair its map, or continue after a sensor failure. The diversity of the proposal set before action is therefore not the same as the preservation of future options after action, and the two would need to be measured separately, for example by the capacity for further exploration remaining after each executed segment. The commit-and-replan mechanism, which executes the first five steps of a path before replanning, bounds the cost of a bad commitment but does not measure it.
+
+None of this is tested by the benchmark results, and none of it follows from them. In short, the paper's own premise, that premature loss of a distinction is costly, applies to its clustering, scoring, and objective as much as to its coordinate regression.
+
+\section{Experiments that would settle the open questions}\label{sec:settle}
+
+The open questions identified above translate into specific experiments, none of which requires new methodology.
+\begin{enumerate}
+\item \textbf{Paired uncertainty.} Report paired differences with confidence intervals over the shared initial poses for every comparison, including the transfer, ablation, proposal-comparison, and sensitivity tables, and state the unit of resampling.
+\item \textbf{A retention-matched baseline.} Compare against a mixture density head and a multi-head regressor producing $K$ proposals, and against $K$ sampled feasible frontier goals, all feeding the same clustering and selection. Add a $K=1$ stochastic baseline trained with the same targets, so that the effect of retention is separated from the effect of the training signal.
+\item \textbf{Conditional diversity of the oracle.} Estimate $\operatorname{Var}(a\mid S)$ by sampling the oracle bank at fixed scenes and report it beside $\operatorname{Var}(a\mid z)$, so that the within-scene component is known and can be compared with the full conditional distributions under varied scene information and bank construction.
+\item \textbf{In-distribution regression.} Evaluate the regression-head variant in distribution, to determine whether its deficit is specific to transfer.
+\item \textbf{Wall-clock matching.} Report coverage as a function of elapsed time as well as decision steps.
+\item \textbf{Measured averaging.} Report how often the mean of the generated anchors, or the output of the regression head, falls in blocked space or low-density regions of the learned distribution, which would test the premise of Section~\ref{sec:avg} directly.
+\end{enumerate}
+
+\section{Assessment}
+
+The central insight is sound and practically useful: keep several candidate continuations alive until their executable consequences can be compared, instead of averaging them into one destination. The benchmark results justify further investigation, and the cross-dataset transfer improvement is the strongest piece of evidence. The extended version strengthens the case in specific ways, with comparisons against diffusion and trajectory-space generation, a post-hoc multi-goal baseline, hyperparameter sensitivity, and cost figures. It also shows where the case is thinner than the prose suggests. A large share of the gain over regression is present at $K=1$. The simplest multi-proposal alternatives are absent. The additional controlled comparisons carry no uncertainty estimates. The proofs establish the regression identity but not the transport. The multimodality of the targets is not decomposed into ambiguity and construction. And the flow-matching velocity is itself a conditional mean, so the contrast between ``averaging'' and ``generating'' is a contrast between where and at what resolution the averaging occurs.
+
+What neither version provides is a proof or experiment showing that deterministic choice is itself the problem, that flow matching is needed rather than merely adequate, or that the system is robust beyond the benchmark families. The accurate summary is a credible engineering contribution with a correct but narrow mathematical core, presented with claims one level broader than the evidence.
+
+\appendix
+
+\section{Derivation of the posterior-mean form of the field}
+
+Fix $s\in[0,1)$. Given $x_1$, the variable $x_s$ is Gaussian with mean $s\,x_1$ and covariance $(1-s)^2I$, so the joint density of $(x_1,x_s)$ is $p_1(x_1)\,\mathcal N(x_s;s\,x_1,(1-s)^2I)$. The posterior of $x_1$ given $x_s=x$ is
+\[
+p(x_1\mid x)\propto p_1(x_1)\exp\!\left(\frac{s\,x^\top x_1}{(1-s)^2}-\frac{s^2\|x_1\|^2}{2(1-s)^2}\right),
+\]
+after discarding factors independent of $x_1$. This is an exponential family in $x_1$ with natural parameter $\eta=s\,x/(1-s)^2$ and base measure $p_1(x_1)\exp(-s^2\|x_1\|^2/(2(1-s)^2))$. For such a family $\nabla_\eta\,\E[x_1]=\operatorname{Cov}(x_1)$, and $\partial\eta/\partial x=s/(1-s)^2$, so
+\[
+\nabla_x m(x,s)=\frac{s}{(1-s)^2}\operatorname{Cov}(x_1\mid x_s=x).
+\]
+Differentiating Eq.~\eqref{eq:vstar} in $x$ then gives the Jacobian stated in Section~\ref{sec:fm}. For the posterior window, write $\|x-s\,x_1\|^2=s^2\|x/s-x_1\|^2$, which shows that $p(x_1\mid x)\propto p_1(x_1)\exp(-\|x/s-x_1\|^2/(2\sigma_s^2))$ with $\sigma_s=(1-s)/s$.
+
+\section{Reported figures and discrepancies}
+
+\begin{center}
+\small
+\begin{tabular}{p{0.46\textwidth}p{0.42\textwidth}}
+\toprule
+Item & Observation\\
+\midrule
+Anchor dimension & Stated as 4; post-sampling description lists 2 + 2 + 1 components\\
+Effective batch size & 448 in implementation text; 56 in cost table\\
+Error bars (checklist) & Answered ``Yes''; justification states none reported\\
+Code (checklist) & Answered ``Yes''; release stated to follow acceptance\\
+Repository & Project page only; videos are NBP runs, not the proposed method\\
+Protocol A, Hard split, AUC & 0.403 versus 0.401; standard deviations above 0.12\\
+Uncertainty in appendix tables & None reported for transfer, ablation, proposal, or sensitivity results\\
+Training compute & About 30 h on 2 GPUs versus 26 h on 1 GPU for NBP\\
+Inference & 112 ms versus 64 ms per decision step\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{9}
+\bibitem{li2026roads} Y.~Li, A.~Wu, Z.~Zhang, Z.~Han, S.~Zhang, and Y.~Han. All Roads Lead to Rome: Flow-driven Multi-Anchor Exploration for Open-Environment Active 3D Mapping. arXiv:2609.36889v1 [cs.RO], 29 September 2026. Version formatted for NeurIPS 2026. An extended 42-page copy with appendices is distributed at github.com/vollichor/FAME.
+\bibitem{lipman2023flow} Y.~Lipman, R.~T.~Q.~Chen, H.~Ben-Hamu, M.~Nickel, and M.~Le. Flow Matching for Generative Modeling. arXiv:2210.02747, 2022.
+\bibitem{nbp2025} S.~Li, A.~Gu\'edon, C.~Boittiaux, S.~Chen, and V.~Lepetit. NextBestPath: Efficient 3D Mapping of Unseen Environments. In \emph{ICLR}, 2025.
+\bibitem{gleam2025} X.~Chen, T.~Wang, Q.~Li, T.~Huang, J.~Pang, and T.~Xue. GLEAM: Learning Generalizable Exploration Policy for Active Mapping in Complex 3D Indoor Scenes. In \emph{ICCV}, pages 5558--5568, 2025.
+\bibitem{hart1968} P.~E.~Hart, N.~J.~Nilsson, and B.~Raphael. A Formal Basis for the Heuristic Determination of Minimum Cost Paths. \emph{IEEE Transactions on Systems Science and Cybernetics}, 4(2):100--107, 1968.
+\end{thebibliography}
+
+\end{document}
