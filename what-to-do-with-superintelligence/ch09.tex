@@ -1,0 +1,34 @@
+\chapter{The Difference Between Solving and Deploying}
+\label{ch:09}
+
+A system of high scientific capability would, by hypothesis, be able to generate candidate solutions in quantities and at speeds that exceed the capacity of human institutions to evaluate them. This feature has an immediate consequence that is often overlooked in discussions that treat capability as synonymous with benefit: the bottleneck of a program in which generation is cheap is verification. A machine might derive an efficient design for a planetary water-transport network, a novel catalyst, a proof, or a therapeutic protocol, and in each case the derivation is only the first stage. The proposal must still be shown to be physically realizable under the stated assumptions, reproducible by independent parties, environmentally admissible over the relevant time scale, and socially acceptable to those it affects. These are distinct tests, each performed by different methods and with different standards of evidence, and passing one does not entail passing the others. A catalyst that functions in a laboratory may not scale, a scalable process may be ecologically intolerable, and an ecologically tolerable process may be unacceptable to the communities who would bear its costs or whose rights it would override.
+
+The distinction between solving and deploying is accordingly not a distinction between theory and practice but a distinction between establishing that a solution exists and establishing that it should be adopted, and the second is a decision. Whether an efficient planetary water-transport design ought to be built depends on ecological effects along its route, on the rights of communities and states whose land and water it would affect, on the economic cost relative to alternatives such as desalination, regional recycling, and demand reduction, and on competing uses of the same freshwater. These considerations are not resolved by the derivation, and a system that generated the design cannot be the authority that decides whether it is built without reintroducing, in another form, the substitution of artifact for institution that the argument opposes. The interview's discussion of marketing practices reinforces the need for independent verification: it observes that claims about capability have frequently reached the public directly from the organizations that profit from them, and that interpretations by independent parties arrive only later, after the initial impression has formed. A verification regime that depends on the developer's own evaluation of its own system is exposed to the same structure of interest.
+
+This part of the program connects to a broader requirement on any use of capable systems in science. Where a system proposes a mathematical result, a proof assistant or independent expert review can establish correctness, but correctness of a formal statement does not establish that the statement captures the intended claim, so that an additional check of fidelity between the formal object and the informal question is needed. Where a system proposes an experiment, the experiment must be performed and replicated by parties whose success is not tied to confirmation. Where a system proposes an intervention in a living system, the evidence standards of clinical and ecological research apply without exemption. The general principle is that the credibility of a proposal derives from the independence and redundancy of the procedures that test it, and not from the capability of its source.
+
+\section*{Formalization}
+
+Let $\Pi_c$ be the set of proposals generated at capability level $c$, with $|\Pi_c|=N_c$. Let $\varphi_1,\dots,\varphi_k:\Pi_c\to\{0,1\}$ be verification predicates corresponding to physical realizability, reproducibility, ecological admissibility, and social acceptability (so $k=4$ in the base case), where $\varphi_j(\pi)=1$ means that proposal $\pi$ passes test $j$ in the idealized sense. A proposal is \emph{deployable} if $\varphi_j(\pi)=1$ for all $j$, and the deployable set is $\Pi_c^\ast=\bigcap_{j=1}^k\varphi_j^{-1}(1)$.
+
+In practice tests are imperfect. Let $E_j$ denote the event that test $j$ accepts a given defective proposal, with $\Pr(E_j)=\varepsilon_j\in(0,1)$, and let $b\in[0,1]$ denote the fraction of defective proposals in $\Pi_c$.
+
+\begin{proposition}
+(i) If $E_1,\dots,E_k$ are independent, the expected number of defective proposals that pass all tests is $N_c\,b\prod_{j=1}^k\varepsilon_j$. (ii) Without independence, $\Pr\big(\bigcap_jE_j\big)\le\min_j\varepsilon_j$, with equality if and only if, for an index $m$ attaining the minimum, $E_m\subseteq E_j$ up to events of probability zero for every $j$, that is, if the acceptance events are nested. (iii) The product $\prod_j\varepsilon_j$ is not an upper bound in general: for positively dependent tests $\Pr\big(\bigcap_jE_j\big)$ may exceed it.
+\end{proposition}
+
+\begin{proof}
+(i) By independence the probability that a defective proposal passes all tests is $\prod_j\varepsilon_j$, and the expectation follows by linearity over the $N_cb$ defective proposals. (ii) Since $\bigcap_jE_j\subseteq E_m$ we have $\Pr(\bigcap_jE_j)\le\Pr(E_m)=\min_j\varepsilon_j$, and equality holds exactly when $\Pr\big(E_m\setminus\bigcap_jE_j\big)=0$, which is the stated nesting condition. Identical acceptance events are the special case in which all $\varepsilon_j$ coincide. (iii) Take two tests with $E_1=E_2$ and $\varepsilon_1=\varepsilon_2=\tfrac12$, so that $\Pr(E_1\cap E_2)=\tfrac12>\tfrac14$.
+\end{proof}
+
+The proposition yields the program's requirement of \emph{independence of verification}: the benefit of adding a test is the multiplicative factor $\varepsilon_j$ only to the extent that its errors are uncorrelated with those of the others, and a test operated by the proposer is not independent of the proposal.
+
+Admissible range and certified throughput are distinct quantities. The admissible range, defined by inclusion in Chapter 1, concerns which trajectories could be realized. Let $g_c$ be the rate at which proposals are generated at level $c$, nondecreasing in $c$, let $v$ be the rate at which proposals can be verified at a given level of verification effort, and define the \emph{verified deployment throughput} $\Theta(c)=\min(g_c,v)$.
+
+\begin{proposition}
+If $g_c\ge v$ for all $c\ge c_0$, then $\Theta(c)=v$ for all $c\ge c_0$, while $R_c\cap A$ may continue to enlarge strictly for $c\ge c_0$. Additional capability beyond $c_0$ then yields no additional certified deployments unless $v$ increases, even though the admissible range may continue to grow.
+\end{proposition}
+
+\begin{proof}
+For $c\ge c_0$ the minimum in the definition of $\Theta$ equals $v$. The realizable sets $R_c$ are nested and nothing in the definition of $\Theta$ constrains the difference $(R_{c'}\setminus R_c)\cap A$ to be empty.
+\end{proof}

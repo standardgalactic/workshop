@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+
+\title{The Cost of Being Legible}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Making a system measurable is often said to distort it, and often said to be harmless, and both claims are sometimes true. This essay separates three channels through which legibility can alter outcomes and states, for each, the exact conditions under which it costs nothing and a bound on what it costs otherwise. In the selection channel, a measurer who chooses among options by a proxy errs by at most twice the largest discrepancy between proxy and target on the set considered, and this holds even when the measured agents cannot respond; the bound is tight, and selection from every menu is free of loss exactly when the proxy strictly respects the order of the target. In the incentive channel, measurement leaves the feasible set unchanged but alters the choice made within it, and the loss is bounded by twice the incentive weight times the discrepancy. In the feasibility channel, measurement alters which actions are available at all, and the loss can be bounded only under a Lipschitz condition and a covering condition. Combining the channels gives a decomposition of the cost, and a necessary and sufficient condition for legibility to be costless at every incentive weight: the measured set must contain a target optimum, and every maximizer of the proxy within it must be a target optimum. The condition concerns agreement at the top of the ranking and does not require the proxy to be accurate elsewhere. A multitask illustration gives the regret as a function of the incentive weight. The cost of legibility is then compared with the cost of illegibility, since the alternative to a measure is not no decision but a decision made on other grounds.
+\end{abstract}
+
+\section{Introduction}
+
+A long tradition holds that measurement corrupts what it measures. Goodhart's remark about monetary indicators, Campbell's law about social indicators, Strathern's formulation that a measure ceases to be a good measure once it becomes a target, and Kerr's observation that organizations reward one behaviour while hoping for another, are four versions of a single suspicion, which is that the act of making a system legible to an observer changes the system (Goodhart 1975; Campbell 1979; Kerr 1975; Strathern 1997). Scott's account of how states render societies legible to administration extends the suspicion from indicators to institutions, with the claim that simplifications adopted for the sake of seeing also alter what is there to be seen (Scott 1998). Against this stands the plain observation that many measurements do not distort anything. A thermometer in a large bath does not alter the temperature of the bath, a passive log of events does not alter the events, and a random audit that cannot be anticipated need not alter the conduct it samples.
+
+The thesis of this essay is that both observations are correct and that the interest lies in the conditions that separate them. It is easy to assert that measurement is harmful and equally easy to assert that it is benign. The more useful questions are of the form: under what assumptions can the harm be bounded, and under what conditions is it zero? The answers are obtained by identifying the channels through which legibility acts. There are three. A measurer may decide on the basis of an imperfect proxy, whether or not anyone responds. Those measured may respond to the measure by changing what they do within what they were already able to do. And the measurement regime may change what can be done at all, by admitting only actions that can be expressed in its terms. The first channel does not require that the measured agent react; the second does not require that the feasible set change; the third is the one in which the thesis that measurement alters admissible behaviour is true in its strongest sense. Each has its own bound and its own condition for vanishing.
+
+Two clarifications about scope. The essay does not argue against metrics, and a result that states when legibility is costless is as much a result in favour of measurement as one that states when it is costly. And the essay does not claim that the formal model captures every way in which a measure can mislead; it concerns the case in which there is a target, a proxy for it, and an agent or a measurer who acts on the proxy.
+
+\section{Setting}
+
+Let $A$ be a set of actions available to an agent, with a target utility $u:A\to\mathbb R$ that represents what the measurer ultimately cares about. A \emph{legibility regime} $\ell$ consists of a proxy $m:A\to\mathbb R$, a feasible set $A_\ell\subseteq A$ of actions that the regime admits, and an incentive weight $\lambda\in[0,1]$ with which the agent's reward depends on the proxy. In the absence of a regime the agent chooses an action in $\argmax_A u$, and $U^\ast=\max_A u$ is the benchmark. Under the regime the agent chooses an action $a_\lambda\in\argmax_{A_\ell}\bigl[(1-\lambda)u+\lambda m\bigr]$, so that the weight $\lambda$ interpolates between an agent who ignores the measure and an agent who maximizes it. The \emph{regret} of the regime is $U^\ast-u(a_\lambda)$.
+
+A separate role is that of a measurer who uses the proxy to select among options without any response by the options. For a finite menu $S\subseteq A$, the selected option is a maximizer of $m$ on $S$, and its regret is $\max_S u-u(a_m)$.
+
+Write $\varepsilon_S=\sup_{a\in S}|u(a)-m(a)|$ for the largest discrepancy between proxy and target on a set $S$. Suprema are attained throughout, which is automatic for finite sets and holds for compact sets under continuity.
+
+The regime is called \emph{non-reactive} if the agent's action does not depend on it, so that $\lambda=0$ and $A_\ell=A$, and \emph{reactive} otherwise. Reactivity is not one thing. It has an incentive form, in which $\lambda>0$, and a structural form, in which $A_\ell\subsetneq A$; the two can occur separately.
+
+\section{The Selection Channel}
+
+Consider first a non-reactive regime. Agents cannot respond, because they are unaware of the measure, or because the measure is taken after the fact on a quantity they cannot change. It might be thought that the harm of legibility is then absent, since nothing has been distorted. This is incorrect, because the measurer still decides, and decides on the proxy.
+
+\begin{proposition}[Selection regret]
+Let $S$ be a finite set of options and $a_m\in\argmax_S m$. Then $\max_S u-u(a_m)\le 2\varepsilon_S$, and the bound is tight.
+\end{proposition}
+
+\begin{proof}
+Let $a_u\in\argmax_S u$. Then
+\[
+u(a_u)-u(a_m)=\bigl[u(a_u)-m(a_u)\bigr]+\bigl[m(a_u)-m(a_m)\bigr]+\bigl[m(a_m)-u(a_m)\bigr]\le\varepsilon_S+0+\varepsilon_S,
+\]
+since the middle term is nonpositive by the choice of $a_m$. For tightness, let $S=\{x,y\}$ with $u(x)=1$, $m(x)=1-\varepsilon$, $u(y)=1-2\varepsilon$, and $m(y)=1-\varepsilon$. The discrepancy is $\varepsilon$ on both options, the proxy ties, and a tie broken toward $y$ yields regret $2\varepsilon$. A perturbation of $m(y)$ by an arbitrarily small amount makes the choice of $y$ strict.
+\end{proof}
+
+The bound is valid when the target maximizer and the proxy maximizer are both selected from the same set. The restriction is not decorative. If the measurer selects from a menu of options that differs from the set over which the discrepancy was assessed, the bound no longer applies, and a proxy that is accurate on the options previously seen can mislead on new ones.
+
+The proposition establishes that a non-reactive measure can cause loss, and the following establishes when it cannot.
+
+\begin{proposition}[Proxies without distortion]
+Selection from every finite menu $S\subseteq A$ is free of regret if and only if $m$ strictly respects the order of $u$, that is, $u(a)>u(b)$ implies $m(a)>m(b)$ for all $a,b\in A$.
+\end{proposition}
+
+\begin{proof}
+Suppose $u(a)>u(b)$ and $m(b)\ge m(a)$ for some pair. On the menu $\{a,b\}$ the option $b$ is a maximizer of $m$ and is not a maximizer of $u$, so selection errs. Conversely, suppose $m$ strictly respects the order of $u$, and let $x$ maximize $m$ on a menu $S$. If $x$ did not maximize $u$ on $S$, some $y\in S$ would have $u(y)>u(x)$, hence $m(y)>m(x)$, contradicting the choice of $x$.
+\end{proof}
+
+The proposition has the consequence that not every proxy produces distortion. A proxy that is an increasing transformation of the target, or any function that preserves the strict ordering of the target values, is costless however different it looks numerically. A proxy may be a poor numerical approximation, with a large supremum discrepancy, and yet lose nothing in selection, if it orders the options correctly. The converse also holds: a proxy that is numerically close can lose a good deal, if its small errors fall where the choices are made. The quantity that matters for selection is the agreement of orderings and not the closeness of values, and the bound of Proposition 1 is a worst-case guarantee for the case in which only closeness is known.
+
+\section{The Incentive Channel}
+
+Suppose now that the feasible set is unchanged, $A_\ell=A$, but the agent's reward depends on the proxy with weight $\lambda$. The regime has altered no one's ability to do anything. It has changed what the agent is rewarded for, and with it the action selected.
+
+\begin{proposition}[Incentive regret]
+Let $a_\lambda\in\argmax_A\bigl[(1-\lambda)u+\lambda m\bigr]$. Then $U^\ast-u(a_\lambda)\le2\lambda\varepsilon_A$.
+\end{proposition}
+
+\begin{proof}
+Write $U_\lambda=(1-\lambda)u+\lambda m$. Pointwise, $|U_\lambda-u|=\lambda|m-u|\le\lambda\varepsilon_A$. Let $a^\ast\in\argmax_A u$. Then $u(a_\lambda)\ge U_\lambda(a_\lambda)-\lambda\varepsilon_A\ge U_\lambda(a^\ast)-\lambda\varepsilon_A\ge u(a^\ast)-2\lambda\varepsilon_A$.
+\end{proof}
+
+The bound is linear in the incentive weight and equals the bound of Proposition 1 at $\lambda=1$. It formalizes a pattern that the literature on incentives describes in several settings. Holmstr\"om and Milgrom (1991) show that when an agent has several tasks and only some are measured, strengthening the incentive on the measured tasks draws effort away from the others, and that it can be optimal to weaken incentives on measured tasks for this reason. The model of this section contains the effect without further structure. Nothing is infeasible; the agent simply ceases to do what the measure does not reward.
+
+The classification of Goodhart-type failures by Manheim and Garrabrant (2018) into regressional, extremal, causal, and adversarial cases maps onto the channels distinguished here. The regressional and extremal cases, in which a proxy that is correlated with the target in the bulk of the distribution diverges from it at the extremes selected by optimization, belong to selection and to the top-of-ranking condition of Section 6. The causal and adversarial cases, in which acting to raise the proxy does not raise the target or in which agents deliberately exploit the difference, belong to the incentive channel. The correspondence is not exact, but it is enough to show that the three-channel analysis is not an alternative to the existing taxonomy so much as a way of attaching bounds and conditions to its cases.
+
+\paragraph{An illustration.} Let an agent divide a unit of effort between two tasks, with $e_1+e_2=1$ and $e_i\ge0$. The target is $u=\sqrt{e_1}+\sqrt{e_2}$, which is maximized at $e_1=e_2=1/2$ with $U^\ast=\sqrt2$. The measure observes only the first task, $m=\sqrt{e_1}$. The agent maximizes $(1-\lambda)u+\lambda m=\sqrt{e_1}+(1-\lambda)\sqrt{e_2}$, whose maximizer is $e_1=1/\bigl(1+(1-\lambda)^2\bigr)$. The discrepancy is $\varepsilon_A=\sup\sqrt{e_2}=1$.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{rrrr}
+\toprule
+Incentive weight $\lambda$ & Effort on measured task & Target value $u$ & Regret \\
+\midrule
+0.00 & 0.500 & 1.414 & 0.000 \\
+0.25 & 0.640 & 1.400 & 0.014 \\
+0.50 & 0.800 & 1.342 & 0.073 \\
+0.75 & 0.941 & 1.213 & 0.202 \\
+0.90 & 0.990 & 1.095 & 0.320 \\
+1.00 & 1.000 & 1.000 & 0.414 \\
+\bottomrule
+\end{tabular}
+\caption{Regret in the two-task illustration as a function of the incentive weight. The proposition's bound is $2\lambda$ here, which is valid and loose.}
+\end{table}
+
+At $\lambda=0$ there is no regret even though the measure omits half of what matters, because the measure is not tied to anything the agent cares about. The regret rises monotonically with the weight and reaches $\sqrt2-1\approx0.414$ when the agent maximizes the measure alone. The example confirms that an incomplete proxy is not by itself harmful: harm requires that action respond to it. It also shows that the bound can be far from tight, so that it is best read as a guarantee and not as an estimate.
+
+\section{The Feasibility Channel}
+
+The third channel is of a different kind. A regime can change which actions are available. A reporting format that admits only quantities in prescribed categories removes actions that cannot be so expressed, a standardized procedure removes practices that do not fit it, and observation that perturbs the observed system, as when a procedure for eliciting a person's reasoning changes the reasoning, removes the possibility of the unobserved state. In each case $A_\ell\subsetneq A$.
+
+The loss from restriction cannot be bounded by the discrepancy between proxy and target, because it does not depend on the proxy. It depends on how much is lost by excluding actions from $A$. Two conditions suffice for a bound.
+
+\begin{proposition}[Feasibility regret]
+Suppose $A$ is a metric space, $u$ is $L$-Lipschitz, and every action of $A$ lies within distance $d$ of some action of $A_\ell$. Then $U^\ast-\max_{A_\ell}u\le Ld$. Without a Lipschitz condition or without a covering condition, no bound in terms of the other quantities holds.
+\end{proposition}
+
+\begin{proof}
+For any $a^\ast\in\argmax_A u$ there is $b\in A_\ell$ with $\mathrm{dist}(a^\ast,b)\le d$, and $u(b)\ge u(a^\ast)-Ld$. For the final claim, let $A_\ell$ exclude a neighbourhood of every target optimum, with $u$ dropping by an arbitrary amount just outside the excluded region; the loss then exceeds any prescribed bound.
+\end{proof}
+
+The covering condition corresponds to the requirement that the regime's vocabulary be rich enough that every practice has a close neighbour within it, and the Lipschitz condition to the requirement that nearby practices have similar worth. When both hold, a finer-grained regime has a smaller loss, and when either fails, a regime that excludes the wrong practices can cost an unbounded amount. This is the strongest sense in which legibility alters admissible behaviour, and the account here agrees with the observation of Scott (1998) that the forms of simplification adopted for the sake of administration can eliminate practices whose worth the forms did not record.
+
+\section{When Legibility Is Costless}
+
+The three channels combine. An agent facing a regime chooses $a_\lambda$ from the restricted set $A_\ell$ under the incentive $\lambda$, and the regret decomposes into a feasibility term and an incentive term.
+
+\begin{proposition}[Decomposition]
+Under the assumptions of Proposition 4, and with $\varepsilon_{A_\ell}=\sup_{A_\ell}|u-m|$,
+\[
+U^\ast-u(a_\lambda)\;\le\;Ld\;+\;2\lambda\,\varepsilon_{A_\ell}.
+\]
+\end{proposition}
+
+\begin{proof}
+Write $U^\ast-u(a_\lambda)=\bigl[U^\ast-\max_{A_\ell}u\bigr]+\bigl[\max_{A_\ell}u-u(a_\lambda)\bigr]$. The first bracket is at most $Ld$ by Proposition 4 and the second is at most $2\lambda\varepsilon_{A_\ell}$ by Proposition 3 applied to the set $A_\ell$.
+\end{proof}
+
+These bounds are sufficient, not necessary, and say nothing about when the regret is exactly zero. An exact characterization is available.
+
+\begin{proposition}[Costless legibility]
+Let $A_\ell$ be finite. The regime has zero regret at every incentive weight $\lambda\in[0,1]$ if and only if
+\begin{enumerate}
+\item[(i)] $A_\ell$ contains an action that maximizes $u$ over $A$, and
+\item[(ii)] every action that maximizes $m$ over $A_\ell$ maximizes $u$ over $A$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Necessity: at $\lambda=0$ the agent maximizes $u$ over $A_\ell$, which attains $U^\ast$ if and only if (i) holds; at $\lambda=1$ the agent may choose any maximizer of $m$ over $A_\ell$, and regret is zero for all of them if and only if (ii) holds. Sufficiency: let $q\in\argmax_{A_\ell}m$. By (ii) $u(q)=U^\ast$, and since $A_\ell\subseteq A$ and by (i) $\max_{A_\ell}u=U^\ast$, the action $q$ maximizes both $u$ and $m$ over $A_\ell$. For any $\lambda$, every action $b\in A_\ell$ satisfies $u(b)\le u(q)$ and $m(b)\le m(q)$, so $U_\lambda(b)\le U_\lambda(q)$, with equality only if both inequalities are equalities when $0<\lambda<1$. Hence for $0<\lambda<1$ every maximizer of $U_\lambda$ has $u=U^\ast$; for $\lambda=0$ this follows from (i) and for $\lambda=1$ from (ii).
+\end{proof}
+
+The proposition is the sharpest statement of the essay's thesis. Legibility is costless exactly when the regime preserves a target optimum among the actions it admits, and when its proxy agrees with the target at the top of the ranking. Neither condition requires the proxy to be accurate. A proxy that is wildly wrong at every action but the best ones, so that its largest discrepancy $\varepsilon$ is large, is costless if it nonetheless peaks where the target peaks; a proxy that is within a small $\varepsilon$ everywhere can be costly if its small errors reorder the top. This is what is meant by saying that not every proxy produces distortion, and also by saying that the conditions of avoidance are demanding, since the top of the ranking is where optimization is directed and so where any disagreement is exploited.
+
+Two remarks bear on use. First, condition (ii) is stated for the feasible set of the regime. If the regime is extended, so that $A_\ell$ grows, new actions may be proxy maximizers that are not target optima, and the condition must be rechecked; a measure that was costless can become costly when the space of actions expands, which is a precise form of the familiar observation that a metric is safe until it is optimized hard. Second, the condition is for a fixed target and proxy. It does not cover a regime in which the proxy is learned or adjusted in response to behaviour, and it says nothing about dynamics.
+
+\section{The Cost of Illegibility}
+
+The analysis so far compares measured outcomes with the benchmark of an unmeasured agent who maximizes the target. This is not the relevant comparison for a measurer who must decide, because the alternative to deciding by a proxy is not deciding by the target, which is by hypothesis unobserved. It is deciding on some other basis, whether a prior, a procedure, acquaintance, or chance. The net value of legibility is therefore the difference between the value of selecting by the proxy and the value of the best available alternative, less the direct cost $k$ of producing and maintaining the measure.
+
+For selection among options, the comparison can be stated plainly. If the unmeasured alternative selects an option no better than a random one in expectation, any proxy that is positively aligned with the target in expectation improves on it, and the regret bound of Proposition 1 should be read against that baseline and not against zero. A measure with a large worst-case regret may still be a considerable improvement on the practice it replaces. Conversely, a measure whose direct cost $k$ is large, or whose incentive and feasibility terms are large, may be worse than a practice that relies on judgment, and the analysis supplies the terms to be compared: $k$, the feasibility term $Ld$, the incentive term $2\lambda\varepsilon$, and the selection term $2\varepsilon$ against the unmeasured baseline. The conclusion that legibility is costly or not can be reached only after the comparison is stated.
+
+\section{Legibility in a History-Primary Setting}
+
+In the framework of the earlier essays, the present state is a fold over a log, and what may happen next depends on what the log contains. A measurement that is recorded in the log becomes part of the history on which later decisions condition. In that setting the three channels have a natural reading. The selection channel is the dependence of later decisions on the recorded proxy, the incentive channel is the dependence of later conduct on the knowledge that a record is being made, and the feasibility channel is the restriction of admissible entries to those that the recording format accepts. The last is the closest analogue of the restriction on admissibility that the framework takes to be central. A format that admits only certain kinds of entry restricts the histories that can be recorded, and with them the continuations that can be justified by the record. No claim of correspondence with the results of the other essays is made here beyond this structural similarity, and the results above do not depend on the framework.
+
+\section{Limits and Open Questions}
+
+The model is static, with one round of action and measurement. In dynamic settings the proxy can be learned from behaviour, the agent can learn the proxy, and the target itself may shift in response, so that the conditions of Proposition 6 are not preserved over time. The model treats the discrepancy $\varepsilon$ as given, but in practice it depends on the population of actions that optimization reaches, and the population changes when the incentive is applied. The incentive weight $\lambda$ is a parameter, whereas in real settings it is set by a negotiation between the measurer and the measured, and may itself be an outcome of the measure's use. Manipulation of the record without any change in the underlying action, which is falsification and not performance, enters the model only through actions that raise the proxy without raising the target, and a more specific treatment of reporting would separate the two. Finally, the target $u$ has been treated as well defined. In many applications the target is itself contested, and legibility then bears on what the target is taken to be, a matter that this essay does not address.
+
+Two questions follow. The first is how to design a regime to satisfy the conditions of Proposition 6 approximately, for instance by randomizing or concealing the proxy so that the effective incentive weight falls, or by combining several proxies so that agreement at the top of the ranking is more robust than any one of them. The second is whether there are natural classes of systems in which the order-respecting condition of Proposition 2 holds without special construction, so that legibility is free there by structure and not by good fortune. Both are questions about which kinds of system admit measurement without cost, and the answer to such questions is the contribution that a bounded account can make to a debate that has tended to proceed by general assertion.
+
+\begin{thebibliography}{99}\small
+\bibitem{campbell} Campbell, D. T. (1979). Assessing the impact of planned social change. \emph{Evaluation and Program Planning} 2, 67--90.
+\bibitem{goodhart} Goodhart, C. A. E. (1975). Problems of monetary management: The U.K. experience. In \emph{Papers in Monetary Economics}, vol. I. Reserve Bank of Australia.
+\bibitem{holmstrom} Holmstr\"om, B., and Milgrom, P. (1991). Multitask principal-agent analyses: Incentive contracts, asset ownership, and job design. \emph{Journal of Law, Economics, and Organization} 7, 24--52.
+\bibitem{kerr} Kerr, S. (1975). On the folly of rewarding A, while hoping for B. \emph{Academy of Management Journal} 18, 769--783.
+\bibitem{manheim} Manheim, D., and Garrabrant, S. (2018). Categorizing variants of Goodhart's Law. arXiv:1803.04585.
+\bibitem{scott} Scott, J. C. (1998). \emph{Seeing Like a State: How Certain Schemes to Improve the Human Condition Have Failed}. Yale University Press.
+\bibitem{strathern} Strathern, M. (1997). `Improving ratings': Audit in the British university system. \emph{European Review} 5, 305--321.
+\end{thebibliography}
+
+\end{document}
+

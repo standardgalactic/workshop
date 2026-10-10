@@ -1,0 +1,246 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\title{Shuffled Decks}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A learner who studies a deck of cards in a fixed order can answer correctly for two reasons that the score does not distinguish: the cue on the card evokes the target, or the preceding card evokes it. This essay separates the claims that can be made about such order dependence into three grades, observational, interventional, and simulated, and states what each licenses. Conditional mutual information between response and order context, given the item, is shown to be degenerate under any fixed schedule and, where it is defined, to establish dependence and not acquisition. The accuracy gap between a fixed and a shuffled test is shown to equal an order-contingent share of performance plus a disruption term minus a help term, so that it is neither a lower nor an upper bound in general; an isolated-item probe identifies the order-contingent share under an explicit assumption, and the difference between the two gaps measures the artifact introduced by shuffling. A gap between fixed-schedule and shuffled-schedule training is shown not to be decomposable into learning and order effects. The decisive experiment is a reorder after mastery, with a design given in full. A toy simulation with planted mechanisms shows the estimators recovering the planted quantities and shows the naive gap failing in the ways the propositions predict. The simulation is a demonstration of the estimators and is not evidence about human learners. A closing section states the analogous design for benchmark order effects without claiming that the mechanisms are the same.
+\end{abstract}
+
+\section{Introduction}
+
+Flashcard study offers a clean example of a problem that appears wherever a performance is measured on a sequence. A learner works through a deck of cue and target pairs, and the deck is nearly always presented in the same order. When the learner answers a card correctly, the ordinary interpretation is that the cue has been associated with the target. There is a competing interpretation, available whenever the order is stable, according to which the learner has associated the target with the position of the card, or with the card that came before it, so that the answer is produced by the sequence and not by the cue. The two interpretations make the same prediction for as long as the deck is presented in the familiar order, and they diverge the moment it is not. Many learners who have shuffled a deck after a period of apparent mastery will be familiar with the sudden loss of competence that is sometimes the result.
+
+The educational question has a counterpart in the evaluation of machine learning systems, where benchmark items are often presented in a fixed order, few-shot prompts have a fixed arrangement of examples, and a system may have encountered the benchmark, or its ordering, during training. The counterpart is stated here only as an analogy in a late section, because the mechanisms in a person and in a trained model are not presumed to be the same. What the two settings share is a structural problem. A performance is observed under one presentation of the material. The inference to be drawn concerns what the performer learned about the material. Between the two stands the question of how much of the observed performance was supported by features of the presentation that were not part of the material.
+
+The essay is organized around three distinctions that are often run together. The first is between dependence on order and acquisition of the target association: a measure of the first does not bear on the second. The second is between a descriptive contrast, such as the gap between accuracy in fixed and shuffled conditions, and a causal quantity defined by an intervention, because shuffling may alter attention, interference, retrieval difficulty, or learning itself. The third is between a result about people, a result about a model, and a result about an estimator, which require different evidence. The first is addressed in Section 4, the second in Sections 5 and 6, and the third in Section 7.
+
+\section{Setting and Notation}
+
+Let the material consist of $n$ items, indexed by $i \in [n]$, each with a cue $q_i$ and a target $a_i$, the target belonging to a set of $K$ possible answers. A schedule $s = (s_1,\dots,s_T)$ is a sequence of item indices, and a pass is a schedule in which each item appears once. The context of trial $t$ is written $c_t$ and consists of the features of the presentation other than the cue itself, in the simplest case the position $t$ within the pass and the identity of the preceding item $s_{t-1}$. The extension to longer histories, to timing, and to the preceding answers is straightforward and is noted where it matters. The learner is in a state $\Lambda$, produced by training, and produces a response $R_t$ to the pair $(q_{s_t}, c_t)$. A response is correct when $R_t = a_{s_t}$, and the indicator of correctness is written $Y_t$. The probability of a correct response by guessing alone is $g = 1/K$ when the answer is drawn from the full set.
+
+A schedule that is used for training is written $s^\ast$, and the trained context of item $i$ is the context $c^\ast_i$ that item had in $s^\ast$. A test presentation of item $i$ is said to match when its context is $c^\ast_i$ and to mismatch otherwise. An isolated presentation is one in which the item is shown with a neutral context that contains no preceding item, written $\varnothing$. Two assumptions about the setting are used throughout and are stated here so that the later propositions can refer to them.
+
+\begin{definition}[Test conditions]
+A test is \emph{without learning} if the state $\Lambda$ is unchanged by test presentations, which holds when no feedback is given and the number of presentations of each item is the same across conditions. A test is \emph{without carryover} if the response to a presentation of item $i$ depends on earlier presentations only through the context $c$ of that presentation.
+\end{definition}
+
+\section{Three Grades of Claim}
+
+The literature on order effects in learning contains claims of three kinds, and the usefulness of this essay's propositions depends on keeping them apart. An \emph{observational} claim is a statement about the joint distribution of variables as they occurred, for example that the response and the position are associated in a data set. An \emph{interventional} claim is a statement about what would happen under a specified manipulation, for example that scrambling the order at test lowers accuracy by a certain amount, and it requires that the manipulation be defined and that its assignment be independent of the potential outcomes. A \emph{simulated} claim is a statement about a model whose mechanism is known by construction, and it licenses conclusions about estimators and designs but none about the world.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{p{2.4cm}p{4.2cm}p{4.9cm}}
+\toprule
+Grade & Example in this essay & What it licenses \\
+\midrule
+Observational & Conditional mutual information of response and context given the item & Dependence of response on context under the observed distribution; nothing about acquisition or mechanism \\
+Interventional & Fixed, shuffled, and isolated test conditions after mastery & Causal contrasts between conditions, under stated assumptions about learning, carryover, and assignment \\
+Simulated & A learner with planted content and order traces & Behaviour of estimators and designs when the answer is known; no claim about human learners \\
+\bottomrule
+\end{tabular}
+\caption{The three grades of claim and what each can support.}
+\end{table}
+
+The ordering is one of increasing strength for causal questions about people, but not of increasing reliability: an interventional claim rests on assumptions that can fail, and a simulated claim is exact for the model and silent about anything outside it. A recurring point of the later sections is that a quantity reported at one grade is frequently interpreted as if it were of another, and the errors that result are of specific and predictable kinds.
+
+\section{Conditional Mutual Information as an Observational Measure}
+
+The natural measure of whether the response carries information about the order context beyond what the item itself carries is the conditional mutual information, which for discrete variables is defined by
+\[
+I(R;C\mid Q) \;=\; \sum_{q} \Pr(q)\, I(R;C\mid Q=q),
+\]
+where the inner term is the ordinary mutual information between response and context within the stratum of presentations of the cue $q$ (Cover and Thomas 2006). Measured in bits, it is zero exactly when the response is conditionally independent of the context given the item, and positive otherwise. It is a symmetric quantity, so that it measures dependence and not direction, and it is computed under a particular distribution over schedules.
+
+The last remark has an immediate and somewhat embarrassing consequence for the study of fixed decks.
+
+\begin{proposition}[Fixed schedules are blind to the measure]
+If under the distribution of schedules the context is a function of the item, so that $C = h(Q)$ for some function $h$, then $I(R;C\mid Q)=0$ for every learner.
+\end{proposition}
+
+\begin{proof}
+Within a stratum $Q=q$ the context takes the single value $h(q)$, so $C$ is constant on the stratum and a constant variable is independent of every other variable. Hence each inner term vanishes and so does the sum.
+\end{proof}
+
+The proposition applies to the setting that motivated the essay. When the same permutation of the deck is used on every pass, the position and the predecessor of each card are determined by the card, and the measure is identically zero whether or not the learner is using the sequence. The measure can be informative only when the context varies independently of the item, which is to say only under some form of randomization. This is the first sense in which the correct statement of the problem requires an intervention: the observational data from a fixed deck cannot distinguish the interpretations at all, because the interpretations make the same prediction.
+
+When context is randomized, the measure has a clear but limited meaning.
+
+\begin{proposition}[What the measure licenses]
+Suppose contexts at test are assigned independently of the item. Then:
+\begin{enumerate}
+\item[(a)] if $I(R;C\mid Q)=0$, the accuracy at each item does not depend on the context, so there is no order-contingent performance at that test;
+\item[(b)] if $I(R;C\mid Q)>0$, the response depends on the context, but this does not show that the learner acquired a cue linking the context to the target, because interference from unfamiliar neighbours and any other effect of context on retrieval produce the same dependence;
+\item[(c)] $I(R;C\mid Q)=0$ does not show that the learner has acquired the target association, because a learner who responds by guessing also has a measure of zero.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For (a), conditional independence of $R$ and $C$ given $Q$ implies that the distribution of $R$, and hence of $Y$, within each item stratum is the same for every context. For (b), the measure is a function only of the conditional distributions of the response, and these are the same for a learner whose accuracy changes because a mismatched neighbour disrupts retrieval as for one who relies on a learned cue; an explicit pair of such learners appears in Section 7. For (c), a learner whose response is drawn from a fixed distribution independent of the presentation satisfies conditional independence trivially.
+\end{proof}
+
+Part (a) states that the measure can serve as a sufficient test for the absence of order-contingent performance and part (b) that it cannot serve as a sufficient test for its presence. The measure is thus a screening instrument. A positive value directs attention to the intervention of the next section, and a zero value under a well-powered randomization is a substantive negative result at that test. Neither value bears on whether the intended association was learned, which requires that performance be assessed under a context from which the order cue has been removed.
+
+\section{An Intervention Model}
+
+\subsection{Potential outcomes}
+
+The questions at issue are of the form: what would the response to item $i$ have been had it been presented in a different context? Let $Y_i(c)$ denote the potential correctness of the response to item $i$ in context $c$, for a learner in a fixed trained state, in the sense of Rubin (1974). The contexts of interest are the trained context $c^\ast_i$, the isolated context $\varnothing$, and the context $c^\sigma_i$ that item $i$ receives in a randomly shuffled test. Three contrasts are defined.
+
+\begin{definition}[Contrasts]
+The \emph{shuffle gap} is $D_\sigma = \E[Y_i(c^\ast_i)] - \E[Y_i(c^\sigma_i)]$, the \emph{isolation gap} is $D_\varnothing = \E[Y_i(c^\ast_i)] - \E[Y_i(\varnothing)]$, and the \emph{order-contingent share} is the portion of performance that depends on the trained context, defined below through a latent-type model.
+\end{definition}
+
+Identification of the two gaps from data requires that the test be without learning and without carryover, as defined in Section 2, and that the assignment of items to conditions be randomized independently of the potential outcomes. Under these conditions each gap is the difference between two means estimated from comparable sets of items. What the gaps then represent is a separate question, and it is this question that the latent-type model answers.
+
+\subsection{A latent-type model}
+
+Suppose that for a given learner each item is, at the time of test, of one of three types. A \emph{content} type is answered correctly from the cue in any context, except that a context may disrupt retrieval. An \emph{order} type is answered correctly only in its trained context. A \emph{null} type is answered by guessing, except that a context may happen to supply a cue that leads to the correct answer. Let $\pi_K$, $\pi_O$, and $\pi_N$ denote the shares of the three types, with $\pi_K+\pi_O+\pi_N=1$. For a context $c$ let $\delta_c$ be the share of items that are of content type and whose retrieval fails in $c$, and $\varepsilon_c$ the share that are of null type and are answered correctly because of $c$. Then expected accuracy in context $c$ is
+\[
+\mathrm{Acc}(c) \;=\; g + (1-g)\bigl[\pi_K - \delta_c + \pi_O\,\mathbf 1[c=c^\ast] + \varepsilon_c\bigr],
+\]
+where the trained context has $\delta_{c^\ast}=\varepsilon_{c^\ast}=0$ by definition, any help it provides being counted in $\pi_O$. The order-contingent share is $\pi_O$, the fraction of items answered correctly only because the trained context is present.
+
+\begin{proposition}[Decomposition of the shuffle gap]
+Under the latent-type model, $D_\sigma = (1-g)\,(\pi_O + \delta_\sigma - \varepsilon_\sigma)$.
+\end{proposition}
+
+\begin{proof}
+Subtracting $\mathrm{Acc}(c^\sigma)$ from $\mathrm{Acc}(c^\ast)$ and using $\delta_{c^\ast}=\varepsilon_{c^\ast}=0$ gives $(1-g)[\pi_O - (-\delta_\sigma+\varepsilon_\sigma)]$, which is the stated expression.
+\end{proof}
+
+The proposition has the consequence that the shuffle gap is neither a lower nor an upper bound on the order-contingent share without further assumption. It overstates the share when mismatched neighbours disrupt retrieval, so that $\delta_\sigma>0$, which would be expected if an unfamiliar neighbour interferes with retrieval or if the shuffled test is simply harder in some other respect, and it understates the share when shuffling happens to provide helpful cues, so that $\varepsilon_\sigma>0$. It is an upper bound when $\varepsilon_\sigma=0$ and a lower bound when $\delta_\sigma=0$. The common informal claim that the gap measures how much performance depended on order is therefore a claim that $\delta_\sigma=\varepsilon_\sigma$, which is an empirical assumption and one that can fail in either direction.
+
+Isolation offers a way around the difficulty, at the price of a different assumption.
+
+\begin{proposition}[Identification by isolation]
+If isolated presentation neither disrupts retrieval nor supplies a cue, so that $\delta_\varnothing=\varepsilon_\varnothing=0$, then $D_\varnothing = (1-g)\pi_O$, and $D_\sigma - D_\varnothing = (1-g)(\delta_\sigma-\varepsilon_\sigma)$.
+\end{proposition}
+
+\begin{proof}
+The first statement follows from the displayed expression for $\mathrm{Acc}(c)$ with $c=\varnothing$, and the second from subtracting it from Proposition 3.
+\end{proof}
+
+The second statement is useful in its own right. The difference between the shuffle gap and the isolation gap is an estimate of the artifact that shuffling introduces, namely the net of disruption over help, and it can be examined directly. The assumption on which the proposition rests is not innocuous. An isolated presentation changes the task, since the item arrives without neighbours and possibly after a different interval, and it is possible that retrieval of a content-type item is itself harder in that context. A further control, a second fixed order that the learner has never seen, provides a check: if the net disruption in a never-seen fixed order matches that in the random shuffles, the artifact is a property of leaving the trained order and not of randomness. None of these controls removes the need for the assumption, and the design in Section 6 treats them as checks and not as proofs.
+
+\subsection{The gap between training schedules}
+
+A different contrast is often reported, which compares learners trained on a fixed schedule with learners trained on a shuffled one, each tested under the schedule on which it was trained. The following proposition states why this contrast cannot be given the interpretation commonly placed on it.
+
+\begin{proposition}[Non-decomposability of the training-schedule gap]
+Let a learner trained on a fixed schedule be tested on that schedule, and a learner trained on shuffled schedules be tested on shuffled schedules. In the latent-type model, with $\pi_O=0$ after shuffled training, the gap in accuracy is
+\[
+G \;=\; (1-g)\bigl[(\pi_K^{\mathrm f}-\pi_K^{\mathrm s}) + \pi_O^{\mathrm f} + \delta_\sigma - \varepsilon_\sigma\bigr],
+\]
+the sum of an effect of the schedule on learning, the order-contingent share, and the net disruption of the shuffled test. Two parameter vectors with different values of the four terms can produce the same $G$, so $G$ does not identify any one of them.
+\end{proposition}
+
+\begin{proof}
+Write the two accuracies by the displayed expression and subtract. For the second claim, take $\pi_O^{\mathrm f}=0.1$ with the remaining three terms zero, and then $\pi_K^{\mathrm f}-\pi_K^{\mathrm s}=0.1$ with the remaining three zero; both give $G=0.1(1-g)$.
+\end{proof}
+
+The first term deserves emphasis. It is entirely possible that a shuffled schedule changes what is learned. The literature on interleaving and on desirable difficulty documents effects of schedule on learning in both directions (Bjork 1994; Kornell and Bjork 2008), and a gap between training schedules is therefore a mixture of a learning effect and an order effect whose proportions cannot be recovered from the gap. The contrast that isolates the order effect from the learning effect is the test-time intervention applied to learners with the same training, which is the design of the next section.
+
+\section{The Decisive Experiment: Reorder After Mastery}
+
+The propositions determine the structure of the experiment. Training must be common to all conditions, so that the learning effect of the schedule is held fixed. The comparison must be made at test, with conditions assigned independently of the items, with no feedback so that the state does not change, and with enough control conditions to estimate the artifact of leaving the trained order. The design proposed is the following.
+
+\paragraph{Training.} Every participant studies the same material in a single fixed order, with feedback, until a stated criterion is met, and then for a fixed number of further passes. The criterion is stated before data collection, and the order is the same for all participants or is drawn from a small set of orders over which the analysis can be stratified. Cues and targets are chosen so that neither the cue nor the target of any item predicts the target of its successor by content.
+
+\paragraph{Test.} After a delay, the trained sequence is divided at random into contiguous runs of equal length. Each run is assigned at random, independently of its items, to one of three conditions. In the \emph{intact} condition the run is presented as trained, so that every item but the first has its trained predecessor. In the \emph{shuffled} condition the items of the run are interleaved with those of other shuffled runs in random order. In the \emph{isolated} condition each item is presented alone, separated from the next by a filler task. First items of intact runs are excluded from the analysis, because they have no trained predecessor within the run. No feedback is given, and a final block returns the whole sequence to its trained order to check that the state has not changed over the test (the condition of Definition 1) and that fatigue has not accumulated.
+
+\paragraph{Controls.} A fourth condition, a second fixed order that was never trained, is applied to a further set of runs, to estimate whether the artifact belongs to leaving the trained order or to randomness. If the design allows it, the preceding card and the preceding answer are manipulated separately, since a learner may link a card to the answer of the previous card and not to its cue, and the two correspond to different mechanisms.
+
+\paragraph{Analysis.} The pre-specified estimands are the isolation gap, the shuffle gap, and their difference, each with an interval estimate that accounts for variation across participants and items. A null result on order-contingent performance is stated as an equivalence within a margin fixed before data are collected, and not as a failure to reject. A positive result on the isolation gap, together with a shuffle gap that differs from it, is reported as evidence of both order-contingent performance and an artifact of shuffling, with the artifact estimated by the difference. The training-schedule contrast of Proposition 5 is not used for inference about order-contingent performance.
+
+\paragraph{Threats.} Four threats should be recorded. Shuffling may raise or lower attention, so that the artifact includes a change in the participant's state and not only in the item context. Unfamiliar neighbours may interfere with retrieval, which is the disruption term. The isolated condition may differ in difficulty for reasons unrelated to order, such as longer intervals. Finally, participants may adopt a strategy in response to the test, for example inferring after a few trials that the sequence has been scrambled and changing their approach. The recovery block and the unseen-order control address the second and fourth threats only partly, and the design should be read as reducing the set of alternative explanations and not as eliminating it.
+
+\section{A Simulation with Planted Mechanisms}
+
+The following simulation is a demonstration of the estimators and of the propositions' predictions, and it is not evidence about how people learn. A learner is simulated with $n=40$ items and $K=40$ possible answers, so that $g=0.025$, trained for four passes on a fixed order. On each pass an item acquires a content trace with probability $c$ and an order trace, keyed to its trained predecessor, with probability $o$. At test, an item with a content trace is answered correctly in any context unless the context disrupts retrieval; an item with an order trace but no content trace is answered correctly only when its trained predecessor is shown; all other items are answered by guessing. There are 4000 simulated learners per setting. Because the mechanism is planted, the true order-contingent quantity $\theta=(1-g)\Pr(\text{no content trace, order trace})$ is known and is reported next to the estimates.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{lrrrrrrr}
+\toprule
+Learner & Acc fixed & Acc shuf. & Acc iso. & $D_\sigma$ & $D_\varnothing$ & $\theta$ & CMI (bits) \\
+\midrule
+A & 0.767 & 0.767 & 0.766 & 0.000 & 0.001 & 0.000 & 0.000 \\
+B & 0.886 & 0.373 & 0.360 & 0.513 & 0.526 & 0.526 & 0.227 \\
+C & 0.836 & 0.606 & 0.600 & 0.230 & 0.236 & 0.236 & 0.050 \\
+D & 0.766 & 0.587 & 0.766 & 0.180 & 0.000 & 0.000 & 0.029 \\
+E & 0.768 & 0.791 & 0.768 & -0.023 & 0.000 & 0.000 & 0.001 \\
+\bottomrule
+\end{tabular}
+\caption{Simulated learners with planted mechanisms. Acc is accuracy in the fixed, shuffled, and isolated conditions; $D_\sigma$ and $D_\varnothing$ are the shuffle and isolation gaps; $\theta$ is the planted order-contingent quantity; CMI is the plug-in conditional mutual information in bits between correctness and a randomized match indicator given the item. Learner A has content traces only. Learner B is order-heavy and learner C mixed. Learner D has content traces only, and shuffled neighbours disrupt retrieval with probability 0.25. Learner E has content traces only, and shuffled neighbours supply a helpful cue to unknown items with probability 0.10.}
+\end{table}
+
+The first three rows behave as the propositions predict. For learner A, with no order trace, both gaps and the measure are within sampling error of zero. For learners B and C the isolation gap recovers the planted quantity $\theta$ to within sampling error, and the shuffle gap does so approximately, because there is no disruption in these settings. The last two rows show the failure modes of Proposition 3. Learner D has no order trace at all, yet its shuffle gap is large and its conditional mutual information is positive, which is the situation described in part (b) of Proposition 2; the isolation gap correctly returns zero, and the difference between the gaps estimates the planted disruption. Learner E shows the opposite error: the shuffle gap is negative, so shuffling appears to help, while the isolation gap is again zero. A reader who had only the shuffle gap would have drawn a wrong conclusion from the first of these learners and a different wrong one from the second.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Setting & Acc fixed & Acc shuffled & Gap \\
+\midrule
+(a) order trace, same learning & 0.793 & 0.601 & 0.192 \\
+(b) no order trace, shuffled training lowers learning & 0.600 & 0.409 & 0.191 \\
+\bottomrule
+\end{tabular}
+\caption{Two simulated populations with the same training-schedule gap. In setting (a) there is an order trace and shuffled training does not change learning; in setting (b) there is no order trace and shuffled training lowers the content-trace rate. Accuracies are for learners tested under the schedule on which they were trained.}
+\end{table}
+
+The second table illustrates Proposition 5. The two populations differ completely in mechanism, one exploiting order and the other not, and nevertheless the training-schedule gap is the same to the precision reported. It follows that a reported gap of this size between training schedules is compatible with both, and the data that distinguish them are the test-time contrasts of the previous table. Proposition 1 holds in the simulation by construction and is not tested by it: with the same permutation on every pass, the context is a function of the item, and the measure computed on the training passes would be zero for every learner in the table.
+
+What the simulation does not show is equally important. It shows nothing about whether human learners acquire order traces, how large they are, or whether the isolation condition is free of artifact; each of these is an assumption of the model. It shows that if the mechanism is as described, the proposed estimators recover it and the naive ones do not.
+
+\section{The Analogy to Benchmark Order Effects}
+
+The same structure appears in the evaluation of language models, and a design analogous to the reorder after mastery can be stated, with the proviso that nothing in the preceding sections is an argument that a model and a person learn by the same mechanisms. Order sensitivity in the arrangement of in-context examples is documented empirically and can be large (Lu et al. 2022). A benchmark that is released in a fixed order, and that may have been seen by a model in that order during training, presents the analogue of the fixed deck: the item that precedes a question may carry information about its answer that is not part of the question. The analogues of the three test conditions are the benchmark in its released order, the benchmark with items permuted, and each item presented alone with no neighbouring items. The analogue of Proposition 3 is that the gap between released and permuted order is the sum of an order-contingent share and an artifact term that depends on whether the permutation changes the difficulty of the task, for example by altering the examples that precede an item. The analogue of Proposition 5 is that a comparison between models trained with and without the benchmark order cannot separate an effect of the training data on what was learned from an effect on order exploitation.
+
+The analogy can be misleading in specific respects. A model is not subject to the fatigue and attention effects of a participant, its state is typically fixed during evaluation, which makes the condition of no learning easier to satisfy, and its response to a permuted order may be affected by position effects that have no counterpart in a deck of cards. The design should accordingly be taken as a template for stating the assumptions that a comparison requires, not as a claim that those assumptions are met.
+
+\section{Relation to the Earlier Study of Serial Order}
+
+The questions of this essay were formulated in the older literature on serial learning. Ebbinghaus (1885) found evidence of remote associations between items of a list in addition to adjacent ones, which suggested that a learner does not associate each item only with its immediate neighbour. Lashley (1951) argued that the production of ordered behaviour cannot be explained by a chain in which each element evokes the next, and the dispute between chaining and position-coding accounts occupied the study of serial learning for decades. The distinction in the present essay between a predecessor cue and a positional cue corresponds to the two sides of that dispute, and the intervention that preserves the predecessor while shifting the position, or the reverse, bears on it directly. The present contribution is the narrower one of stating what a given contrast identifies, and it does not decide between the accounts.
+
+\section{Limits and Open Questions}
+
+Several limits should be noted. The latent-type model is deliberately simple, with three types and context effects confined to disruption and help; richer models would allow partial order traces, graded strength, and interactions between content and order, and the decomposition of the shuffle gap would acquire cross terms. The model treats the context as a single element of a set, whereas a real deck supplies several correlated cues at once, so that the notion of the trained context $c^\ast_i$ is itself a simplification. The isolated condition rests on an assumption that is plausible but not testable within the design. And the design has not been run: the experiment is a specification, and the simulation a demonstration of the estimators on a model with known mechanism.
+
+Three questions follow from the analysis. The first is whether the artifact of shuffling is small enough in practice that the shuffle gap is usable in place of the isolation gap, which can be settled only empirically and may depend on the material. The second is whether there is a variant of the intervention that holds the difficulty of the test fixed while removing the trained order cue, for example by a reorder that preserves the interference structure of neighbours. The third concerns what the measure of the intended association should be when the learner's strategy is itself flexible: if a learner uses order when it is available and content when it is not, the quantity $\pi_O$ describes the learner's state only under the test that was run, and the sense in which a learner has learned the association is then relative to the conditions under which it must be exercised. That relativity is the final point of the essay. A score on a deck is a score on a presentation, and the claim to have learned the material is a claim about what the score would have been under others.
+
+\begin{thebibliography}{99}\small
+\bibitem{bjork} Bjork, R. A. (1994). Memory and metamemory considerations in the training of human beings. In J. Metcalfe and A. Shimamura (Eds.), \emph{Metacognition: Knowing about Knowing}. MIT Press.
+\bibitem{cover} Cover, T. M., and Thomas, J. A. (2006). \emph{Elements of Information Theory}, 2nd ed. Wiley.
+\bibitem{ebb} Ebbinghaus, H. (1885). \emph{\"Uber das Ged\"achtnis}. Duncker and Humblot.
+\bibitem{kornell} Kornell, N., and Bjork, R. A. (2008). Learning concepts and categories: Is spacing the ``enemy of induction''? \emph{Psychological Science} 19, 585--592.
+\bibitem{lashley} Lashley, K. S. (1951). The problem of serial order in behavior. In L. A. Jeffress (Ed.), \emph{Cerebral Mechanisms in Behavior}. Wiley.
+\bibitem{lu} Lu, Y., Bartolo, M., Moore, A., Riedel, S., and Stenetorp, P. (2022). Fantastically ordered prompts and where to find them: Overcoming few-shot prompt order sensitivity. \emph{Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics}.
+\bibitem{rubin} Rubin, D. B. (1974). Estimating causal effects of treatments in randomized and nonrandomized studies. \emph{Journal of Educational Psychology} 66, 688--701.
+\end{thebibliography}
+
+\end{document}
+

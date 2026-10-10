@@ -1,0 +1,1475 @@
+WEBVTT
+
+00:00.000 --> 00:06.660
+I want you to look at your screen for a second, or I mean just think about how you navigate the internet on any given Tuesday.
+
+00:07.460 --> 00:09.560
+It is pretty chaotic, if we're being honest.
+
+00:09.920 --> 00:13.960
+Oh, totally. Just think about the absolute chaotic trail you leave behind.
+
+00:14.600 --> 00:18.920
+You probably have, like, what, 20 tabs open right now across three different windows?
+
+00:19.300 --> 00:20.720
+At least 20, yeah.
+
+00:21.040 --> 00:27.160
+Right. You're bookmarking articles you swear you'll read later, you're dropping random links into group chats,
+
+00:27.160 --> 00:32.440
+maybe starting a repository on GitHub or just liking a post just to find it again?
+
+00:33.220 --> 00:35.120
+And from the inside, it feels completely random.
+
+00:35.420 --> 00:38.280
+Exactly. It feels like you're just wandering.
+
+00:39.320 --> 00:47.440
+But what if those individual, highly personal breadcrumbs you're dropping were actually, like, building a permanent, invisible architecture?
+
+00:48.060 --> 00:51.300
+Yeah, an architecture that literally dictates human progress.
+
+00:51.520 --> 00:56.540
+Right. And determines what the very next person who logs on is capable of discovering.
+
+00:56.540 --> 00:59.340
+I mean, it forces a profound shift in perspective.
+
+00:59.600 --> 01:04.760
+We are so conditioned to think of our digital wandering as just, well, passive consumption.
+
+01:05.220 --> 01:07.420
+Yeah, we just browse, read, scroll.
+
+01:07.680 --> 01:08.160
+Exactly.
+
+01:08.740 --> 01:12.920
+We rarely consider the possibility that by simply walking through the digital forest,
+
+01:13.040 --> 01:16.180
+we are actively constructing the terrain for everyone else.
+
+01:16.340 --> 01:19.460
+And that brings us to the sole source material for our deep dive today.
+
+01:19.460 --> 01:27.560
+We are looking at this brilliant, somewhat dense, 2026 paper by an independent researcher named Flyxion.
+
+01:28.000 --> 01:28.320
+Yes.
+
+01:28.640 --> 01:32.680
+Titled, Return Paths and Residual Deposits in Distributed Exploration.
+
+01:32.960 --> 01:33.220
+Right.
+
+01:33.900 --> 01:36.740
+And our mission today is to figure out this massive idea.
+
+01:37.400 --> 01:45.520
+How the way you navigate information and the invisible residue you leave behind fundamentally alters the landscape for whoever comes next.
+
+01:45.520 --> 01:50.680
+And the wildest part of this whole premise is that it happens without a central architect.
+
+01:51.100 --> 01:52.140
+Nobody is in charge.
+
+01:52.960 --> 01:54.360
+Okay, let's unpack this.
+
+01:54.900 --> 01:57.760
+Before we can understand how we build this massive environment,
+
+01:58.020 --> 02:02.080
+we first need to look at the mechanics of how we actually move through it as individuals.
+
+02:02.600 --> 02:05.000
+That is definitely the necessary starting point.
+
+02:05.760 --> 02:09.540
+Flyxion begins by examining what they call recursive exploration.
+
+02:09.820 --> 02:10.920
+Okay, what does that look like?
+
+02:10.920 --> 02:14.440
+Well, imagine you are dropped into a massive directed graph.
+
+02:14.640 --> 02:19.700
+Think of like a social media platform or a vast network of code repositories.
+
+02:19.960 --> 02:20.740
+Okay, I'm with you.
+
+02:20.880 --> 02:26.900
+You find a fascinating node, maybe some obscure researcher, and you want to see who they're connected to.
+
+02:27.520 --> 02:30.740
+Now, they follow 10 people, but they have 10,000 followers.
+
+02:31.320 --> 02:34.340
+Which list do you check to find your next connection?
+
+02:35.040 --> 02:37.240
+I mean, logically, I'm going to look at the list of 10.
+
+02:37.460 --> 02:40.620
+Going through 10,000 followers sounds like an absolute nightmare.
+
+02:40.920 --> 02:42.660
+Which is human nature, right?
+
+02:42.860 --> 02:43.060
+Right.
+
+02:43.220 --> 02:46.720
+And it's what the paper formally calls the smaller neighborhood rule.
+
+02:46.900 --> 02:49.920
+You inherently inspect the smaller of the two bounds.
+
+02:50.060 --> 02:50.520
+Makes sense.
+
+02:50.760 --> 02:54.260
+But Flaxshin makes a very counterintuitive distinction here.
+
+02:54.900 --> 02:58.820
+Inspecting that smaller neighborhood doesn't actually increase your yield.
+
+02:59.020 --> 02:59.520
+Wait, really?
+
+02:59.880 --> 03:03.960
+Yeah, it doesn't mean the people in that list of 10 are inherently more valuable
+
+03:03.960 --> 03:06.120
+or more likely to be what you're looking for.
+
+03:06.420 --> 03:07.440
+So why do we do it?
+
+03:07.760 --> 03:09.680
+I mean, if it doesn't give us better results.
+
+03:09.680 --> 03:13.600
+Because it mathematically reduces the branching factor of your search.
+
+03:14.120 --> 03:18.460
+If you start with the 10,000 followers, your next step has 10,000 branches.
+
+03:19.060 --> 03:19.960
+Oh, wow, yeah.
+
+03:20.220 --> 03:21.300
+You'd just be paralyzed.
+
+03:21.600 --> 03:21.900
+Exactly.
+
+03:22.220 --> 03:27.080
+By choosing the list of 10, you are simply bounding the effort required to take the next step.
+
+03:27.400 --> 03:31.160
+It's about cognitive load, not necessarily the quality of the outcome.
+
+03:31.620 --> 03:32.840
+Okay, that makes a lot of sense.
+
+03:32.840 --> 03:34.240
+But here is the catch.
+
+03:34.800 --> 03:40.180
+As you go down this rabbit hole, clicking from the list of 10 to another list of 5 to another list of 20,
+
+03:40.360 --> 03:44.620
+you know, descending level after level, you eventually need a way to keep your bearings.
+
+03:45.200 --> 03:48.520
+Right, because if you don't, you're just totally lost in the network.
+
+03:48.880 --> 03:49.340
+Precisely.
+
+03:49.340 --> 03:54.060
+And this necessity is where Fibration introduces the concept of the vine.
+
+03:54.560 --> 03:55.960
+Okay, the vine.
+
+03:56.560 --> 03:57.360
+I like that imagery.
+
+03:57.820 --> 04:05.760
+Like a jungle explorer tying a rope to a tree at the edge of the forest before walking into the thicket just so they can always find their way back.
+
+04:06.000 --> 04:07.980
+That captures the utility of it perfectly.
+
+04:08.360 --> 04:11.100
+A vine is a return structure in your daily life.
+
+04:11.200 --> 04:12.880
+It's, you know, your browser history.
+
+04:12.960 --> 04:13.560
+Or the back button.
+
+04:13.560 --> 04:18.620
+The back button, a return stack, and software programming, or even just leaving a tab open for three weeks.
+
+04:19.040 --> 04:19.720
+Guilty as charged.
+
+04:19.900 --> 04:20.080
+Right.
+
+04:20.580 --> 04:24.440
+It is a mechanism that allows the explorer to maintain their point of departure.
+
+04:25.100 --> 04:31.220
+Enphylaxion actually grounds this by referencing Harry Harlow's famous 1958 cloth surrogate monkey experiments.
+
+04:31.480 --> 04:32.800
+Oh, right, the psychology study.
+
+04:32.920 --> 04:33.180
+Yes.
+
+04:33.900 --> 04:39.020
+Harlow showed that infant monkeys given a soft cloth mother used it as a secure base.
+
+04:39.360 --> 04:43.220
+Having that secure base made them far more willing to explore a strange room.
+
+04:43.560 --> 04:43.980
+Interesting.
+
+04:44.500 --> 04:51.060
+However, the paper is very strict in clarifying that in digital exploration, this secure base is entirely functional.
+
+04:51.340 --> 04:52.700
+So it's not about feeling safe.
+
+04:52.900 --> 04:53.120
+Right.
+
+04:53.260 --> 04:55.220
+It has nothing to do with psychological comfort.
+
+04:55.560 --> 04:59.120
+It mathematically lowers the expected cost of an exploratory commitment.
+
+04:59.460 --> 05:07.240
+You know, I actually have to push back a little on the monkey analogy because to me, reading this, maternal comfort just feels like the wrong framework entirely.
+
+05:07.520 --> 05:08.440
+Oh, how so?
+
+05:08.840 --> 05:12.000
+Isn't this just like a save point in a video game?
+
+05:12.000 --> 05:13.920
+Well, let's follow that logic.
+
+05:14.540 --> 05:16.700
+How does a save point change your behavior?
+
+05:17.380 --> 05:17.940
+Well, think about it.
+
+05:17.960 --> 05:26.860
+If you're playing a game and you know you just saved your progress at a glowing crystal, you're totally willing to walk into the dark, terrifying cave to see what's inside.
+
+05:27.160 --> 05:28.320
+Because the risk is gone.
+
+05:28.620 --> 05:28.860
+Right.
+
+05:29.080 --> 05:29.920
+You'll fight the boss.
+
+05:30.380 --> 05:31.260
+You'll jump the chasm.
+
+05:31.260 --> 05:34.640
+The structure itself encourages risk-taking.
+
+05:35.080 --> 05:40.740
+But if you knew that dying in the cave meant losing, like, 40 hours of game progress, you'd never go in.
+
+05:41.300 --> 05:42.800
+You'd just stay in the village forever.
+
+05:43.540 --> 05:44.820
+That is a really great analogy.
+
+05:45.500 --> 05:46.700
+The vine doesn't comfort you.
+
+05:46.700 --> 05:49.140
+It just lowers the cost of taking a risk.
+
+05:49.920 --> 05:53.660
+That is actually a far more accurate mechanical translation of Flyxion's point.
+
+05:54.340 --> 06:03.380
+The availability of the return structure, the vine, it doesn't force you into the cave, but it radically alters the cost-benefit analysis of wandering into the unknown.
+
+06:04.000 --> 06:06.180
+Yeah, because you aren't afraid of losing your place.
+
+06:06.300 --> 06:07.220
+You explore further.
+
+06:07.480 --> 06:08.440
+You dig deeper.
+
+06:08.780 --> 06:10.900
+You interact with more obscure nodes.
+
+06:10.900 --> 06:14.340
+But, as you noted, the save point is entirely private.
+
+06:14.480 --> 06:15.400
+It only helps you.
+
+06:17.000 --> 06:26.760
+The real thesis of this paper is what happens when thousands of people are navigating with their own private vines, and we start looking at the trail they leave in their wake.
+
+06:27.180 --> 06:27.540
+Right.
+
+06:27.880 --> 06:38.320
+Because while I have my private save point, as I'm wandering through that dark cave, I might be dropping glow sticks to light the way, or, I don't know, hacking away at some virtual vines to make a path.
+
+06:38.460 --> 06:38.860
+Exactly.
+
+06:38.860 --> 06:42.160
+And that brings us to the public infrastructure we leave behind.
+
+06:42.820 --> 06:46.180
+The paper calls this collective public residue the berm.
+
+06:46.960 --> 06:48.140
+Yes, the berm.
+
+06:48.320 --> 06:51.680
+This is where individual action becomes collective architecture.
+
+06:52.360 --> 06:57.800
+The paper defines the berm as an accumulation of residue that permanently changes the conditions of later movement.
+
+06:58.240 --> 06:59.920
+But without anyone planning it, right?
+
+07:00.280 --> 07:01.140
+Crucially, yes.
+
+07:01.740 --> 07:06.360
+This happens without the residue ever being deliberately designed as a road or a wall.
+
+07:06.360 --> 07:12.580
+To explain how this is possible, Flyxion leans heavily on a biological concept called stigmergy.
+
+07:13.420 --> 07:13.900
+Stigmergy.
+
+07:14.600 --> 07:15.800
+I mean, I'm going to be honest.
+
+07:15.860 --> 07:19.560
+That sounds like a chronic condition you get from reading too many academic PDFs.
+
+07:19.560 --> 07:22.140
+Yeah, it really does have that clinical ring to it.
+
+07:22.240 --> 07:26.880
+But it was actually coined in 1959 by a French biologist named Pierre-Paul Grassi.
+
+07:27.300 --> 07:27.560
+Okay.
+
+07:27.620 --> 07:28.340
+What was he studying?
+
+07:28.760 --> 07:30.680
+He spent his life studying termites.
+
+07:31.180 --> 07:32.740
+He was trying to solve this massive puzzle.
+
+07:32.740 --> 07:40.000
+How do thousands of blind insects build 20-foot-tall, structurally sound, climate-controlled towers without an architect?
+
+07:40.440 --> 07:43.100
+Right, because termites don't have, like, town hall meetings.
+
+07:43.600 --> 07:45.780
+No, they don't have foremen holding blueprints.
+
+07:46.380 --> 07:50.740
+So Grassi realized they coordinate through persistent modification of the environment.
+
+07:51.040 --> 07:51.640
+How does that work?
+
+07:51.940 --> 07:56.240
+Well, one termite drops a tiny pellet of mud that is infused with a specific pheromone.
+
+07:56.480 --> 07:58.480
+Okay, so the mud isn't just a building block.
+
+07:58.560 --> 07:59.560
+It's like a message.
+
+08:00.020 --> 08:00.500
+Precisely.
+
+08:00.720 --> 08:03.760
+But it's a message that doesn't require direct communication.
+
+08:04.420 --> 08:11.540
+When another termite happens to wander by and encounters that specific pheromone, it triggers an instinct to drop its own pellet in the exact same spot.
+
+08:11.780 --> 08:12.200
+Oh, wow.
+
+08:12.200 --> 08:18.440
+Over time, these individual, completely uncoordinated deposits stack up to build a massive archway.
+
+08:19.140 --> 08:21.900
+Stigma-G is coordination through the environment itself.
+
+08:22.340 --> 08:25.320
+So in our digital world, we are essentially the termites.
+
+08:25.880 --> 08:26.240
+We are.
+
+08:26.240 --> 08:37.280
+And our deposits are, you know, pheromone-laced mud pellets are the code we push to GitHub, the interfaces we design, the Wikipedia edits we make, or even just the links we share on a forum.
+
+08:37.680 --> 08:39.780
+That is the core mapping Fraxion is making.
+
+08:40.100 --> 08:45.700
+But the paper takes it a step further by breaking this human residue down into two distinct categories.
+
+08:45.920 --> 08:46.540
+Okay, what are they?
+
+08:47.180 --> 08:49.180
+The first is executable residue.
+
+08:49.600 --> 08:53.900
+Think of a working script, a piece of compiled code, or even a functional workaround you post on Reddit.
+
+08:54.100 --> 08:54.680
+Okay, got it.
+
+08:54.680 --> 08:58.300
+The paper notes that this acts on the intensive margin.
+
+08:58.880 --> 09:00.860
+The second kind is declarative residue.
+
+09:01.420 --> 09:05.160
+This is a specification document, an API interface contract, a blueprint.
+
+09:05.560 --> 09:07.620
+This acts on the extensive margin.
+
+09:08.140 --> 09:08.360
+Hold on.
+
+09:08.440 --> 09:14.440
+Let's ground those terms because intensive and extensive margins can sound a bit like economic word salad.
+
+09:14.620 --> 09:14.980
+Fair enough.
+
+09:15.320 --> 09:19.940
+Are we basically saying one makes things faster and the other changes what's actually possible?
+
+09:19.940 --> 09:23.020
+Here's where it gets really interesting.
+
+09:23.400 --> 09:31.380
+If we think about this in a physical workspace, executable residue, the intensive margin, is like leaving a power drill behind on a workbench.
+
+09:31.700 --> 09:32.700
+Okay, I like this.
+
+09:32.700 --> 09:38.120
+If I walk into the shop to build a table and find your drill, it cheapens the cost of my labor.
+
+09:38.220 --> 09:38.940
+It makes me faster.
+
+09:39.660 --> 09:43.900
+I could have built the table with a handsaw, but the drill makes my work intensive and efficient.
+
+09:44.460 --> 09:45.480
+Let's build on that.
+
+09:45.820 --> 09:50.520
+If the drill is the executable residue, what is the declarative residue in your workshop?
+
+09:50.520 --> 09:57.240
+Um, the declarative residue would be if you left the actual blueprints for the table sitting on the desk.
+
+09:57.340 --> 09:57.580
+Yes.
+
+09:58.020 --> 10:07.700
+That acts on the extensive margin because it completely removes the hardest cognitive part of the process, deciding what kind of table to build, how many legs it needs, what the dimensions are.
+
+10:07.780 --> 10:08.180
+Exactly.
+
+10:08.500 --> 10:10.060
+It enables me to start building immediately.
+
+10:10.060 --> 10:16.100
+But, and this is the crazy part, it also silently forces me to build your version of the table.
+
+10:16.260 --> 10:16.520
+Right.
+
+10:16.880 --> 10:20.560
+If I use your blueprint, I don't even realize my choices have been foreclosed.
+
+10:20.640 --> 10:23.060
+I'm just blindly following your specs because they were there.
+
+10:23.460 --> 10:26.560
+That distinction is the beating heart of Flyxion's argument.
+
+10:27.180 --> 10:32.640
+The blueprint transfers the previous builder's design decisions directly into the new builder's inherited conditions.
+
+10:32.940 --> 10:35.260
+Yeah, you didn't decide to make the table 30 inches high.
+
+10:35.700 --> 10:38.280
+The residue you inherited made that decision for you.
+
+10:38.280 --> 10:41.440
+You just accepted it because it was easier than drawing a new blueprint.
+
+10:42.220 --> 10:45.780
+And that insight brings us to the most dangerous precipice in the paper.
+
+10:46.380 --> 10:47.680
+The dark side of the berm.
+
+10:48.240 --> 10:48.560
+Yes.
+
+10:48.940 --> 10:53.180
+We have this pervasive cultural bias that accumulation is inherently good.
+
+10:53.560 --> 10:57.180
+We assume that standing on the shoulders of giants means we are always reaching higher.
+
+10:57.660 --> 11:01.080
+But Flyocron asks, what if the giant is stumbling?
+
+11:01.500 --> 11:01.860
+Right.
+
+11:02.200 --> 11:07.880
+Because if a blueprint forces a specific design, and that design is fundamentally flawed,
+
+11:08.280 --> 11:10.300
+we aren't just building one broken table.
+
+11:10.660 --> 11:11.100
+No, we're not.
+
+11:11.220 --> 11:15.820
+We are forcing the next thousand people who walk into the workshop to build broken tables.
+
+11:16.440 --> 11:23.080
+What's fascinating here is that Flyocron explicitly warns us about the concepts of path dependence and lock-in,
+
+11:23.680 --> 11:27.780
+citing classic economic models from Brian Arthur and Paul David back in the 1980s.
+
+11:27.780 --> 11:30.620
+Oh, right, where early choices get stuck.
+
+11:31.000 --> 11:31.520
+Exactly.
+
+11:32.140 --> 11:37.400
+The idea is that early, sometimes completely arbitrary choices become locked into a system
+
+11:37.400 --> 11:42.280
+simply because later actors find it vastly cheaper to conform to the established standard
+
+11:42.280 --> 11:44.340
+than to depart from it and start over.
+
+11:44.720 --> 11:47.280
+So the berm is not intrinsically beneficial.
+
+11:47.680 --> 11:48.180
+Not at all.
+
+11:48.460 --> 11:50.200
+If we aren't careful, the berm is a trap.
+
+11:50.200 --> 11:54.180
+So how does a bad idea actually get locked into the architecture?
+
+11:55.060 --> 11:58.900
+Because surely someone eventually notices the tables wobbly, right?
+
+11:59.800 --> 12:04.120
+Does the paper break down the mechanics of how a bad idea sneaks past our defenses?
+
+12:04.660 --> 12:05.480
+It does.
+
+12:05.580 --> 12:08.900
+And it requires understanding the strict failure chain of stigmergy.
+
+12:09.680 --> 12:09.960
+Okay.
+
+12:10.220 --> 12:10.660
+Lay it on me.
+
+12:11.320 --> 12:14.380
+For any deposit to become part of the berm, three things must happen.
+
+12:14.700 --> 12:16.540
+First, it must be encountered.
+
+12:16.540 --> 12:20.320
+I mean, if you write brilliant code, but no one finds it, it's just a dead trace.
+
+12:20.780 --> 12:21.080
+Makes sense.
+
+12:21.720 --> 12:23.420
+Second, it must be interpreted.
+
+12:24.160 --> 12:29.000
+Flyxion borrows a concept from researcher John Anderson here called corpus congruence.
+
+12:29.480 --> 12:30.880
+Corpus congruence.
+
+12:31.360 --> 12:32.040
+Okay, let me guess.
+
+12:32.300 --> 12:38.860
+I can only interpret your code if my background knowledge, my personal corpus, aligns somewhat with yours.
+
+12:39.520 --> 12:40.200
+Spot on.
+
+12:40.580 --> 12:44.680
+Like, if a quantum physics paper drops in front of me, my corpus congruence is zero.
+
+12:44.680 --> 12:46.220
+I literally can't read it.
+
+12:46.540 --> 12:47.020
+Exactly.
+
+12:47.740 --> 12:51.160
+If the deposit is too alien, you ignore it because you can't parse it.
+
+12:51.460 --> 12:54.460
+If it's too familiar, you ignore it because you already know it.
+
+12:54.920 --> 12:55.840
+So it has to be just right.
+
+12:56.320 --> 12:56.580
+Yes.
+
+12:56.700 --> 13:02.080
+It has to sit in that Goldilocks zone of being just adjacent enough to your current knowledge for you to understand it.
+
+13:02.560 --> 13:06.820
+And finally, if it is encountered and interpreted, it must be taken.
+
+13:07.320 --> 13:07.720
+Uptake.
+
+13:08.080 --> 13:09.900
+You have to actually implement it in your own work.
+
+13:10.040 --> 13:10.340
+Right.
+
+13:10.340 --> 13:18.560
+But this three-step chain is where Flyxion identifies a massive vulnerability, the unmarked provisional specification.
+
+13:18.980 --> 13:21.100
+The unmarked provisional specification.
+
+13:21.100 --> 13:24.180
+I mean, that sounds like academic alphabet soup.
+
+13:24.300 --> 13:26.420
+What is that actually seen in plain English?
+
+13:26.620 --> 13:29.600
+I mean, is it essentially a wild guess that someone forgot to put a warning label on?
+
+13:30.140 --> 13:30.640
+Oh, no.
+
+13:31.160 --> 13:35.660
+Let's walk through the formal model the paper uses, which is example 7.12.
+
+13:35.660 --> 13:39.480
+It lays out the mathematics of how a defective idea spreads.
+
+13:39.860 --> 13:39.880
+Okay.
+
+13:40.260 --> 13:41.140
+Walk me through it.
+
+13:41.760 --> 13:45.320
+Imagine a developer in 2018 is trying to fix a server issue.
+
+13:45.680 --> 13:49.500
+They write a quick, messy, totally untested hack just to see if it works.
+
+13:49.700 --> 13:50.280
+It's provisional.
+
+13:50.560 --> 13:51.640
+Just duct taping dreams.
+
+13:51.980 --> 13:52.460
+Exactly.
+
+13:53.000 --> 13:57.160
+But they post it on a forum and they don't flag its epistemic status.
+
+13:57.640 --> 13:59.800
+They don't write, hey, this is untested.
+
+14:00.040 --> 14:00.920
+Do not use in production.
+
+14:01.200 --> 14:02.440
+They just leave it unmarked.
+
+14:02.820 --> 14:03.080
+Okay.
+
+14:03.140 --> 14:04.300
+So the warning label is missing.
+
+14:04.300 --> 14:06.540
+Then someone else wanders by in 2020.
+
+14:07.040 --> 14:07.280
+Yes.
+
+14:07.920 --> 14:11.800
+A future explorer comes along, they encounter the code, and because they have the right
+
+14:11.800 --> 14:15.660
+corpus congruence, they interpret it as a viable solution.
+
+14:16.040 --> 14:18.400
+And because it lacks a warning label, they take uptake.
+
+14:18.760 --> 14:19.120
+Yes.
+
+14:19.480 --> 14:21.120
+They build it into an open source library.
+
+14:21.620 --> 14:26.460
+Now, the math in FlyAxo's model shows that if the marginal yield of this defective idea,
+
+14:26.620 --> 14:29.900
+which is the rate at which new people encounter and use that open source library,
+
+14:30.480 --> 14:32.460
+exceeds the platform's decay rate,
+
+14:32.460 --> 14:34.740
+the bad idea spreads geometrically.
+
+14:34.940 --> 14:35.080
+Oh.
+
+14:35.680 --> 14:39.580
+So because we evaluate information based on our own limited personal corpus,
+
+14:40.200 --> 14:44.880
+that original developer's duct tape hack is suddenly taken as gospel truth by thousands
+
+14:44.880 --> 14:47.120
+of people who lack the original context.
+
+14:47.440 --> 14:48.240
+It compounds.
+
+14:49.120 --> 14:52.240
+Adoption of the broken specification grows without bound,
+
+14:52.440 --> 14:55.280
+while the share of defect-free deposits actually shrinks.
+
+14:55.600 --> 14:56.760
+That is terrifying.
+
+14:56.760 --> 14:59.720
+And here is the truly terrifying part.
+
+15:00.560 --> 15:05.200
+What happens if the original author realizes in 2021 that their code was flawed,
+
+15:05.420 --> 15:07.220
+but they can't fix the problem?
+
+15:07.500 --> 15:08.540
+Wait, why couldn't they fix it?
+
+15:09.040 --> 15:12.060
+Flyxion points out that if corrections are unreachable,
+
+15:12.760 --> 15:17.100
+meaning the platform doesn't have a mechanism to push a backlink from the correction to everyone
+
+15:17.100 --> 15:20.260
+who copied the error, the spread is literally unstoppable.
+
+15:20.260 --> 15:22.740
+That is wild to think about.
+
+15:23.480 --> 15:27.420
+I mean, think about how often you just copy-paste a snippet of code from Stack Overflow
+
+15:27.420 --> 15:32.040
+or pull a template off a website without actually understanding the underlying logic.
+
+15:32.560 --> 15:33.380
+Happens all the time.
+
+15:33.760 --> 15:38.080
+We are basically letting a typo dictate the foundation of a digital skyscraper
+
+15:38.080 --> 15:42.760
+just because the typo was easier to copy and paste than doing the math from scratch.
+
+15:42.760 --> 15:49.000
+Which is exactly why Flyxion argues that explicitly marking the epistemic status of your deposit
+
+15:49.000 --> 15:52.900
+saying, this is a prototype or this has high evidential support
+
+15:52.900 --> 15:56.780
+is the only structural way to lower the uptake of a defective component.
+
+15:57.320 --> 15:57.640
+Okay.
+
+15:58.060 --> 16:03.860
+We've been talking almost exclusively about software, GitHub repositories, and digital navigation.
+
+16:04.280 --> 16:08.420
+But as I'm picturing this, the idea of passing down unverified assumptions
+
+16:08.420 --> 16:12.460
+and locking successive generations into old, flawed ways of thinking,
+
+16:12.720 --> 16:15.640
+is this really just a modern internet phenomenon?
+
+16:16.440 --> 16:17.180
+Not at all.
+
+16:17.600 --> 16:20.920
+Did we invent the berm in the 1990s?
+
+16:21.320 --> 16:24.740
+If we connect this to the bigger picture, the answer is a resounding no.
+
+16:24.980 --> 16:26.500
+The mechanism is ancient.
+
+16:26.820 --> 16:28.940
+It is quite literally as old as human culture.
+
+16:29.520 --> 16:29.780
+Really?
+
+16:30.140 --> 16:30.340
+Yeah.
+
+16:30.820 --> 16:32.580
+About two-thirds of the way through the paper,
+
+16:33.060 --> 16:35.880
+Flyxion steps entirely back from the digital realm
+
+16:35.880 --> 16:38.640
+to introduce the concept of pedagogical residue.
+
+16:39.600 --> 16:40.600
+Pedagogical residue.
+
+16:41.340 --> 16:44.900
+So we're talking about the residue left behind by teachers,
+
+16:45.560 --> 16:48.000
+universities, and educational systems.
+
+16:48.520 --> 16:49.080
+Precisely.
+
+16:49.680 --> 16:50.980
+When a teacher writes a curriculum,
+
+16:51.380 --> 16:54.220
+when a scientist designs a physical laboratory instrument,
+
+16:54.480 --> 16:56.820
+or when a professor writes a textbook,
+
+16:57.240 --> 16:59.180
+they are leaving stigmurgic berms.
+
+16:59.760 --> 17:00.340
+Oh, wow.
+
+17:00.460 --> 17:01.780
+I never thought of it like that.
+
+17:02.080 --> 17:04.340
+Think about a university syllabus for a moment.
+
+17:04.340 --> 17:08.980
+A syllabus is essentially a highly structured, shared return structure.
+
+17:09.720 --> 17:12.120
+It fixes a sequence of encounters with knowledge.
+
+17:12.340 --> 17:12.560
+Right.
+
+17:13.080 --> 17:16.280
+It provides the prerequisites, the cross-references,
+
+17:16.640 --> 17:18.640
+the paths to revisit when you get lost.
+
+17:19.080 --> 17:21.920
+So a syllabus is basically a formalized vine
+
+17:21.920 --> 17:23.560
+that the teacher hands to the student.
+
+17:23.900 --> 17:24.200
+Yes.
+
+17:24.480 --> 17:26.520
+And the textbook is the declarative residue,
+
+17:26.940 --> 17:29.420
+the blueprint that tells the student what is worth knowing
+
+17:29.420 --> 17:31.280
+and what they can safely ignore.
+
+17:31.580 --> 17:32.380
+You've got it perfectly.
+
+17:32.380 --> 17:34.780
+But consider the implication.
+
+17:35.480 --> 17:39.620
+If educational materials follow the exact same stigmurgic rules
+
+17:39.620 --> 17:41.020
+as software repositories,
+
+17:41.240 --> 17:45.380
+they are vulnerable to the exact same lock-in and viral errors.
+
+17:45.720 --> 17:46.180
+Oh, man.
+
+17:46.760 --> 17:50.620
+Educational materials brilliantly preserve obsolete conventions,
+
+17:51.120 --> 17:54.360
+institutional prejudices, and unnecessary complexity.
+
+17:54.760 --> 17:56.460
+And just like the bad code,
+
+17:56.820 --> 17:59.280
+these things are almost always unmarked.
+
+17:59.740 --> 18:00.740
+Oh, I see it.
+
+18:00.740 --> 18:05.460
+A 19th century curriculum might carry immense institutional authority,
+
+18:05.980 --> 18:08.800
+which gives it a high perceived evidential support.
+
+18:09.180 --> 18:12.380
+But it could be completely factually unsound by modern standards.
+
+18:12.740 --> 18:13.160
+Exactly.
+
+18:13.960 --> 18:16.920
+And yet, because it's easier to teach from the existing syllabus
+
+18:16.920 --> 18:18.760
+than to write a new one from scratch,
+
+18:19.640 --> 18:22.300
+successive generations of teachers just reproduce it.
+
+18:22.300 --> 18:25.680
+It's the exact same self-propagating mechanism
+
+18:25.680 --> 18:28.800
+as the defective code in example 7.12.
+
+18:29.140 --> 18:30.040
+It is identical.
+
+18:30.640 --> 18:32.440
+Flyxion argues that human intelligence
+
+18:32.440 --> 18:35.680
+isn't just something that happens inside our individual skulls.
+
+18:35.780 --> 18:38.220
+It is heavily offloaded into our environment.
+
+18:38.580 --> 18:38.640
+Right.
+
+18:38.920 --> 18:42.480
+The core human act of building cumulative culture is the same,
+
+18:42.580 --> 18:45.260
+whether we are talking about a medieval library,
+
+18:45.480 --> 18:47.080
+preserving an ancient oral tradition,
+
+18:47.080 --> 18:51.640
+or a modern software repository managing million-line code bases.
+
+18:51.800 --> 18:55.540
+So a university is basically just a giant, physical,
+
+18:56.540 --> 18:58.480
+stigmurgic berm
+
+18:58.480 --> 19:01.380
+built by centuries of academic termites
+
+19:01.380 --> 19:04.420
+carefully stacking their syllabus pellets on top of each other.
+
+19:04.820 --> 19:06.480
+As funny as that image is,
+
+19:06.920 --> 19:07.920
+mathematically, yes.
+
+19:08.420 --> 19:10.580
+The only thing that separates the medieval library
+
+19:10.580 --> 19:13.140
+from the GitHub repository is the parameters.
+
+19:13.620 --> 19:14.280
+The parameters.
+
+19:14.280 --> 19:16.780
+You mean the speed and scale of it all?
+
+19:17.200 --> 19:17.480
+Yes.
+
+19:18.000 --> 19:19.160
+The speed of persistence,
+
+19:19.460 --> 19:20.300
+the decay rate,
+
+19:20.480 --> 19:21.740
+the global accessibility,
+
+19:22.280 --> 19:23.500
+and the recomposability.
+
+19:23.920 --> 19:24.420
+How so?
+
+19:25.080 --> 19:27.620
+Well, a medieval manuscript decays slowly,
+
+19:27.900 --> 19:30.040
+but it is incredibly difficult to access
+
+19:30.040 --> 19:33.740
+and nearly impossible to quickly modify and redistribute.
+
+19:34.340 --> 19:34.620
+Right.
+
+19:34.940 --> 19:37.880
+You'd have to physically travel there and copy it by hand.
+
+19:38.520 --> 19:39.120
+Exactly.
+
+19:39.520 --> 19:42.860
+But a digital deposit can be accessed globally in milliseconds,
+
+19:42.860 --> 19:43.900
+modified, tested,
+
+19:44.020 --> 19:45.860
+and pushed back to the berm instantly.
+
+19:46.500 --> 19:48.060
+The fundamental logic of accumulation
+
+19:48.060 --> 19:50.540
+hasn't changed since we were drawing on cave walls.
+
+19:50.680 --> 19:51.400
+It's just faster now.
+
+19:51.980 --> 19:53.620
+Only the speed and granularity
+
+19:53.620 --> 19:56.080
+with which we can inherit and modify the berm
+
+19:56.080 --> 19:56.960
+has accelerated.
+
+19:57.280 --> 19:58.540
+So what does this all mean?
+
+19:59.120 --> 20:01.000
+If we zoom all the way out,
+
+20:01.540 --> 20:02.620
+Flyxion is showing us
+
+20:02.620 --> 20:04.760
+that the world we navigate every single day
+
+20:04.760 --> 20:06.320
+is built by this tight,
+
+20:06.520 --> 20:08.680
+inseparable coupling of the vine and the berm.
+
+20:09.160 --> 20:09.780
+Beautifully said.
+
+20:09.780 --> 20:11.160
+We rely on our vines,
+
+20:11.340 --> 20:12.340
+our private paths,
+
+20:12.800 --> 20:13.400
+our bookmarks,
+
+20:13.520 --> 20:14.400
+our return stacks,
+
+20:14.540 --> 20:16.260
+our video game save points
+
+20:16.260 --> 20:17.340
+to keep us grounded
+
+20:17.340 --> 20:19.700
+and make us brave enough to explore the unknown.
+
+20:19.940 --> 20:20.020
+Right.
+
+20:20.600 --> 20:21.480
+And as we explore,
+
+20:21.900 --> 20:22.880
+we drop the berm,
+
+20:23.300 --> 20:24.140
+the public residue,
+
+20:24.420 --> 20:25.200
+the working code,
+
+20:25.320 --> 20:25.940
+the blueprints,
+
+20:26.080 --> 20:26.940
+the syllabi
+
+20:26.940 --> 20:29.940
+that silently orchestrates the future for everyone else.
+
+20:30.620 --> 20:31.640
+It's wild to realize
+
+20:31.640 --> 20:34.440
+that grand, world-changing infrastructure
+
+20:34.440 --> 20:36.300
+doesn't actually need an architect.
+
+20:36.900 --> 20:37.620
+It really doesn't.
+
+20:37.620 --> 20:39.540
+It doesn't need a master plan.
+
+20:39.720 --> 20:41.640
+It just needs a population of explorers
+
+20:41.640 --> 20:43.340
+leaving a trail of breadcrumbs.
+
+20:44.260 --> 20:45.740
+This raises an important question.
+
+20:46.900 --> 20:47.900
+Flyxion has demonstrated
+
+20:47.900 --> 20:50.160
+that our future capabilities as a species
+
+20:50.160 --> 20:51.540
+depend almost entirely
+
+20:51.540 --> 20:54.480
+on the persistent discoverable residue
+
+20:54.480 --> 20:56.360
+we leave behind for the next explorer.
+
+20:56.920 --> 20:57.120
+Yeah.
+
+20:57.260 --> 20:58.440
+We have to leave the breadcrumbs.
+
+20:58.800 --> 21:00.080
+But look at the direction
+
+21:00.080 --> 21:02.600
+the modern internet is heavily trending towards.
+
+21:02.600 --> 21:05.080
+We are rapidly entering an era
+
+21:05.080 --> 21:06.320
+where digital platforms
+
+21:06.320 --> 21:09.240
+increasingly default to ephemeral content.
+
+21:09.580 --> 21:09.840
+Oh, wow.
+
+21:10.180 --> 21:10.660
+You're right.
+
+21:11.180 --> 21:12.160
+Auto-deleting messages.
+
+21:12.980 --> 21:15.200
+Stories that expire in 24 hours.
+
+21:15.900 --> 21:17.120
+Hidden algorithmic feeds
+
+21:17.120 --> 21:19.700
+that surface a piece of brilliance for one day
+
+21:19.700 --> 21:21.240
+and then bury it forever.
+
+21:21.420 --> 21:22.540
+Totally unreachable.
+
+21:23.100 --> 21:24.500
+So it never becomes part of the berm.
+
+21:25.080 --> 21:25.640
+Exactly.
+
+21:25.960 --> 21:28.620
+If human progress fundamentally requires
+
+21:28.620 --> 21:30.600
+a persistent berm to build upon,
+
+21:30.600 --> 21:33.920
+well, what happens to cumulative human culture
+
+21:33.920 --> 21:36.240
+when our deposits simply evaporate?
+
+21:36.680 --> 21:39.220
+Are we currently actively erasing
+
+21:39.220 --> 21:41.320
+the very stigmurgic berms
+
+21:41.320 --> 21:42.600
+that the next generation
+
+21:42.600 --> 21:43.880
+desperately needs to find?
+
+21:44.200 --> 21:44.340
+Wow.
+
+21:44.980 --> 21:47.440
+That is a deeply chilling thought to end on.
+
+21:48.120 --> 21:49.680
+If the residue disappears,
+
+21:50.420 --> 21:52.120
+we might be burning the blueprints
+
+21:52.120 --> 21:53.040
+before the next builder
+
+21:53.040 --> 21:54.880
+even has a chance to walk into the workshop.
+
+21:55.880 --> 21:56.940
+Thank you so much
+
+21:56.940 --> 21:58.420
+for taking this deep dive with us today.
+
+21:58.420 --> 21:59.400
+It was a pleasure.
+
+21:59.400 --> 22:01.300
+The next time you find yourself
+
+22:01.300 --> 22:02.660
+leaving 20 tabs open
+
+22:02.660 --> 22:05.040
+or hitting save on a rough draft
+
+22:05.040 --> 22:06.820
+or bookmarking a strange,
+
+22:06.980 --> 22:08.040
+wonderful corner of the internet,
+
+22:08.400 --> 22:09.680
+I want you to remember
+
+22:09.680 --> 22:12.380
+you're just leaving a breadcrumb for yourself.
+
+22:12.780 --> 22:14.900
+You might just be laying the foundation stone
+
+22:14.900 --> 22:16.560
+for whoever comes next.
+
+22:16.560 --> 22:20.060
+Not the bottom or cut off .
+
+22:22.540 --> 22:23.560
+,
+
+22:23.560 --> 22:26.220
+a
+
+22:26.220 --> 22:27.960
+screen
+
+22:28.240 --> 22:30.080
+halo
+
+22:30.080 --> 22:30.940
+3
+
+22:30.940 --> 22:32.080
+2
+
+22:32.080 --> 22:33.260
+In the middle of the
+
+22:33.480 --> 22:34.140
+o
+
+22:34.140 --> 22:34.460
+3
+
+22:34.460 --> 22:34.900
+2
+
+22:34.940 --> 22:36.540
+2
+
+22:36.540 --> 22:36.880
+2
+
+22:36.880 --> 22:37.360
+3
+
+22:37.360 --> 22:38.460
+4
+
+22:38.460 --> 22:39.400
+6
+
+22:39.400 --> 22:40.940
+4
+
+22:40.940 --> 22:41.320
+5
+
+22:41.320 --> 22:42.320
+6
+
+22:42.320 --> 22:43.100
+6
+
+22:43.100 --> 22:43.380
+7
+

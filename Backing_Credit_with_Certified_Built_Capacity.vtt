@@ -1,0 +1,2699 @@
+WEBVTT
+
+00:00.000 --> 00:10.140
+So I want you to try and imagine a world where the money in your pocket or, you know, the digital numbers sitting in your checking account aren't backed by what we traditionally think of as collateral.
+
+00:10.620 --> 00:13.260
+Right, because we are just so used to the current paradigms.
+
+00:13.260 --> 00:22.320
+Exactly. We just sort of accept that our money is backed by government fiat, which is, I mean, essentially just the promise of future tax revenues and institutional trust.
+
+00:22.320 --> 00:30.180
+Yeah, or if you look historically, we always think of it being backed by a vault of gold sitting in some, you know, subterranean reserve somewhere.
+
+00:30.420 --> 00:41.280
+Totally. Or even if you're looking at the modern decentralized web, you might imagine money backed by artificial computational scarcity, like a cryptocurrency algorithm churning through massive math problems.
+
+00:41.600 --> 00:43.720
+Which is a whole other kind of abstract backing.
+
+00:43.860 --> 00:48.600
+It is. But I want you to set literally all of those models aside for the next hour or so.
+
+00:48.600 --> 00:59.660
+Instead, I want you to imagine that the literal existence of the money you're carrying is backed by the physical, undeniable reality of, say, a newly reinforced concrete foundation on your street.
+
+01:00.080 --> 01:00.920
+Okay, wow.
+
+01:01.240 --> 01:03.560
+Yeah. Or like a brand new apartment building downtown.
+
+01:04.300 --> 01:08.620
+Or even an extended municipal sewer line that was just inspected and approved yesterday.
+
+01:09.000 --> 01:14.280
+It is a really profound, almost dizzying shift in how we conceptualize value.
+
+01:14.280 --> 01:20.160
+I mean, we have become entirely accustomed to money representing this abstract claim.
+
+01:20.880 --> 01:24.280
+Or being tethered to a purely market-driven appraisal of an asset.
+
+01:24.920 --> 01:32.480
+We live in this economy of financialization where the map has basically largely replaced the territory.
+
+01:32.620 --> 01:34.260
+The map replaces the territory, exactly.
+
+01:34.940 --> 01:41.720
+But what if money was fundamentally, inextricably tethered to verifiable physical improvements in the built environment?
+
+01:41.720 --> 01:50.020
+Like, what if the financial ledger couldn't move unless physical matter in the real world was rearranged in a useful, certified way?
+
+01:50.320 --> 01:52.460
+And that is exactly the premise of today's deep dive.
+
+01:52.680 --> 01:58.780
+We are unpacking a genuinely fascinating, incredibly dense, and sometimes, honestly, mind-bending paper.
+
+01:59.060 --> 02:04.740
+It was published in October 2026 by an independent researcher going by the name Flyxion.
+
+02:05.100 --> 02:05.800
+Yeah, Flyxion.
+
+02:05.800 --> 02:11.560
+The paper is titled, Issuance Against Improvement, A Monetary Theory of Certified Built Capacity.
+
+02:12.200 --> 02:18.040
+And our mission today is to tear this thing apart, just like the author actually does to their own idea, which is so refreshing to read.
+
+02:18.160 --> 02:18.660
+It really is.
+
+02:18.860 --> 02:28.100
+We're going to explore how this paper tries to fix the endless, exhausting boom-and-bust cycle of real estate that I think literally everyone listening is painfully aware of.
+
+02:28.180 --> 02:29.520
+Oh, intimately aware of.
+
+02:29.520 --> 02:39.160
+Yeah, we're going to look at the surprising logical traps the author discovers along the way, and then we'll dive into the brilliant pivot the paper makes to actually solve those exact traps.
+
+02:39.340 --> 02:42.840
+And it is a super necessary journey to take with this author.
+
+02:43.560 --> 02:50.520
+Because they don't just present this utopian theory and ask us to take it on faith, which happens way too often in economics papers.
+
+02:50.520 --> 02:51.200
+Oh, all the time.
+
+02:51.320 --> 02:51.500
+Right.
+
+02:52.540 --> 02:55.220
+They stress test their own framework rigorously.
+
+02:55.560 --> 03:07.640
+They build this theoretical architecture for physical money, break it down by brutally exposing its fatal flaws, and then they rebuild it into a credit architecture that is surprisingly highly practical.
+
+03:08.160 --> 03:08.860
+So practical.
+
+03:08.860 --> 03:13.760
+The central question organizing this entire exploration is basically this.
+
+03:14.440 --> 03:20.760
+What monetary claims should a verified transformation of the built environment actually be permitted to originate?
+
+03:21.140 --> 03:22.160
+Which is a huge question.
+
+03:22.820 --> 03:36.160
+So whether you are obsessed with macroeconomics, fascinated by real estate, or if you're just a normal person who's completely tired of the housing affordability crisis and the feeling that the whole economy is basically a casino.
+
+03:36.460 --> 03:37.900
+A rigged casino at times.
+
+03:37.900 --> 03:38.380
+Yeah.
+
+03:39.460 --> 03:44.300
+This deep dive is going to completely reframe how you think about the physical world around you.
+
+03:44.960 --> 03:54.840
+So before we get into the heavy weeds of how this new capacity-backed system works, we really have to establish the massive glaring problem it is trying to solve in our current financial system.
+
+03:55.120 --> 03:55.540
+We do.
+
+03:55.860 --> 03:59.880
+And the paper calls it the collateral channel of conventional property finance.
+
+04:00.060 --> 04:00.340
+Okay.
+
+04:00.740 --> 04:01.580
+A collateral channel.
+
+04:02.220 --> 04:03.060
+Unpack that for us.
+
+04:03.060 --> 04:08.280
+Well, to understand the cure this paper proposes, you really have to understand the disease deeply.
+
+04:08.800 --> 04:15.640
+In our conventional, everyday, mortgage-backed regime, there is a very clear, very dangerous feedback loop.
+
+04:15.860 --> 04:16.140
+Right.
+
+04:16.140 --> 04:18.480
+Let's walk through how it operates mechanically.
+
+04:19.240 --> 04:21.500
+Let's say a neighborhood suddenly becomes fashionable.
+
+04:22.100 --> 04:25.000
+This could be for literally any number of reasons.
+
+04:25.140 --> 04:26.660
+Like a cultural shift happens.
+
+04:27.060 --> 04:27.440
+Exactly.
+
+04:27.440 --> 04:35.520
+A cool coffee shop opens, or a massive tech company moves its headquarters nearby, or maybe the city simply re-zones a nearby district.
+
+04:36.480 --> 04:40.060
+The subjective market demand for that specific land goes up.
+
+04:40.700 --> 04:41.740
+People want to live there.
+
+04:41.740 --> 04:43.860
+So, the price of the land rises.
+
+04:44.420 --> 04:48.040
+Which, you know, on the surface, just sounds like basic economics, supply and demand.
+
+04:48.460 --> 04:51.460
+The place gets popular, so it just costs more to buy a house there.
+
+04:51.920 --> 04:52.560
+On the surface?
+
+04:52.840 --> 04:53.620
+Yeah, absolutely.
+
+04:54.300 --> 04:59.380
+But here is where the financial engineering takes over and completely distorts the reality.
+
+04:59.380 --> 05:13.580
+Because that land is now priced higher based on subjective demand, the buyers who want to purchase property there, or even the current owners who want to refinance, they can use that higher valuation to take out larger loans from banks.
+
+05:14.140 --> 05:15.100
+Oh, right.
+
+05:15.420 --> 05:17.140
+Because the bank sees the new price tag.
+
+05:17.420 --> 05:17.820
+Exactly.
+
+05:18.560 --> 05:19.800
+The banks look at the appraisal.
+
+05:20.160 --> 05:22.500
+They look at the recent comparable sales in the neighborhood.
+
+05:23.120 --> 05:24.000
+They see a higher number.
+
+05:24.560 --> 05:28.960
+And they say, well, the collateral is worth more, so we can lend you more money against it.
+
+05:28.960 --> 05:30.640
+And here is the kicker for that.
+
+05:31.080 --> 05:40.620
+That increased purchasing power, because buyers now literally have bigger loans in their pockets, newly created bank credit that causes the land prices to rise even more.
+
+05:40.800 --> 05:46.060
+Because now you have buyers bidding against each other with larger and larger pools of debt.
+
+05:46.060 --> 05:48.680
+It's an audio feedback loop.
+
+05:49.460 --> 05:50.740
+Oh, that's a great way to put it.
+
+05:51.080 --> 05:55.440
+I always think of it like placing a live microphone way too close to a speaker on a stage.
+
+05:55.620 --> 05:58.600
+You know, the speaker outputs a sound, the microphone picks it up.
+
+05:58.600 --> 06:00.220
+Sends it back to the amplifier.
+
+06:00.500 --> 06:02.280
+The speaker blasts it out louder.
+
+06:02.820 --> 06:03.860
+The mic picks it up again.
+
+06:03.940 --> 06:08.020
+And it just endlessly amplifies itself until it screeches and blows the whole amp.
+
+06:08.480 --> 06:10.200
+That analogy captures the mechanics perfectly.
+
+06:11.360 --> 06:21.120
+And the paper notes that the historical record of mortgage lending suggests this specific channel has become quantitatively central to modern financial systems globally.
+
+06:21.540 --> 06:22.100
+Globally.
+
+06:22.100 --> 06:23.340
+Yeah, it's everywhere.
+
+06:24.620 --> 06:28.760
+Asset prices and borrowing capacity endlessly amplify one another.
+
+06:29.260 --> 06:30.960
+It's not just a quirk of the market.
+
+06:31.100 --> 06:33.940
+It is the engine of the modern housing crisis.
+
+06:34.060 --> 06:34.200
+Yeah.
+
+06:34.200 --> 06:47.340
+We see household balance sheet evidence from the U.S. and other developed nations showing that borrowing against rising home equity vastly expands household leverage without any corresponding increase in actual economic productivity.
+
+06:47.720 --> 06:49.120
+Which is terrifying.
+
+06:49.580 --> 06:53.380
+We're just creating debt out of thin air because we all agree a house is cooler now.
+
+06:53.380 --> 06:54.000
+Exactly.
+
+06:54.800 --> 06:57.660
+The paper describes this as a collateral price regime.
+
+06:58.280 --> 07:02.760
+And the author actually includes a dimensionless simulation to illustrate this mathematically.
+
+07:03.080 --> 07:03.480
+Oh, right.
+
+07:03.560 --> 07:04.500
+I remember that chart.
+
+07:04.720 --> 07:04.840
+Yeah.
+
+07:04.880 --> 07:15.020
+In a collateral price regime where credit is a linear function of price appreciation and excess credit raises prices in turn, the deviation obeys a recursion.
+
+07:15.560 --> 07:17.540
+The loop produces geometric acceleration.
+
+07:18.060 --> 07:21.260
+The curve on the chart just bends upward exponentially until it collapses.
+
+07:21.260 --> 07:24.480
+The screech of the feedback loop.
+
+07:24.880 --> 07:29.480
+I mean, the 2008 financial crisis was essentially the amp blowing out on a global scale.
+
+07:30.240 --> 07:35.340
+So the author of this paper looks at this screeching amp and proposes cutting the loop entirely.
+
+07:35.820 --> 07:36.540
+But how?
+
+07:36.700 --> 07:41.260
+If you don't base loans on what the market says a house is worth, what on earth do you base them on?
+
+07:41.880 --> 07:46.300
+By fundamentally changing what justifies the creation of a financial claim in the first place.
+
+07:46.300 --> 07:54.660
+The author introduces a concept initially framed as a new currency unit called the built capacity unit or BCU.
+
+07:55.280 --> 07:56.300
+The BCU.
+
+07:56.560 --> 07:56.780
+Yeah.
+
+07:57.020 --> 08:01.560
+And the core rule, the absolute bedrock of this idea, is this aphorism.
+
+08:02.560 --> 08:03.780
+Nothing physically changed.
+
+08:04.340 --> 08:06.200
+Therefore, nothing monetary changed.
+
+08:06.200 --> 08:11.580
+I want to pause on that because it's such a clean, almost radical departure from how we live today.
+
+08:12.340 --> 08:13.880
+Nothing physically changed.
+
+08:14.240 --> 08:16.000
+Therefore, nothing monetary changed.
+
+08:16.140 --> 08:17.900
+Let's actually apply that to the real world.
+
+08:18.140 --> 08:18.720
+Okay, let's do it.
+
+08:19.140 --> 08:29.560
+If I own a house and its value doubles on some real estate app over three years just because my city became a trendy place to move, zero new money is issued in this system.
+
+08:29.700 --> 08:29.920
+Zero.
+
+08:29.920 --> 08:32.000
+Because I didn't do anything.
+
+08:32.280 --> 08:36.120
+The house is the exact same arrangement of wood and drywall it was three years ago.
+
+08:36.260 --> 08:39.560
+If anything, the roof is actually three years older and more degraded.
+
+08:39.780 --> 08:39.880
+Right.
+
+08:40.020 --> 08:41.000
+Physically, it's worth less.
+
+08:41.120 --> 08:41.460
+Exactly.
+
+08:42.120 --> 08:51.780
+But if I build an extension or if I hire contractors to, like, rip out my foundation and seismically retrofit it, a physical transformation has occurred.
+
+08:52.040 --> 08:55.500
+I have increased the capacity of the built environment.
+
+08:55.880 --> 08:57.500
+And then new money is issued.
+
+08:57.500 --> 09:01.140
+And the paper formalizes this physical requirement with an equation.
+
+09:01.820 --> 09:08.660
+The author defines the certified capacity at a given location, let's just call the location X, with a highly specific formula.
+
+09:08.960 --> 09:14.680
+The formula is C of X equals A of X times Q of X times L of X.
+
+09:15.100 --> 09:15.560
+Okay, wait.
+
+09:16.020 --> 09:16.820
+Let me stop you right there.
+
+09:16.980 --> 09:21.620
+We promised everyone listening no overwhelming academic jargon without translation.
+
+09:21.840 --> 09:24.340
+So we need to break down that math into plain English.
+
+09:24.580 --> 09:25.000
+Fair enough.
+
+09:25.000 --> 09:27.880
+It's actually quite intuitive when you separate the variables out.
+
+09:28.540 --> 09:31.280
+C is the total certified capacity of a structure.
+
+09:31.740 --> 09:34.580
+This is the ultimate number you are measuring to issue the currency.
+
+09:34.760 --> 09:35.620
+Okay, C is capacity.
+
+09:36.100 --> 09:36.820
+Got it.
+
+09:37.460 --> 09:41.440
+Then A stands for the legally permitted usable floor area.
+
+09:42.000 --> 09:46.440
+This is simply the square footage that you can actually inhabit or use for commerce.
+
+09:46.700 --> 09:47.200
+Makes sense.
+
+09:47.640 --> 09:49.080
+The bigger the building, the more capacity.
+
+09:49.080 --> 09:49.700
+Exactly.
+
+09:50.700 --> 09:54.260
+Then Q is a code compliance or infrastructure factor.
+
+09:54.880 --> 09:58.440
+This measures how well the building meets actual safety and engineering standards.
+
+09:58.980 --> 10:00.300
+Is it fire resistant?
+
+10:00.660 --> 10:02.380
+Can it withstand a certain wind load?
+
+10:02.780 --> 10:03.960
+So quality and safety.
+
+10:04.420 --> 10:04.680
+Yes.
+
+10:05.300 --> 10:08.120
+And finally, L is a location coefficient.
+
+10:08.740 --> 10:09.680
+Wait, hold on.
+
+10:10.180 --> 10:11.260
+A location coefficient.
+
+10:11.260 --> 10:14.860
+Doesn't that just bring us right back to the trendy neighborhood problem?
+
+10:14.860 --> 10:19.100
+If L is high because the neighborhood has a cool vibe, the loop is back.
+
+10:19.480 --> 10:21.140
+The microphone is right back next to the speaker.
+
+10:21.760 --> 10:27.400
+That is exactly where you have to look closely at how the author defines L in this specific formula.
+
+10:28.200 --> 10:33.560
+This location coefficient is intended to be built strictly from physical, measurable quantities.
+
+10:33.560 --> 10:36.580
+Oh, physical quantities, not vibes.
+
+10:36.960 --> 10:37.120
+Right.
+
+10:37.460 --> 10:41.000
+We are not talking about subjective desirability here.
+
+10:41.200 --> 10:55.820
+We are talking about physical access to roads, the bandwidth of municipal utility hookups, the measurable distance to mass transit networks, emergency response times based on street geometry, the flow rate of water and sewer capacity.
+
+10:56.100 --> 10:56.620
+Oh, wow.
+
+10:56.940 --> 11:00.700
+Even quantified climate risk like elevation above a floodplain.
+
+11:00.700 --> 11:06.440
+It is emphatically, explicitly not based on speculative land prices.
+
+11:07.060 --> 11:09.580
+So it's geography as pure infrastructure.
+
+11:10.220 --> 11:16.020
+It's geography as a network of pipes and roads and flood zones, not geography as a cultural destination.
+
+11:16.460 --> 11:16.660
+Yes.
+
+11:17.280 --> 11:27.800
+The monetary base of the entire economy in this initial thought experiment of the paper is then defined as a fraction of the sum of all this certified capacity across all locations.
+
+11:28.060 --> 11:29.060
+That is wild.
+
+11:29.460 --> 11:29.840
+It is.
+
+11:29.840 --> 11:36.680
+New money is created only when physical capacity is created, not when the exchange price of existing capacity magically rises.
+
+11:36.960 --> 11:42.640
+When you put it that way, you really can see the sheer power of narrowing the definition of value.
+
+11:43.260 --> 11:45.020
+Think about a standard home appraisal today.
+
+11:45.360 --> 11:46.880
+It is inherently subjective.
+
+11:47.400 --> 11:53.920
+An appraiser walks through your house and basically looks at comparables like what did the guy three streets over pay for his house last month?
+
+11:54.160 --> 11:54.380
+Right.
+
+11:54.460 --> 11:56.560
+It's based entirely on market bids.
+
+11:56.800 --> 11:57.280
+Exactly.
+
+11:57.280 --> 12:05.920
+But building codes, things like fire separations, load paths for gravity and seismic events, egress routes, ventilation rates.
+
+12:05.920 --> 12:08.440
+Those are objective, checkable facts.
+
+12:08.600 --> 12:11.080
+You literally can't fake a fire-raided door.
+
+12:11.300 --> 12:13.600
+It either meets the physical standard or it doesn't.
+
+12:13.600 --> 12:19.420
+The paper actually makes a brilliant observation here about epistemology, like how we know what we know.
+
+12:20.080 --> 12:25.400
+It points out that building codes contain a primitive ontology of real economic things.
+
+12:25.400 --> 12:26.720
+Say more about that.
+
+12:27.240 --> 12:31.440
+Well, an inspector working in this system isn't asked, what is this property worth?
+
+12:32.240 --> 12:37.940
+Asking that question just reintroduces the appraisal feedback loop, relying on the opinions of market actors.
+
+12:38.820 --> 12:42.240
+Instead, the inspector is asked a purely factual question.
+
+12:43.200 --> 12:51.060
+Did a specified physical transformation occur and does the resulting structure satisfy publicly stated engineering and safety conditions?
+
+12:51.060 --> 12:53.680
+I love that distinction so much.
+
+12:53.680 --> 13:00.160
+You could have two houses with identical structural capacity, same square footage, same material, same fire rating.
+
+13:00.880 --> 13:05.740
+Under our current system, one might be priced at triple the other just because of where it stands.
+
+13:05.860 --> 13:08.320
+Maybe it has a nicer view of some mountains.
+
+13:08.320 --> 13:09.000
+Exactly.
+
+13:09.400 --> 13:14.740
+But a system that tracks physical improvement doesn't treat that scarcity premium as a physical fact.
+
+13:15.160 --> 13:18.380
+It treats both houses as having identical built capacity.
+
+13:19.240 --> 13:27.660
+And to manage all this data without relying on market prices, the author leans on a very old institutional concept, but fundamentally augments it.
+
+13:28.300 --> 13:31.260
+They introduce the idea of expanding the cadaster.
+
+13:31.640 --> 13:35.600
+For anyone unfamiliar, a cadaster is basically just a land registry, right?
+
+13:35.800 --> 13:36.120
+Correct.
+
+13:36.120 --> 13:43.060
+Land registries and cadastral surveys have long been the primary way states make parcels of land legally legible.
+
+13:43.780 --> 13:51.440
+For centuries, they've attached rights, ownership, and tax obligations to specific geometric coordinates on a physical map.
+
+13:51.620 --> 13:51.840
+Right.
+
+13:52.020 --> 13:59.800
+But the author suggests coupling this traditional map-based cadaster with an append-only record of permitted inspected transformations.
+
+14:00.200 --> 14:02.740
+It creates a chain of physical provenance.
+
+14:03.160 --> 14:04.220
+How does the chain work?
+
+14:04.860 --> 14:05.620
+It goes like this.
+
+14:05.620 --> 14:21.120
+You start with a legal parcel, which links to a building permit, which links to the procurement of materials and physical labor, which links to a municipal inspection, which links to a certificate of occupancy, which finally results in a capacity credit.
+
+14:21.120 --> 14:25.260
+It grounds the entire financial ledger in the physical territory.
+
+14:25.420 --> 14:32.580
+The ledger just can't float away into the speculative stratosphere because it is heavily anchored by tons of concrete and steel.
+
+14:33.120 --> 14:37.760
+Honestly, listening to this first section of the paper, it sounds incredible.
+
+14:38.280 --> 14:38.740
+It really does.
+
+14:38.900 --> 14:46.360
+It sounds like a grounded physical utopia where we finally solve the housing crisis by making money represent real work again.
+
+14:46.360 --> 14:47.780
+It does sound utopian.
+
+14:48.500 --> 14:51.240
+The logic appears completely airtight at first glance.
+
+14:52.100 --> 14:52.220
+But.
+
+14:52.780 --> 15:00.000
+And here is where the paper takes a wild, wild turn, because the author doesn't just stop there and publish this as a finished proposal.
+
+15:00.740 --> 15:07.500
+Having built this beautiful, intricate, theoretical sandcastle, the author steps back and systematically kicks it to pieces.
+
+15:07.920 --> 15:08.540
+They really do.
+
+15:08.540 --> 15:10.020
+It's amazing to read.
+
+15:10.640 --> 15:18.780
+We transition into the second stage of the paper's analysis, where we discover what the author calls the three fatal flaws of literal capacity backed money.
+
+15:19.300 --> 15:24.780
+We really have to look closely at why physical buildings actually make terrible literal currency.
+
+15:25.640 --> 15:28.260
+OK, so this physical utopia sounds bulletproof to me.
+
+15:28.360 --> 15:29.020
+Where does it crack?
+
+15:29.620 --> 15:31.380
+Let's get into the destruction phase.
+
+15:31.980 --> 15:34.900
+The paper calls flaw number one, the missing numeraire.
+
+15:34.900 --> 15:42.360
+And when I was reading this section, my mind immediately went to the history books, specifically to the ghost of a guy named John Law.
+
+15:42.960 --> 15:45.980
+Oh, the historical parallel is absolutely unavoidable.
+
+15:46.240 --> 15:47.940
+And the paper fully acknowledges this.
+
+15:48.600 --> 15:58.500
+The mathematical void in the author's initial formula, you know, that C of X equals area times quality times location, is that the output is simply a weighted physical area.
+
+15:58.800 --> 15:59.120
+Right.
+
+15:59.740 --> 16:02.720
+It gives you a number of quality adjusted square meters.
+
+16:02.720 --> 16:05.500
+But what is the unit of account?
+
+16:06.160 --> 16:13.360
+How do you convert weighted square meters of compliant building into a circulating currency that people can use to buy groceries or pay their taxes?
+
+16:13.720 --> 16:13.820
+Right.
+
+16:14.180 --> 16:26.820
+If the government steps in and just arbitrarily sets a conversion rate, like say they declare, OK, one legally compliant square foot equals exactly $100 of new currency, then we haven't actually escaped fiat money at all.
+
+16:26.940 --> 16:27.740
+Not even a little bit.
+
+16:27.740 --> 16:32.240
+We just have fiat money with a really weird, highly specific construction rule attached to it.
+
+16:32.540 --> 16:35.120
+The government is still just making up the value out of thin air.
+
+16:35.760 --> 16:45.360
+And conversely, if you try to set the conversion rate by referencing the market price of floor space, like saying the currency unit is worth whatever a square foot currently sells for, congratulations.
+
+16:45.900 --> 16:49.340
+You've just invited the appraisal doom loop right back through the front door.
+
+16:49.520 --> 16:50.480
+It's inescapable.
+
+16:50.740 --> 16:51.460
+You haven't solved anything.
+
+16:51.460 --> 16:56.020
+You've just added a lot of administrative overhead to the exact same speculative problem.
+
+16:56.860 --> 17:01.620
+The paper defers this central question of what determines the price level initially.
+
+17:02.320 --> 17:07.200
+And the author admits deep into the analysis that this deferral is fatal to the concept of the currency.
+
+17:07.200 --> 17:10.920
+Which brings us back to John Law in 1705 France.
+
+17:10.920 --> 17:18.920
+For you listening, if you haven't brushed up on 18th century financial crises recently, Law proposed something strikingly similar in spirit.
+
+17:19.480 --> 17:23.140
+He basically wanted to issue paper money backed by the value of land.
+
+17:23.520 --> 17:23.840
+Yes.
+
+17:24.400 --> 17:29.460
+John Law looked at the French economy, which was struggling with a massive shortage of gold and silver coin,
+
+17:29.460 --> 17:33.980
+and reasoned that money issued against land would be perfectly secure.
+
+17:34.600 --> 17:39.360
+Because land is durable, it produces real wealth, and obviously it can't be stolen or moved.
+
+17:39.800 --> 17:42.400
+It's the ultimate stable collateral, or so he thought.
+
+17:42.660 --> 17:43.100
+Exactly.
+
+17:43.480 --> 17:44.280
+He thought it was perfect.
+
+17:44.700 --> 17:51.100
+But schemes like this, operating under the broader umbrella of what economic historians call the real bills doctrine,
+
+17:51.720 --> 17:54.220
+they always run into a catastrophic mismatch.
+
+17:54.460 --> 17:58.920
+Let's explore that mismatch, because I feel like it's the final nail in the coffin for Flaw one.
+
+17:59.460 --> 18:05.100
+If the money supply of an entire nation is rigidly tied to how fast we can pour concrete in frame houses,
+
+18:05.420 --> 18:06.960
+what happens to the rest of the economy?
+
+18:07.560 --> 18:08.840
+That's the billion dollar question.
+
+18:09.140 --> 18:10.880
+Imagine a massive technology boom.
+
+18:11.240 --> 18:14.720
+Suddenly, the economy is inventing new software, new digital services,
+
+18:15.020 --> 18:18.520
+and needs to make millions of rapid digital transactions every single day.
+
+18:19.120 --> 18:24.100
+The demand for money, just the basic need for liquid currency to facilitate trade, skyrockets.
+
+18:24.280 --> 18:25.400
+Right. It goes through the roof.
+
+18:25.400 --> 18:31.020
+But in this capacity-backed system, the money supply can't expand to facilitate those transactions,
+
+18:31.280 --> 18:37.600
+because we are literally waiting on a city inspector to drive his truck to a suburb and sign off on a drywall permit.
+
+18:37.780 --> 18:39.120
+That is the exact friction.
+
+18:39.480 --> 18:46.640
+The demand for money, the volume and velocity of transactions, an economy needs to settle, moves incredibly fast.
+
+18:47.060 --> 18:51.920
+It can change literally overnight based on technological shifts or even consumer behavior.
+
+18:51.920 --> 18:55.400
+But the physical stock of buildings is slow-moving.
+
+18:55.880 --> 18:58.560
+It takes years to plan, permit, and construct a building.
+
+18:59.360 --> 19:04.620
+Therefore, a slow-moving physical stock is a terrible match for a fast-moving transactional economy.
+
+19:05.020 --> 19:05.860
+That makes so much sense.
+
+19:06.480 --> 19:10.640
+Without a mechanism to dynamically connect the money supply to the actual demand for money,
+
+19:11.340 --> 19:14.940
+the system heavily trends toward a chronic scarcity of currency.
+
+19:15.540 --> 19:17.580
+You would experience severe deflation.
+
+19:17.580 --> 19:19.520
+Because money gets too rare.
+
+19:19.980 --> 19:26.520
+Exactly. Money becomes so rare, it gains value rapidly, causing people to hoard it and stop spending it entirely,
+
+19:26.860 --> 19:30.200
+simply because physical construction is a slow, laborious process.
+
+19:30.420 --> 19:36.780
+So flaw one basically proves you just can't use buildings as the literal printing press for a national currency.
+
+19:37.020 --> 19:41.020
+But flaw two is even trickier, I think, because it isn't just about math.
+
+19:41.360 --> 19:43.720
+It gets into some heavy political philosophy.
+
+19:43.720 --> 19:47.720
+The author calls it the non-separability of sight and improvement.
+
+19:48.340 --> 19:51.540
+Or, to put a historical name to it, the Henry George problem.
+
+19:52.140 --> 19:55.740
+This is such a classic, enduring dilemma in political economy.
+
+19:56.280 --> 20:01.900
+Henry George, writing in the late 19th century, made a very influential and compelling distinction.
+
+20:02.620 --> 20:05.760
+He divided real estate into two conceptual buckets.
+
+20:06.260 --> 20:07.080
+Okay, what are the buckets?
+
+20:07.080 --> 20:12.320
+The first is the value of the land itself, the scarce spatial privilege.
+
+20:13.160 --> 20:17.600
+The second is the value of the things built upon it, the certified improvement.
+
+20:18.540 --> 20:21.860
+George argued vehemently that we should heavily tax the land value,
+
+20:21.980 --> 20:26.420
+because that value is created collectively by the surrounding community and infrastructure.
+
+20:26.640 --> 20:26.940
+Right.
+
+20:27.200 --> 20:29.860
+But he argued we should not tax the improvements,
+
+20:29.860 --> 20:33.940
+because those are created by the private builder's labor and private investment.
+
+20:34.460 --> 20:36.380
+It makes a lot of intuitive sense, honestly.
+
+20:36.380 --> 20:41.160
+If I clear a lot and build a beautiful house with my own two hands, I created that value.
+
+20:41.540 --> 20:45.540
+But if the city built a park and a massive new school across the street,
+
+20:45.700 --> 20:49.420
+making my lot suddenly worth ten times more, I didn't create that value.
+
+20:49.680 --> 20:50.500
+The community did.
+
+20:50.700 --> 20:51.080
+Exactly.
+
+20:51.340 --> 20:55.300
+And the paper tries to apply this George's logic directly to monetary issuance.
+
+20:55.660 --> 21:00.160
+The author explicitly wants to issue money against the certified improvement, the house I built,
+
+21:00.520 --> 21:05.160
+but strictly prohibit issuing money against the scarce spatial privilege of the land.
+
+21:05.160 --> 21:09.700
+Conceptually, it's a really fascinating monetary application of Georgism.
+
+21:10.460 --> 21:11.680
+The intention is pure.
+
+21:12.180 --> 21:14.740
+Reward creation, don't reward passive holding.
+
+21:15.380 --> 21:19.880
+The problem, as the author painfully points out by stress testing their own math,
+
+21:20.280 --> 21:25.940
+is that practically and mathematically, the site and the improvement are not cleanly separable.
+
+21:25.940 --> 21:31.320
+Okay, let me set up a hypothetical to see if I understand this non-separability correctly.
+
+21:31.720 --> 21:32.320
+Go for it.
+
+21:32.640 --> 21:35.020
+Imagine two absolutely identical houses.
+
+21:35.600 --> 21:40.100
+Same blueprints, same exact materials, built by the exact same crew on the exact same day.
+
+21:41.100 --> 21:47.340
+House A is built next to a newly completed, massive, taxpayer-funded subway station in a booming city.
+
+21:47.920 --> 21:51.900
+House B is built next to an abandoned landfill three hours outside the city.
+
+21:52.240 --> 21:52.900
+Good contrast.
+
+21:52.900 --> 21:58.820
+Right. So, the physical capacity, the concrete, the wood, the code compliance, is exactly the same.
+
+21:59.240 --> 22:03.800
+But the economic reality is that House A will generate vastly more economic utility
+
+22:03.800 --> 22:07.340
+and command a vastly higher price simply because of where it is.
+
+22:07.660 --> 22:08.180
+Precisely.
+
+22:08.660 --> 22:13.780
+And let's look at the mathematical notation the author uses to explain why this completely breaks the system.
+
+22:14.480 --> 22:18.120
+Let the exchange value of a given parcel be represented by V of X.
+
+22:18.560 --> 22:19.580
+Okay, V for value.
+
+22:19.580 --> 22:26.920
+The naive assumption, the one the system really relies on, is that V of X simply equals the site value, which we'll call S,
+
+22:27.360 --> 22:30.140
+plus the separate improvement value, which we'll call I.
+
+22:30.800 --> 22:32.640
+Value equals site plus improvement.
+
+22:33.000 --> 22:33.600
+Sounds simple.
+
+22:34.060 --> 22:34.520
+Too simple.
+
+22:34.900 --> 22:40.100
+Because the complex reality is that V of X equals S plus I plus J.
+
+22:40.500 --> 22:42.060
+The dreaded J variable.
+
+22:42.600 --> 22:43.160
+What is J?
+
+22:43.720 --> 22:45.320
+J is the interaction term.
+
+22:45.320 --> 22:47.120
+It represents complementarity.
+
+22:47.820 --> 22:53.240
+It is the extent to which the value of the improvement depends on the specific site and vice versa.
+
+22:53.500 --> 22:54.000
+Oh, I see.
+
+22:54.600 --> 23:01.480
+Going back to your hypothetical, the upgraded transit connection next to House A raises the location coefficient of that parcel.
+
+23:02.040 --> 23:05.000
+But it also raises the utility of the house sitting on it.
+
+23:05.540 --> 23:07.620
+The house is more valuable because of the subway.
+
+23:07.620 --> 23:13.180
+And the subway is actually more valuable because there are houses next to it to provide daily riders.
+
+23:13.620 --> 23:15.320
+They constantly interact with each other.
+
+23:15.500 --> 23:15.760
+They do.
+
+23:16.340 --> 23:24.600
+If you issue money against that increment of improvement, even if you claim you are only valuing the house, you are, in effect, capturing a public investment.
+
+23:25.280 --> 23:30.000
+You're monetizing the J term, which was created by the taxpayers who funded the subway.
+
+23:30.000 --> 23:34.060
+It's like a massive wealth transfer hiding inside a math equation.
+
+23:34.420 --> 23:36.880
+Now, I want to make a really quick note for you listening.
+
+23:37.360 --> 23:43.100
+We are neutrally describing this Georgist convention purely as a policy choice within the context of the paper.
+
+23:43.760 --> 23:50.580
+We aren't getting into the politics of whether taxing land and ignoring structures or vice versa is the right or wrong way to run a society.
+
+23:50.980 --> 23:51.220
+Absolutely not.
+
+23:51.220 --> 23:57.880
+That is fundamentally a massive political decision about who captures the economic gains of that J interaction term.
+
+23:58.180 --> 24:01.640
+We aren't endorsing it one way or the other, and frankly, neither is the paper.
+
+24:01.900 --> 24:09.260
+The author is simply pointing out that this system forces you to make a rigid convention, an unavoidable rule about who gets the money from J.
+
+24:09.500 --> 24:09.900
+Exactly.
+
+24:10.340 --> 24:13.040
+It's not a natural, objective, physical measurement.
+
+24:13.540 --> 24:18.440
+It's a highly subjective policy choice dressed up as objective physics.
+
+24:19.100 --> 24:20.140
+Which is dangerous.
+
+24:20.140 --> 24:25.000
+Which is exactly why the author concludes that the formulation fails at this stage.
+
+24:25.620 --> 24:26.380
+Think about it this way.
+
+24:27.220 --> 24:36.560
+Aggregate land rent in a city, under idealized economic conditions, is generally just enough to finance the public goods that make the land valuable in the first place.
+
+24:37.120 --> 24:39.380
+Like the roads, the sewers, the police, the schools.
+
+24:39.740 --> 24:40.000
+Right.
+
+24:40.000 --> 24:52.080
+If a monetary system refuses to issue against site value to avoid speculation, it is basically refusing to issue against the capitalized value of the infrastructure the community already paid for.
+
+24:52.080 --> 25:03.820
+It is a coherent policy position to take, certainly, but it absolutely destroys the illusion that the money being created is just a neutral, apolitical reflection of physical capacity.
+
+25:03.820 --> 25:08.840
+It completely forces the monetary system to take a controversial political stance.
+
+25:08.840 --> 25:17.200
+So, we have the missing numeraire causing massive deflation, and the Henry George problem forcing political choices into the math.
+
+25:17.600 --> 25:22.680
+But if flaws one and two weren't enough to sink the ship, flaw three is the absolute killer.
+
+25:22.800 --> 25:27.300
+I have to say, when I read this part, I literally laughed out loud because it's just such a human problem.
+
+25:27.300 --> 25:28.440
+Oh, it really is.
+
+25:28.620 --> 25:32.180
+It is the most severe internal contradiction in the whole paper.
+
+25:32.480 --> 25:35.840
+Flaw three is zoning as money printing.
+
+25:36.100 --> 25:36.860
+It's so funny.
+
+25:37.480 --> 25:38.900
+It's a devastating realization.
+
+25:39.500 --> 25:42.040
+Let's go back to the fundamental formula one more time.
+
+25:42.940 --> 25:46.100
+C of X equals A of X times Q of X times L of X.
+
+25:46.500 --> 25:50.160
+And remember, A is the legally permitted usable floor area.
+
+25:50.320 --> 25:51.320
+Legally permitted.
+
+25:51.720 --> 25:53.720
+That is the trap right there.
+
+25:53.720 --> 26:03.720
+If they measure the legally permitted floor area, I mean, what's stopping a town from just literally changing the definition of what's legal?
+
+26:04.180 --> 26:06.040
+That is exactly the loophole.
+
+26:06.420 --> 26:11.660
+Because zoning designations and permitted floor area ratios are not physical facts of the universe.
+
+26:12.540 --> 26:14.600
+They are instruments of public policy.
+
+26:15.060 --> 26:19.500
+They are legislative variables determined by city councils and zoning boards.
+
+26:19.900 --> 26:20.140
+Yeah.
+
+26:20.140 --> 26:31.060
+If a municipality simply votes on a random Tuesday night to change the zoning laws to allow 50-story skyscrapers on a city block that used to only allow single-family homes,
+
+26:31.500 --> 26:37.100
+they have mathematically exponentially increased the variable A for all those parcels.
+
+26:37.440 --> 26:38.900
+Without laying a single brick.
+
+26:39.700 --> 26:40.640
+They didn't pour any concrete.
+
+26:41.160 --> 26:42.420
+They didn't hire a single carpenter.
+
+26:42.940 --> 26:44.680
+They didn't even dig a hole in the ground.
+
+26:44.900 --> 26:48.400
+They just changed the legal state space on a piece of paper.
+
+26:48.400 --> 26:57.580
+And under the original rules of this system, where money is issued against capacity, that city council just literally printed money out of thin air.
+
+26:58.040 --> 26:58.440
+Yes, they did.
+
+26:59.480 --> 27:03.980
+The paper's golden rule was nothing physically changed, therefore nothing monetary changed.
+
+27:04.080 --> 27:11.280
+But here, a purely legal zoning amendment creates massive monetary capacity without a single physical change actually occurring.
+
+27:11.280 --> 27:15.780
+The political incentives this would create would be catastrophic and completely corrupting.
+
+27:16.140 --> 27:23.600
+A town that wanted to expand its local money supply or, you know, just enrich its local property owners could just infinitely redraw its zoning maps.
+
+27:23.780 --> 27:24.680
+People would go crazy.
+
+27:25.080 --> 27:30.940
+Property owners would lobby City Hall endlessly for upzoning, not because they actually intend to ever build a skyscraper,
+
+27:31.400 --> 27:36.400
+but simply to acquire a claim on the newly issued currency that the upzoning magically generates.
+
+27:36.400 --> 27:40.220
+It reminds me of the classic economic principle of Goodhart's law.
+
+27:40.940 --> 27:41.640
+You know, the one.
+
+27:41.840 --> 27:44.480
+When a measure becomes a target, it ceases to be a good measure.
+
+27:44.960 --> 27:51.700
+Oh, the paper explicitly cites Goodhart's law in this section, along with Campbell and Stratherer's work on metric fixation.
+
+27:52.020 --> 27:54.680
+It's just a textbook vulnerability in system design.
+
+27:54.680 --> 27:57.220
+It's exactly like teaching to the test.
+
+27:57.440 --> 28:03.220
+If you tell a school district that you are going to reward teachers based entirely on standardized test scores, what happens?
+
+28:03.720 --> 28:08.460
+The teachers stop teaching critical thinking, they stop teaching art, they stop fostering curiosity,
+
+28:08.460 --> 28:12.560
+and they just drill multiple choice test answers into the kids' heads all day long.
+
+28:12.620 --> 28:12.720
+Yep.
+
+28:12.940 --> 28:14.060
+They optimize for the metric.
+
+28:14.340 --> 28:14.660
+Exactly.
+
+28:15.080 --> 28:23.060
+In this capacity-backed system, builders are going to immediately optimize for the cheapest possible floor area that legally qualifies for the money.
+
+28:23.060 --> 28:31.020
+If the formula rewards square footage and basic code compliance, they will completely ignore all the hidden qualities of a building that actually make it good.
+
+28:32.020 --> 28:33.580
+They'll use the cheapest legal materials.
+
+28:34.040 --> 28:39.980
+They won't care about the durability of concealed pipes or the quality of finishes or the aesthetic impact on the neighborhood
+
+28:39.980 --> 28:43.860
+because those things aren't on the inspector's checklist for monetary issuance.
+
+28:44.220 --> 28:47.100
+The developer's objective mathematically shifts.
+
+28:47.100 --> 28:55.660
+Instead of maximizing the actual utility, beauty, and social value of the building for future tenants, they just maximize credit eligibility.
+
+28:56.260 --> 28:59.460
+They are building to satisfy an algorithm, not a human need.
+
+28:59.840 --> 29:05.420
+And this fundamentally changes the role of the building inspector, which is perhaps the most dangerous side effect of the whole thing.
+
+29:05.840 --> 29:09.940
+Right, because right now a building inspector is mostly there to just make sure my deck doesn't collapse.
+
+29:09.940 --> 29:14.720
+But in this system, the inspector literally becomes the gatekeeper to newly minted money.
+
+29:14.980 --> 29:16.340
+They become an adversary.
+
+29:17.200 --> 29:17.480
+Exactly.
+
+29:17.960 --> 29:21.660
+The inspector functions as what computer science calls an oracle.
+
+29:22.360 --> 29:26.860
+The financial ledger, the database tracking all this money, is closed and mathematical.
+
+29:27.580 --> 29:33.100
+But it has to trust an off-ledger, real-world observation made by a flawed human being.
+
+29:33.220 --> 29:34.020
+That's a lot of pressure.
+
+29:34.020 --> 29:44.040
+The integrity of the entire national monetary system would be bounded mathematically by the integrity of that single inspector's observation on a Tuesday morning.
+
+29:44.820 --> 29:50.060
+So, to prevent corruption, you suddenly need massive, heavy-handed adversarial institutions.
+
+29:50.680 --> 29:51.500
+Like what?
+
+29:51.880 --> 29:57.220
+You would need constant randomized rotation of inspectors so developers couldn't buddy up with them.
+
+29:57.860 --> 30:01.080
+You'd need unpredictable sampling audits by federal overseers.
+
+30:01.080 --> 30:07.040
+You'd need intense legal liability, maybe even criminal penalties for false attestations.
+
+30:07.820 --> 30:14.540
+And you'd need a really robust legal mechanism to challenge and reverse credit issuance if fraud is discovered years later.
+
+30:14.940 --> 30:22.620
+You know, listening to all this talk of ledgers and trusting oracles and cryptographic records, my mind immediately goes to Web3.
+
+30:22.620 --> 30:31.860
+I can easily imagine a listener right now thinking, wait a minute, is this entire 2026 paper just an elaborate pitch for a real estate cryptocurrency?
+
+30:32.560 --> 30:35.580
+Is this literally just blockchain for a drywall?
+
+30:35.800 --> 30:40.000
+It is a very natural assumption to make, given the vocabulary the author uses.
+
+30:40.500 --> 30:45.240
+They use terms like append-only records, hashing, and decentralized verification.
+
+30:45.240 --> 30:54.000
+But the author devotes a significant, highly technical section of the paper to fiercely and explicitly rejecting that comparison.
+
+30:54.420 --> 30:55.380
+Okay, good to know.
+
+30:55.980 --> 31:04.940
+The architecture of this system might share some superficial structural similarities with crypto, but they are built to solve entirely different, almost opposite problems.
+
+31:05.380 --> 31:09.980
+Let's dive into that distinction because I think it clarifies a lot about what makes this paper so unique.
+
+31:10.620 --> 31:14.180
+Why is this emphatically not a blockchain?
+
+31:14.180 --> 31:20.100
+The fundamental difference lies in the concept of verification and what is actually being verified.
+
+31:20.920 --> 31:25.420
+Blockchains, at their core, solve the problem of agreement about records.
+
+31:25.740 --> 31:26.060
+Agreement.
+
+31:26.660 --> 31:26.960
+Yes.
+
+31:27.380 --> 31:31.860
+If you have 10,000 computers distributed around the world, you have a massive problem.
+
+31:32.360 --> 31:35.620
+How do they all agree on who owns what without a central bank?
+
+31:35.620 --> 31:47.180
+A consensus mechanism, like proof-of-work and Bitcoin or proof-of-stake, ensures that all 10,000 computers agree on which history of the ledger is the canonical, true history.
+
+31:47.580 --> 31:47.780
+Right.
+
+31:48.300 --> 31:50.940
+It basically stops the double-spend problem digitally.
+
+31:51.460 --> 31:59.420
+It makes sure I can't send the same digital token to two different people, which is, you know, an incredible computer science breakthrough for digital scarcity.
+
+31:59.420 --> 32:00.360
+Yes, it is.
+
+32:00.580 --> 32:04.260
+But this built capacity system doesn't care primarily about digital agreement.
+
+32:04.960 --> 32:08.140
+It must solve the problem of warrant for records.
+
+32:09.140 --> 32:12.680
+Consensus protocols can agree perfectly that a digital certificate was signed.
+
+32:13.500 --> 32:16.320
+10,000 nodes can easily verify the cryptography.
+
+32:16.740 --> 32:22.520
+But a blockchain cannot verify if the foundation was actually reinforced in physical reality.
+
+32:22.520 --> 32:24.500
+Oh, that makes so much sense.
+
+32:24.560 --> 32:25.260
+It's like Wikipedia.
+
+32:26.320 --> 32:26.920
+Oh, how so?
+
+32:27.460 --> 32:43.200
+While the servers hosting Wikipedia are perfectly secure, the code running the site is totally flawless, the database replicates across the world instantly, but if the human being typing the article is lying, the flawless code just beautifully, immutably preserves a lie.
+
+32:43.580 --> 32:44.080
+Exactly.
+
+32:44.660 --> 32:49.300
+I could get 10,000 decentralized computers to agree perfectly on a total falsehood.
+
+32:49.300 --> 32:56.220
+If the builder bribed the building inspector, the blockchain just faithfully records the bribed lie forever.
+
+32:56.920 --> 33:01.340
+The real vulnerability in the system isn't some hacker breaking the cryptography in a basement.
+
+33:01.800 --> 33:06.100
+The vulnerability is literally a guy with a clipboard taking a bribe on a construction site.
+
+33:06.380 --> 33:09.060
+That Wikipedia analogy is so spot on.
+
+33:09.940 --> 33:13.860
+The paper states this beautifully by defining what they call the trust boundary.
+
+33:13.860 --> 33:20.540
+In a blockchain network, the trust boundary is purely internal, like which history of the digital ledger do we accept as valid?
+
+33:20.940 --> 33:21.060
+Right.
+
+33:21.280 --> 33:25.660
+But in the capacity architecture, the trust boundary is the physical oracle itself.
+
+33:26.400 --> 33:31.360
+The fundamental question is, did this physical event actually happen in the dirt and the concrete?
+
+33:32.340 --> 33:36.560
+Replicating a false attestation across 10,000 nodes makes the record highly durable.
+
+33:36.940 --> 33:41.080
+It makes it impossible to delete, but it absolutely does not make it true.
+
+33:41.080 --> 33:47.400
+And this brings up a huge philosophical difference about a word the crypto community just loves, immutability.
+
+33:48.080 --> 33:55.720
+The fact that you cannot change, edit, or delete a record once it's on the blockchain is always touted as its greatest feature.
+
+33:55.900 --> 33:56.720
+It's permanent.
+
+33:57.400 --> 34:01.920
+Yes, but in the physical world, immutability is a bug, not a feature.
+
+34:02.360 --> 34:02.720
+Right.
+
+34:02.720 --> 34:06.540
+The physical world is messy, degradable, and subject to error.
+
+34:07.400 --> 34:11.760
+What happens if a building that was issued money burns to the ground the very next week?
+
+34:12.560 --> 34:22.580
+What happens if you discover three years later during a renovation that the original inspector was indeed bribed and the required fire separations simply don't exist behind the drywall?
+
+34:22.580 --> 34:30.360
+You can't just pretend the building is still there or that the fire separations magically exist just because the blockchain says it's written in stone.
+
+34:30.580 --> 34:34.600
+You have to be able to correct the record to reflect physical reality.
+
+34:35.380 --> 34:35.820
+Precisely.
+
+34:36.520 --> 34:41.320
+An immutable record is not necessarily an accurate record of a mutable world.
+
+34:42.000 --> 34:46.520
+The system requires what the author calls a defeating entry or a retraction.
+
+34:46.520 --> 34:50.020
+How does a retraction work without deleting history?
+
+34:50.860 --> 35:01.480
+Well, importantly, you don't silently delete the old fraudulent record because full auditability requires an append-only history to track exactly who made the mistake or committed the fraud.
+
+35:02.180 --> 35:07.780
+Instead, you add a new entry to the chain that explicitly retracts the authority of the previous one.
+
+35:08.300 --> 35:09.060
+Oh, okay.
+
+35:09.060 --> 35:16.400
+The historical ledger preserves the error for auditing purposes, but the authoritative present state reflects the correction.
+
+35:16.840 --> 35:19.760
+It basically aligns the ledger back with physical truth.
+
+35:20.260 --> 35:21.060
+That makes total sense.
+
+35:21.420 --> 35:24.180
+It's a ledger of reality, not a ledger of algorithms.
+
+35:24.880 --> 35:29.540
+And another point the paper makes in rejecting the crypto comparison is about scarcity itself.
+
+35:29.540 --> 35:39.420
+Bitcoin uses artificial computational scarcity, literally wasting massive amounts of electricity solving math puzzles to regulate consensus and limit supply.
+
+35:40.100 --> 35:45.800
+Proof of stake uses artificial protocol asset scarcity, limiting supply based on who holds the most tokens.
+
+35:46.320 --> 35:46.440
+Right.
+
+35:47.180 --> 35:52.180
+And this built capacity system has absolutely no need to manufacture artificial scarcity through math.
+
+35:52.820 --> 35:58.520
+The constraints on the money supply are already perfectly provided by physical reality and human institutions.
+
+35:58.520 --> 36:00.300
+Because land is finite.
+
+36:00.720 --> 36:00.980
+Exactly.
+
+36:01.400 --> 36:04.160
+Land occupies finite Euclidean locations.
+
+36:04.880 --> 36:10.180
+Construction consumes finite physical materials, lumber, steel, copper, and finite human labor.
+
+36:11.080 --> 36:13.440
+Physical transformations take actual time to complete.
+
+36:14.260 --> 36:15.620
+Inspections take human effort.
+
+36:16.300 --> 36:19.180
+The physical world is just inherently stubbornly scarce.
+
+36:19.860 --> 36:23.740
+You don't need to invent a cryptographic math puzzle to slow the inflation rate down.
+
+36:23.740 --> 36:28.320
+The speed of pouring concrete and framing timber naturally regulates the pace of issuance.
+
+36:28.520 --> 36:29.900
+It's self-regulating in that way.
+
+36:30.360 --> 36:32.540
+Okay, let's take a breath and recap where we are.
+
+36:33.080 --> 36:34.040
+It's not a blockchain.
+
+36:35.200 --> 36:43.880
+And the literal idea of capacity-backed money, treating buildings as literal currency, fails catastrophically because of the missing numeraire, causing deflation.
+
+36:44.340 --> 36:47.580
+The Henry George problem, forcing political wealth transfers.
+
+36:47.880 --> 36:49.940
+And the zoning loophole, causing Goodhart's Law.
+
+36:50.300 --> 36:52.540
+The author thoroughly tore down their own house.
+
+36:53.080 --> 36:53.700
+They really did.
+
+36:54.260 --> 36:56.080
+So, what are we actually left with?
+
+36:56.560 --> 37:02.460
+How do we save the core, compelling insight that value should be tied to physical truth rather than market speculation?
+
+37:03.080 --> 37:05.420
+This is where we reach the major pivot in the paper.
+
+37:06.100 --> 37:10.220
+We transition from a theory of money to a theory of credit.
+
+37:10.780 --> 37:11.580
+Okay, credit.
+
+37:11.580 --> 37:16.740
+And to understand why this pivot isn't just a slight adjustment, but a strictly necessary overhaul.
+
+37:17.200 --> 37:20.900
+We really have to talk about what the author calls the burning building problem.
+
+37:21.540 --> 37:22.820
+The burning building problem.
+
+37:22.820 --> 37:26.100
+That sounds like the ultimate stress test of the physical money theory.
+
+37:26.300 --> 37:26.700
+Oh, yes.
+
+37:26.700 --> 37:29.540
+Let's say we stubbornly stuck with the original idea.
+
+37:30.120 --> 37:36.800
+The total monetary base of the national economy is directly rigidly tied to the total stock of physical build capacity.
+
+37:37.360 --> 37:41.980
+Every building in the country represents a fraction of the circulating currency in people's wallets.
+
+37:42.280 --> 37:43.120
+Okay, I'm with you.
+
+37:43.340 --> 37:47.480
+Now, imagine a massive warehouse in Ohio burns to the ground.
+
+37:47.920 --> 37:51.180
+Or a hurricane wipes out a coastal town in Florida.
+
+37:51.180 --> 37:56.120
+Massive amounts of physical capacity are destroyed literally overnight.
+
+37:56.920 --> 38:00.460
+If the physical capacity drops, the monetary base must drop to match it.
+
+38:00.780 --> 38:04.920
+Otherwise, the money is no longer fully backed by capacity and the whole premise is just a lie.
+
+38:05.240 --> 38:05.600
+Exactly.
+
+38:06.280 --> 38:08.640
+The math demands a reduction in the money supply.
+
+38:09.460 --> 38:12.180
+But how do you actually execute that in the real world?
+
+38:12.780 --> 38:13.880
+Oh, right.
+
+38:14.220 --> 38:18.120
+The money issued against that Florida town has already escaped into general circulation.
+
+38:18.640 --> 38:20.260
+It's sitting in bank accounts in New York.
+
+38:20.260 --> 38:22.480
+It's being used to buy groceries in Texas.
+
+38:22.860 --> 38:29.780
+You can't just randomly delete thousands of dollars from your checking account in California because a warehouse in Ohio burned down.
+
+38:30.420 --> 38:31.640
+That would be insane.
+
+38:32.660 --> 38:33.840
+I didn't cause the fire.
+
+38:34.000 --> 38:37.860
+I have absolutely no relationship to the warehouse, and I don't even know who owns it.
+
+38:38.020 --> 38:38.240
+Right.
+
+38:38.500 --> 38:41.180
+That would cause an immediate catastrophic bank run.
+
+38:41.440 --> 38:49.800
+If normal people knew their life savings could just literally vanish from their accounts at any moment because of a localized fire or flood three states over, they would panic.
+
+38:50.260 --> 38:52.400
+They would pull all their money out of the system immediately.
+
+38:52.800 --> 38:53.100
+Obviously.
+
+38:53.580 --> 39:00.900
+The alternative is that the government would have to step in and basically lower the backing ratio, saying, okay, money is now only 90% backed by buildings.
+
+39:01.200 --> 39:06.680
+Which completely admits the whole fully backed thing was a fiction anyway, bringing us right back to fiat money.
+
+39:06.680 --> 39:07.200
+Exactly.
+
+39:07.680 --> 39:13.740
+The paper actually includes another incredibly detailed dimensionless simulation to illustrate exactly this.
+
+39:14.220 --> 39:17.060
+They call it the capacity destruction shock.
+
+39:17.640 --> 39:18.860
+And what does the simulation show?
+
+39:18.860 --> 39:26.200
+It graphs a literal stock-backed monetary base crashing down universally when a discrete localized loss event occurs.
+
+39:27.020 --> 39:37.760
+The simulation shows that the incidence of the loss falls on every single holder of the currency across the entire economy, entirely irrespective of their actual exposure to the physical asset that was destroyed.
+
+39:37.900 --> 39:38.500
+Wow.
+
+39:38.500 --> 39:46.620
+It essentially proves mathematically that a currency tied to a physical stock is completely unworkable in a world where things break, burn, and degrade.
+
+39:46.840 --> 39:49.460
+So the currency idea is officially dead.
+
+39:50.000 --> 39:51.080
+What is the author's solution?
+
+39:51.660 --> 39:54.920
+The solution is this central conceptual leap of the entire paper.
+
+39:54.920 --> 39:59.520
+The author basically writes, stop treating the stock of buildings as money.
+
+40:00.220 --> 40:05.420
+Treat the event of a certified building transformation as underwriting information for a loan.
+
+40:05.420 --> 40:09.840
+Okay, let me chew on that and try an analogy to make sure I'm really grasping the shift here.
+
+40:10.040 --> 40:10.220
+Go ahead.
+
+40:10.480 --> 40:18.820
+It's the difference between looking at a newly finished house and saying this house is a million dollars, which creates all those destruction problems we just talked about,
+
+40:18.820 --> 40:25.780
+versus saying the act of you building this house proves you have done something objectively valuable in the real world.
+
+40:26.300 --> 40:34.160
+Therefore, based on that verified physical act, you are granted a million-dollar loan, which you have to pay back over time as the house physically ages.
+
+40:35.020 --> 40:36.200
+That is exactly the mechanism.
+
+40:36.620 --> 40:41.860
+You shift from issuing a permanent currency to originating an amortizing transformation loan.
+
+40:42.280 --> 40:46.320
+If a building burns down now, it absolutely does not destroy the national money supply.
+
+40:46.980 --> 40:48.260
+Because it's just a loan.
+
+40:48.260 --> 40:48.780
+Right.
+
+40:49.160 --> 40:55.160
+It simply destroys the collateral for a specific loan held by a specific borrower and a specific lending institution,
+
+40:55.680 --> 40:58.660
+who willingly and explicitly contracted for that exact exposure.
+
+40:59.460 --> 41:01.840
+The systemic contagion is completely contained.
+
+41:02.320 --> 41:03.400
+That makes total sense.
+
+41:03.640 --> 41:07.980
+If that Florida town washes away, the local banks and insurers take a massive hit.
+
+41:08.200 --> 41:12.140
+But the checking account of a teacher in California remains perfectly untouched.
+
+41:12.520 --> 41:15.860
+It localizes the destruction to the parties who actually took the risk.
+
+41:16.040 --> 41:17.980
+That solves the burning building problem.
+
+41:18.260 --> 41:18.940
+Perfectly.
+
+41:19.160 --> 41:20.240
+It really does.
+
+41:20.920 --> 41:26.800
+And crucially, it also naturally accounts for depreciation, which the currency model really struggled with.
+
+41:27.560 --> 41:29.740
+Buildings naturally decay over time, right?
+
+41:30.200 --> 41:32.300
+Roofs leak, foundations settle, pipes corrode.
+
+41:32.720 --> 41:33.600
+Things fall apart.
+
+41:33.600 --> 41:44.420
+In a loan model, the loan naturally amortizes, meaning it is paid down by the borrower month by month at a rate that is designed to at least match the physical depreciation of the asset.
+
+41:44.420 --> 41:45.860
+Oh, that's clever.
+
+41:46.280 --> 41:49.900
+And if the homeowner does maintenance, like if they put on a new roof?
+
+41:49.900 --> 41:56.520
+That constitutes a new certified physical transformation that can generate a new credit increment to offset the decay.
+
+41:57.020 --> 41:59.760
+It mirrors the physical life cycle of the building perfectly.
+
+41:59.760 --> 42:02.660
+But wait, I see a potential hole here.
+
+42:02.740 --> 42:07.060
+We transition to loans, which completely fixes the destruction problem.
+
+42:07.560 --> 42:11.800
+But we still have the Goodhart's Law problem and the zoning loophole and the Henry George problem.
+
+42:11.800 --> 42:20.500
+If the size of the loan is based on the value of the building, aren't we still just guessing what it's worth or letting city councils print money by upzoning?
+
+42:20.800 --> 42:23.860
+We absolutely would be if the loan was based on market value.
+
+42:24.520 --> 42:29.380
+But the author introduces the final crucial piece of the puzzle to lock the system down completely.
+
+42:30.040 --> 42:31.760
+The replacement cost index.
+
+42:31.960 --> 42:33.360
+The replacement cost index.
+
+42:33.360 --> 42:33.800
+Yes.
+
+42:34.260 --> 42:48.620
+To prevent speculative bidding and political manipulation from creeping back in, the permitted credit for a transformation is based strictly and exclusively on the standardized regional replacement cost of the physical materials and labor required to actually build it.
+
+42:48.740 --> 42:49.260
+Oh, I see.
+
+42:49.320 --> 42:53.020
+So if I want to refinance my house under this system, we aren't looking at Zillow.
+
+42:53.240 --> 42:56.160
+We aren't looking at recent sales of similar homes in the area.
+
+42:56.280 --> 42:56.960
+No Zillow.
+
+42:56.960 --> 43:09.580
+The bank looks at a localized, heavily audited index of what drywall, two-by-fours, copper piping, concrete, and union labor actually cost to procure in my specific zip code on that specific day.
+
+43:09.660 --> 43:10.140
+Precisely.
+
+43:10.680 --> 43:15.540
+The credit is tethered to the physical cost of production, not the subjective price of exchange.
+
+43:16.360 --> 43:21.580
+Let's look at how this officially blocks that massive zoning-as-money-printing loophole we discussed earlier.
+
+43:21.680 --> 43:22.680
+Yeah, how does it fix that?
+
+43:22.680 --> 43:26.080
+The rule is basically reformulated under this credit paradigm.
+
+43:26.820 --> 43:30.100
+No realized physical transformation equals no credit.
+
+43:30.900 --> 43:43.300
+If the city council votes to upzone a vacant lot to allow a 50-story skyscraper, but the owner hasn't actually poured any concrete or bought any steel, the fiscal replacement cost of their transformation is literally zero.
+
+43:43.420 --> 43:44.900
+Because they haven't built anything yet?
+
+43:45.140 --> 43:48.000
+Therefore, their credit eligibility is exactly zero.
+
+43:48.000 --> 43:55.280
+They cannot lobby the city council to print money for them, because the legal right to build is not a physical transformation.
+
+43:55.860 --> 43:56.740
+That is just brilliant.
+
+43:57.280 --> 44:03.440
+The legislative change, the upzoning, just creates an option, an entitlement to build in the future.
+
+44:04.060 --> 44:11.300
+But the built, certified physical capacity measured in raw materials and labor is the absolute only base for credit.
+
+44:11.300 --> 44:14.380
+And it neatly solves the Henry George problem as well.
+
+44:15.220 --> 44:23.180
+By strictly tying the loan amount to the replacement cost of the physical structure, you are mathematically excluding the speculative scarcity rent of the site itself.
+
+44:23.580 --> 44:27.080
+Let's go back to my hypothetical of the two identical houses to test that.
+
+44:27.360 --> 44:28.740
+House A, next to the subway.
+
+44:29.140 --> 44:30.600
+House B, next to the landfill.
+
+44:30.600 --> 44:36.380
+Because they are physically identical, they require the exact same amount of wood, concrete, and labor to build.
+
+44:36.920 --> 44:41.900
+Therefore, under the Replacement Cost Index, they qualify for the exact same amount of credit.
+
+44:42.380 --> 44:46.060
+Even though House A would sell for 10 times more on the open market.
+
+44:46.440 --> 44:46.840
+Exactly.
+
+44:47.460 --> 44:50.640
+The system just flat out refuses to monetize the location premium.
+
+44:50.640 --> 44:57.760
+Now, a house built in a remote northern town might qualify for a slightly different loan amount than an identical house in a southern city,
+
+44:57.980 --> 45:06.460
+but only because the raw cost of transporting materials and hiring specialized labor to work in the freezing cold north genuinely costs more in physical terms.
+
+45:06.980 --> 45:11.700
+It has absolutely nothing to do with the fact that the southern city's land is considered trendier.
+
+45:11.940 --> 45:18.060
+It fundamentally separates the physical conditions of production from the speculative scarcity of space.
+
+45:18.060 --> 45:26.520
+It forces the financial ledger to finally tell the objective truth about the physical world without getting distracted by market psychology.
+
+45:26.780 --> 45:29.880
+It does. It anchors finance in physics and labor.
+
+45:30.560 --> 45:36.340
+But we really have to address the geography aspect more closely because the author originally had a very radical,
+
+45:36.920 --> 45:41.160
+almost sci-fi idea about space and money that they ultimately had to abandon.
+
+45:41.500 --> 45:43.020
+Right, the spatial currency idea?
+
+45:43.120 --> 45:46.420
+Yes. I want to talk about this because it's such a wild thought experiment.
+
+45:46.420 --> 45:50.860
+The paper originally proposed what it called a spatial currency.
+
+45:51.400 --> 46:00.340
+The idea was that a dollar originated by a physical building should actually be worth less the further it travels geographically from that specific building.
+
+46:00.680 --> 46:05.260
+Yes. The mathematical concept the author toyed with was a symmetric penalty for distance.
+
+46:05.840 --> 46:08.100
+They used an exponential decay function to model it.
+
+46:08.780 --> 46:11.280
+How does an exponential decay function work for money?
+
+46:11.280 --> 46:18.860
+Imagine a vast graph where the vertices are municipalities and the edges connecting them are physical infrastructure like roads or rail lines.
+
+46:19.920 --> 46:29.960
+A unit of currency issued at location U would exchange for a unit at location V at a rate that decays exponentially based on the infrastructural distance between them.
+
+46:29.960 --> 46:32.200
+So, let me put myself in this world.
+
+46:32.620 --> 46:37.920
+If I get a loan issued against my newly built house in Boston, that money is perfectly strong.
+
+46:38.220 --> 46:41.580
+It's worth 100 cents on the dollar as long as I spend it in Boston.
+
+46:41.780 --> 46:42.040
+Correct.
+
+46:42.380 --> 46:48.180
+But if I take a flight and try to spend that exact same money in Seattle, the system automatically haircuts it?
+
+46:48.540 --> 46:52.340
+It's mathematically worth less because it's far away from its collateral.
+
+46:52.340 --> 46:54.240
+That was the initial thought experiment, yeah.
+
+46:54.640 --> 46:56.940
+And the math inside the paper actually holds up internally.
+
+46:57.540 --> 47:01.040
+The author provides proofs showing there is no routing arbitrage.
+
+47:01.440 --> 47:02.080
+What does that mean?
+
+47:02.520 --> 47:08.800
+Meaning you can't game the system by bouncing the money through 10 intermediate cities to artificially preserve its value.
+
+47:09.740 --> 47:14.520
+The shortest infrastructural path is always the most efficient exchange rate, but...
+
+47:14.520 --> 47:18.840
+The math might work on a chalkboard, but human behavior absolutely ruins it.
+
+47:18.900 --> 47:19.460
+It always does.
+
+47:19.460 --> 47:25.740
+If I live in this system and I have two types of money in my digital wallet, one that holds its value everywhere I go,
+
+47:26.160 --> 47:32.460
+and one that loses, say, 10% of its value if I drive across town, I know exactly what I'm doing.
+
+47:32.620 --> 47:37.280
+I am spending the weak local money as fast as humanly possible trying to get rid of it,
+
+47:37.360 --> 47:41.840
+and I am hoarding the strong global money under my mattress or in a vault somewhere.
+
+47:42.100 --> 47:44.200
+You've just perfectly described Gresham's Law.
+
+47:44.560 --> 47:46.900
+It's literally one of the oldest principles in economics.
+
+47:47.240 --> 47:49.040
+Bad money drives out good.
+
+47:49.460 --> 47:56.880
+If you have two currencies circulating side by side, people will always spend the one they perceive as weaker and hoard the one they perceive as stronger.
+
+47:57.180 --> 47:58.120
+That's just human nature.
+
+47:58.860 --> 48:02.460
+The paper totally acknowledges this fatal flaw in the spatial currency idea.
+
+48:02.460 --> 48:10.080
+If a booming region is building a lot and issuing lots of this local spatial currency and a neighboring stagnant region isn't,
+
+48:10.560 --> 48:14.120
+the fixed decay conversion rate will cause absolute economic chaos.
+
+48:14.520 --> 48:15.040
+Chaos how?
+
+48:15.040 --> 48:20.020
+Goods will flood into the boom region to capture the local currency before it decays.
+
+48:20.620 --> 48:26.180
+People will hoard the scarce currency of the stagnant region, and you'll have a massive, unmanageable economic distortion.
+
+48:26.180 --> 48:32.240
+The paper actually mentions a couple of fascinating historical precedents here to prove why this doesn't work, right?
+
+48:32.340 --> 48:36.680
+Like the Swiss Weir network and the Virgil experiment?
+
+48:37.360 --> 48:37.560
+Yes.
+
+48:37.840 --> 48:42.720
+Those two examples are almost always brought up by proponents of alternative or local currencies.
+
+48:43.500 --> 48:49.040
+The Swiss Weir is a firm-to-firm mutual credit network that has existed since the 1930s.
+
+48:49.040 --> 48:51.620
+But it is fundamentally counter-cyclical.
+
+48:52.080 --> 48:57.660
+It expands when the normal banking system contracts and is not physically backed in the way this paper proposes.
+
+48:58.460 --> 48:59.160
+And what about Virgil?
+
+48:59.700 --> 49:02.560
+The more relevant example is the Virgil experiment.
+
+49:03.380 --> 49:07.020
+Virgil was a small Austrian town in the 1930s during the Great Depression.
+
+49:07.680 --> 49:11.100
+The mayor, who was basically desperate to stimulate the local economy,
+
+49:11.720 --> 49:16.660
+experimented with an idea from a theorist named Silvio Gazelle called demurage-bearing money.
+
+49:17.400 --> 49:17.880
+Demurage.
+
+49:17.880 --> 49:20.900
+That means money that essentially rusts, right?
+
+49:21.100 --> 49:21.440
+Exactly.
+
+49:22.080 --> 49:24.240
+The Virgil currency literally decayed over time.
+
+49:25.120 --> 49:29.600
+To keep a banknote valid, you had to physically buy a stamp every month and affix it to the note.
+
+49:29.980 --> 49:31.140
+That is wild.
+
+49:31.520 --> 49:33.200
+It functioned as a penalty for hoarding.
+
+49:33.660 --> 49:35.740
+It forced people to spend the money instantly,
+
+49:36.080 --> 49:40.700
+which rapidly increased the velocity of money and temporarily stimulated the town's economy,
+
+49:41.140 --> 49:43.480
+getting people back to work, paving roads, and building bridges.
+
+49:43.880 --> 49:45.320
+It's a fascinating piece of history.
+
+49:45.320 --> 49:49.920
+But the author realizes that these historical examples, while super interesting,
+
+49:50.380 --> 49:53.360
+don't actually support a built capacity backing rule.
+
+49:53.680 --> 49:58.040
+The Gresham dynamic, the tendency for people to game the differing values of money,
+
+49:58.180 --> 50:00.080
+is simply too strong to overcome.
+
+50:00.340 --> 50:00.460
+Right.
+
+50:00.460 --> 50:04.940
+So, facing this reality, the author makes another brilliant pivot.
+
+50:05.380 --> 50:07.300
+They demote the spatial element.
+
+50:07.740 --> 50:08.140
+They do.
+
+50:08.500 --> 50:09.400
+Demote it how?
+
+50:09.700 --> 50:11.720
+Do they just give up on geography entirely?
+
+50:12.020 --> 50:12.820
+Not entirely, no.
+
+50:13.380 --> 50:15.760
+They abandon the idea of a decaying currency.
+
+50:16.400 --> 50:19.680
+We don't need a new, exotic, geographically constrained money.
+
+50:19.680 --> 50:24.580
+We just use normal dollars or euros or whatever the national fiat currency is.
+
+50:25.180 --> 50:29.040
+But the ledger tracking the loans retains the spatial topology.
+
+50:29.720 --> 50:30.560
+Wait, I don't follow.
+
+50:30.960 --> 50:35.860
+We use the graph of vertices and municipalities and roads not to punish the currency unit,
+
+50:36.240 --> 50:39.440
+but to intelligently manage systemic risk behind the scenes.
+
+50:40.140 --> 50:40.700
+Oh, I see.
+
+50:40.700 --> 50:45.880
+So, a local bank is issuing perfectly normal USD loans to builders against these certified
+
+50:45.880 --> 50:46.960
+physical improvements.
+
+50:47.660 --> 50:49.720
+The money spends exactly the same everywhere.
+
+50:50.260 --> 50:55.720
+But the central ledger, or maybe the regulator, can see exactly where all that physical collateral
+
+50:55.720 --> 50:57.240
+physically sits on the map.
+
+50:57.320 --> 50:57.560
+Yes.
+
+50:58.180 --> 51:00.560
+You define a prudential risk rule based on the geography.
+
+51:01.180 --> 51:02.640
+A regulator can say to a bank,
+
+51:02.640 --> 51:07.720
+Looking at the spatial ledger, we see that 40% of your collateral is backed by buildings
+
+51:07.720 --> 51:10.040
+that rely on a single municipal water system.
+
+51:10.700 --> 51:12.440
+That is way too much correlated risk.
+
+51:12.800 --> 51:13.680
+You must diversify.
+
+51:14.000 --> 51:15.040
+That is so smart.
+
+51:15.600 --> 51:20.540
+Or they could say, no more than 5% of your total loan portfolio can be located in this
+
+51:20.540 --> 51:22.160
+specific coastal floodplain.
+
+51:22.620 --> 51:25.700
+Because if a hurricane hits, your collateral is completely wiped out.
+
+51:26.540 --> 51:32.200
+The spatial topology basically becomes a sophisticated tool for auditing systemic infrastructure risk,
+
+51:32.200 --> 51:36.600
+rather than a weird penalty on the unit of account that consumers have to deal with.
+
+51:37.440 --> 51:38.720
+That is incredibly practical.
+
+51:39.620 --> 51:45.000
+Location becomes a property of the provenance of the claim, basically a risk metric for the
+
+51:45.000 --> 51:46.640
+bank, not a property of the money itself.
+
+51:47.500 --> 51:50.960
+Okay, so we've stripped away the magical decaying spatial currency.
+
+51:51.240 --> 51:54.580
+We've stripped away the literal printing of money by zoning boards.
+
+51:54.980 --> 51:55.100
+Yep.
+
+51:55.260 --> 52:00.580
+We are left with a surprisingly sober system of amortizing loans denominated in normal fiat
+
+52:00.580 --> 52:06.760
+currency, underwritten strictly by the localized replacement cost of certified physical improvements.
+
+52:07.320 --> 52:10.960
+Which brings us to the final and perhaps most difficult hurdle, governance.
+
+52:11.300 --> 52:11.980
+Ah, governance.
+
+52:12.300 --> 52:17.000
+If this system is so pragmatic and relies on real world measurements, who actually controls
+
+52:17.000 --> 52:17.160
+it?
+
+52:17.420 --> 52:21.160
+Right, because earlier we talked about the oracle problem, the bribeable inspector.
+
+52:21.160 --> 52:26.340
+But the governance issue goes much, much deeper than one corrupt guy with a clipboard.
+
+52:26.340 --> 52:30.920
+The crypto world, which we contrasted this with earlier, loves to claim that algorithms
+
+52:30.920 --> 52:32.680
+completely remove human discretion.
+
+52:33.080 --> 52:34.080
+Code is law, they say.
+
+52:34.220 --> 52:34.940
+Code is law.
+
+52:35.200 --> 52:35.580
+Exactly.
+
+52:35.940 --> 52:38.280
+If it's in the smart contract, it's objective.
+
+52:38.840 --> 52:43.020
+But this paper takes a very different, much more realistic stance.
+
+52:43.180 --> 52:44.980
+A refreshingly honest stance, I'd say.
+
+52:44.980 --> 52:50.200
+The paper explicitly states a principle that literally anyone designing systems should memorize.
+
+52:51.120 --> 52:54.840
+Rule-based issuance is not discretion-free issuance.
+
+52:55.440 --> 52:57.360
+Discretion hasn't been eliminated by math.
+
+52:57.620 --> 52:59.400
+It is simply migrated upstream.
+
+53:00.360 --> 53:04.880
+So, if the algorithm executing the loan isn't biased, who is?
+
+53:05.060 --> 53:07.700
+Where does the human bias live in this system?
+
+53:08.180 --> 53:11.400
+Look closely at the parameters required to run this system.
+
+53:11.400 --> 53:17.060
+Who chooses which edition of the International Building Code applies to a specific town?
+
+53:17.400 --> 53:20.760
+Who officially constructs and audits the replacement cost index?
+
+53:21.120 --> 53:24.420
+Like, which suppliers do they survey and which do they ignore?
+
+53:24.960 --> 53:25.080
+Right.
+
+53:25.280 --> 53:28.940
+Who accredits the inspectors and decides what constitutes a passing grade?
+
+53:29.480 --> 53:32.860
+Who sits on the appellate board that decides the financial consequences
+
+53:32.860 --> 53:35.820
+if a fraudulent attestation is discovered years later?
+
+53:36.260 --> 53:39.980
+Who sets the haircut ratio on the collateral for the banks?
+
+53:39.980 --> 53:46.940
+Every single one of those is a deeply human decision with massive economy-altering monetary consequences.
+
+53:47.700 --> 53:52.620
+If the concrete industry lobby gets a seat on the board that defines the replacement cost index,
+
+53:53.000 --> 53:57.880
+they can literally tweak the formula to artificially inflate the credit available for pouring concrete.
+
+53:58.120 --> 53:58.900
+They absolutely could.
+
+53:59.480 --> 54:04.200
+Or if a conservative city council chooses to stick with an outdated 20-year-old building code,
+
+54:04.560 --> 54:09.540
+they completely manipulate the eligibility of old structures versus new green technology.
+
+54:09.540 --> 54:10.180
+Exactly.
+
+54:11.240 --> 54:18.760
+Calling these decisions technical or engineering standards does not remove the incredible economic authority they exercise.
+
+54:19.220 --> 54:24.820
+It just places a massive monetary authority inside a boring bureaucratic technical office.
+
+54:24.940 --> 54:25.720
+Which makes it invisible.
+
+54:26.020 --> 54:26.260
+Right.
+
+54:26.540 --> 54:31.060
+The political economy questions who has power, who benefits, who decides,
+
+54:31.420 --> 54:33.220
+aren't a supplement to the system design.
+
+54:33.220 --> 54:34.800
+They are the design.
+
+54:35.140 --> 54:39.000
+The author is very clear that you cannot build a purely objective financial system
+
+54:39.000 --> 54:43.160
+because the parameters of measurement are always chosen by subjective humans.
+
+54:43.620 --> 54:48.780
+So hearing all of this, the complex replacement costs, the risk topologies, the upstream political fights,
+
+54:49.260 --> 54:52.240
+how hard is it to actually build this thing?
+
+54:52.400 --> 54:59.660
+Does a country need to completely overthrow the Federal Reserve and redesign its entire national banking system from scratch just to try it?
+
+54:59.660 --> 55:00.280
+No.
+
+55:00.940 --> 55:05.680
+And that is perhaps the most pragmatic, optimistic takeaway of the entire essay.
+
+55:06.180 --> 55:13.520
+The author outlines a five-level nested hierarchy of institutional commitments ranging from L0 to L4.
+
+55:13.520 --> 55:22.000
+And they actually prove logically that you don't need to reach the utopian complex levels to start reaping the core benefits of the system.
+
+55:22.840 --> 55:25.800
+I think we need a concrete example to really understand this hierarchy.
+
+55:26.340 --> 55:28.440
+Let's invent a hypothetical mid-sized city.
+
+55:28.820 --> 55:30.380
+Let's call it Springfield.
+
+55:30.860 --> 55:31.100
+Okay.
+
+55:31.460 --> 55:31.860
+Springfield.
+
+55:32.300 --> 55:37.060
+Springfield wants to fix its housing affordability crisis and stop speculative land bubbles.
+
+55:37.660 --> 55:40.900
+Walk us through how Springfield would implement these levels step by step.
+
+55:40.900 --> 55:41.460
+Okay.
+
+55:41.660 --> 55:44.100
+Let's start with Springfield at L0.
+
+55:44.720 --> 55:46.620
+L0 is the absolute baseline.
+
+55:47.260 --> 55:49.100
+It is simply an attestation registry.
+
+55:49.780 --> 55:50.480
+So just a list.
+
+55:50.940 --> 55:51.240
+Basically.
+
+55:52.080 --> 55:54.980
+Springfield's mayor doesn't touch the banks or the currency at all.
+
+55:55.520 --> 56:07.540
+They just instruct the city's building department to create a geographically located, append-only, cryptographically secured digital ledger of every single certified physical transformation that happens in the city.
+
+56:08.120 --> 56:08.720
+Every permit.
+
+56:09.140 --> 56:09.700
+Every permit.
+
+56:09.700 --> 56:11.060
+Every inspection.
+
+56:11.520 --> 56:15.620
+Every square foot of new capacity is logged immutably with its physical coordinates.
+
+56:16.460 --> 56:21.080
+A city could build this L0 registry tomorrow using standard off-the-shelf database software.
+
+56:21.600 --> 56:24.400
+It's just a highly secure public record of physical truth.
+
+56:25.080 --> 56:25.220
+Okay.
+
+56:25.360 --> 56:28.320
+So Springfield has a perfect map of what exists.
+
+56:28.740 --> 56:29.060
+Now what?
+
+56:29.600 --> 56:33.340
+Now they move to L1, which introduces collateral eligibility.
+
+56:33.340 --> 56:42.220
+Springfield's local credit unions agree to use that L0 ledger to define which of their loans qualify as secured by admissible physical collateral.
+
+56:42.720 --> 56:50.600
+They agree to base their internal risk metrics on the physical reality recorded in the registry, applying standardized haircuts to that physical value.
+
+56:50.600 --> 56:54.720
+So then L2 is where the rubber actually meets the road financially, I assume?
+
+56:54.720 --> 56:55.280
+Yes.
+
+56:55.920 --> 56:59.560
+L2 introduces the actual transformation-linked credit issuance.
+
+57:00.280 --> 57:10.080
+This is where Springfield's local banks start explicitly issuing amortizing loans to builders and homeowners based only on the replacement cost increments calculated from the L0 registry.
+
+57:10.080 --> 57:17.960
+So they completely stop relying on subjective Zillow appraisals and start issuing loans based on the verified costs of the new drywall and plumbing.
+
+57:18.280 --> 57:18.760
+Exactly.
+
+57:19.140 --> 57:20.560
+And what about L3?
+
+57:21.040 --> 57:23.300
+L3 adds the graph-structured clearing.
+
+57:23.900 --> 57:26.540
+That's the systemic risk topology we discussed earlier.
+
+57:27.240 --> 57:37.460
+Springfield's banking regulators use the geographic data in the ledger to ensure that no local bank is overly exposed to a single neighborhood's power grid or a specific floodplain.
+
+57:37.460 --> 57:40.820
+It's basically a localized systemic risk management tool.
+
+57:41.620 --> 57:42.700
+And finally, L4.
+
+57:43.400 --> 57:53.940
+L4 is the spatially differentiated units, that exotic, decaying spatial currency that we and the author concluded was probably a terrible idea due to Gresham's law.
+
+57:54.320 --> 58:00.080
+So the real beauty of this nested property is that the failure or rejection of L4 doesn't break L1 or L2.
+
+58:00.780 --> 58:03.600
+Springfield doesn't need to invent a new currency that decays.
+
+58:03.600 --> 58:07.260
+They don't need to change national monetary policy at the Federal Reserve.
+
+58:07.460 --> 58:07.920
+Not at all.
+
+58:08.440 --> 58:22.080
+They just need to implement L1 and L2, maintaining a rigorous registry of physical transformations, computing standardized replacement costs, and encouraging local banks to issue normal USD loans against those specific physical increments.
+
+58:22.080 --> 58:34.020
+And just by doing that, Springfield would insulate a massive portion of their local housing finance market from the speculative land price feedback loops that are destroying affordability globally.
+
+58:34.280 --> 58:35.400
+That's amazing.
+
+58:35.400 --> 58:49.200
+They would replace a market value-dependent recognition of collateral, which is inherently speculative and volatile, with a provenance-dependent recognition of collateral, which is grounded completely in physical reality.
+
+58:49.200 --> 58:55.240
+It's a completely different, much healthier paradigm for what debt actually represents in a community.
+
+58:55.960 --> 59:01.600
+Okay, let's pull all of this together because we have been on quite an intellectual journey over the last hour.
+
+59:01.600 --> 59:10.640
+We started with what sounded like a wild, almost childishly utopian pitch to turn buildings into literal circulating money.
+
+59:10.640 --> 59:16.020
+And we watched the author rigorously, ruthlessly, rip their own idea apart.
+
+59:16.740 --> 59:28.080
+They exposed the missing numeraire that would cause deflation, the horrific zoning loopholes that would corrupt city councils, and the absolute inevitability of Gresham's law destroying a spatial currency.
+
+59:28.080 --> 59:44.780
+But out of that intellectual destruction, they rebuilt something highly practical, a robust system for transformation-backed credit, a system based on physical, auditable truth, rather than the speculative, screeching feedback loop of market appraisals.
+
+59:44.780 --> 01:00:00.340
+It is a blueprint for an economy that structurally, mathematically rewards those who actually build, maintain, and improve the real world, rather than just rewarding those who simply sit passively on a piece of land while the community makes it appreciate in value.
+
+01:00:00.820 --> 01:00:03.760
+And that is why this dense academic paper matters so much.
+
+01:00:04.040 --> 01:00:06.960
+It's not just a theoretical exercise in ledger design.
+
+01:00:07.160 --> 01:00:09.960
+It forces us to ask a really fundamental question.
+
+01:00:10.900 --> 01:00:14.120
+What are our financial ledgers actually reflecting?
+
+01:00:14.120 --> 01:00:14.780
+Right.
+
+01:00:15.100 --> 01:00:16.540
+Are they reflecting reality?
+
+01:00:17.060 --> 01:00:21.240
+The sweat, the labor, the concrete, the actual human effort of building a civilization?
+
+01:00:22.100 --> 01:00:27.220
+Or are they just reflecting our collective, highly leveraged hallucinations about price?
+
+01:00:27.700 --> 01:00:32.260
+It demands that the ledger points back to somewhere, to something real.
+
+01:00:32.960 --> 01:00:38.860
+It demands that finance serves the physical world rather than the physical world being a playground for finance.
+
+01:00:38.860 --> 01:00:44.280
+Which leaves me with a final, slightly provocative thought for you to mull over as we wrap up today.
+
+01:00:44.600 --> 01:00:57.060
+If we can build an entire, robust credit architecture around certified physical transformations of the built environment simply to escape speculative finance, what else could we apply this logic to?
+
+01:00:57.060 --> 01:00:59.200
+That is the exact right question to ask.
+
+01:00:59.620 --> 01:01:03.600
+Once you have the tool of provenance-backed credit, where else can you point it?
+
+01:01:04.040 --> 01:01:04.600
+Think about it.
+
+01:01:04.840 --> 01:01:11.440
+Could we have a massive credit system issued against certified, scientifically verified ecological restoration?
+
+01:01:11.440 --> 01:01:18.580
+I don't mean carbon credits traded on some speculative Wall Street exchange where the price constantly fluctuates based on trader sentiment.
+
+01:01:18.640 --> 01:01:20.040
+No, real physical restoration.
+
+01:01:20.160 --> 01:01:20.440
+Right.
+
+01:01:20.680 --> 01:01:36.140
+I mean amortizing loans issued directly against the physical, verified reality of a restored wetland, or a replanted forest, or a remediated toxic site, based on the physical replacement cost of the labor and biology required to achieve it.
+
+01:01:36.220 --> 01:01:36.620
+Absolutely.
+
+01:01:36.620 --> 01:01:43.120
+What about human capital? Could we issue credit against certified, verified skill acquisitions?
+
+01:01:43.460 --> 01:01:47.100
+The theoretical framework absolutely holds up for those applications.
+
+01:01:47.780 --> 01:02:03.840
+The core innovation of this paper, replacing subjective market appraisal with attested physical provenance, is entirely agnostic to the type of transformation, just as long as the transformation can be objectively measured, verified by an oracle, and tracked on an append-only ledger.
+
+01:02:03.840 --> 01:02:10.400
+The real revolution of this paper isn't just about real estate, or housing affordability, or stopping the mortgage doom loop.
+
+01:02:10.640 --> 01:02:19.180
+It's about forcing our financial systems, our ledgers, to finally actually tell the objective truth about the physical world we all share.
+
+01:02:19.800 --> 01:02:32.640
+So the next time you walk past a noisy construction site, or look down at a newly reinforced concrete foundation, or even just stare at the digital numbers in your banking app, ask yourself, what is actually backing it?
+
+01:02:32.640 --> 01:02:33.440
+Is it real?
+
+01:02:33.900 --> 01:02:42.880
+Right. Is it a political promise? Is it a leveraged speculation? Or could it be a certified, undeniable physical reality?
+
+01:02:43.420 --> 01:02:47.620
+Thank you for taking this deep dive with us today. Keep questioning the systems around you.
+

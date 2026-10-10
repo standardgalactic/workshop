@@ -1,0 +1,54 @@
+\documentclass[11pt,oneside]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\setstretch{1.12}
+\emergencystretch=3em
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}[definition]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\IN}[1]{\IfFileExists{#1.tex}{\input{#1}}{}}
+
+\title{What to Do with Superintelligence\\[0.4em]
+\Large A Program for Human-Directed Civilization}
+\author{Flyxion\\ \normalsize Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\frontmatter
+\maketitle
+\IN{preface}
+\tableofcontents
+\mainmatter
+
+\part{Premises}
+\IN{ch01}\IN{ch02}\IN{ch03}\IN{ch04}\IN{ch05}
+\part{Instruments}
+\IN{ch06}\IN{ch07}\IN{ch08}\IN{ch09}\IN{ch10}
+\part{Institutions}
+\IN{ch11}\IN{ch12}\IN{ch13}\IN{ch14}\IN{ch15}
+\part{The Terrestrial Program}
+\IN{ch16}\IN{ch17}\IN{ch18}\IN{ch19}\IN{ch20}\IN{ch21}\IN{ch22}
+\part{The Orbital Program}
+\IN{ch23}\IN{ch24}\IN{ch25}\IN{ch26}
+\part{Deep Time}
+\IN{ch27}\IN{ch28}\IN{ch29}\IN{ch30}\IN{ch31}\IN{ch32}
+
+\backmatter
+\IN{bib}
+\end{document}

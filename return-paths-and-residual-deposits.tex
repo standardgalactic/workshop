@@ -1,0 +1,323 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{url}
+\usepackage[margin=1.15in]{geometry}
+\emergencystretch=3em
+
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[proposition]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[proposition]{Definition}
+\newtheorem{assumption}[proposition]{Assumption}
+\newtheorem{example}[proposition]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[proposition]{Remark}
+
+\newcommand{\Acc}{\mathrm{Acc}}
+\newcommand{\Dep}{\mathsf{Dep}}
+\newcommand{\Enc}{\mathsf{Enc}}
+\newcommand{\Int}{\mathsf{Int}}
+\newcommand{\Upt}{\mathsf{Upt}}
+\newcommand{\Cor}{\mathsf{Cor}}
+
+\title{Return Paths and Residual Deposits\\ in Distributed Exploration}
+\author{Flyxion\\ Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Exploration and deposition are usually analysed apart. This essay treats them as coupled. An explorer moving through a directed graph of accounts and artifacts retains a return structure, a vine, that lowers the expected cost of committing to a move, and the same explorer leaves residue, a berm, that alters what later explorers can do. Two kinds of residue are distinguished, executable and declarative, together with an independent dimension of epistemic status attached to individual components. A formal model separates the explorer's private navigational state from the public environment and establishes two results: an exact characterization of when a single deposit alters a later explorer's feasible actions, and conditions under which repeated deposition accumulates or saturates. A counterexample shows that the conditions that yield cumulative infrastructure also yield the cumulative spread of unsound components when provisional deposits are unmarked. A section on pedagogical residue places the argument within the longer history of inherited teaching materials, and the model's limits are stated explicitly.
+\end{abstract}
+
+\section{Introduction}
+
+Two processes recur in the activity of anyone who works in a shared and persistent medium. In the first, an agent moves through an existing structure without losing its point of departure, so that the movement can be undone, repeated, or reinterpreted. In the second, the agent modifies the structure so that subsequent movement becomes possible, easier, or more likely for others who may never meet the agent. The first concerns navigation and attachment, and the second concerns inscription and environmental inheritance. The images used here for them are the vine, a continuing attachment to the place one has left, and the berm, an accumulation that changes the conditions of later movement without having been designed as a road or a wall.
+
+Stigmergy, in the sense introduced by Grass\'e (1959) and reviewed by Theraulaz and Bonabeau (1999), supplies the vocabulary for the second process: coordination through persistent modification of a shared environment in place of direct communication among all participants. The companion essay, \emph{The Stigmergic Berm} (Flyxion, 2026a), develops the deposit side in detail, including a definition of a berm, a cost criterion for its effect on successors, and a taxonomy of how repeated local deposits become boundaries and inherited organization. What that account leaves open is the explorer side and the coupling between the two: how an agent moves through a deposited environment, what it retains while doing so, and how its own movement produces new deposits that become the next agent's terrain.
+
+The central claim of the present essay is that a loosely organized population can acquire infrastructure without a central architect through the coupling of three things. Retained navigational history lowers the cost of exploratory commitment. Inherited design decisions, carried by deposits, constitute what is transmitted. Environmentally mediated continuation is the channel by which one explorer's deposits become another's terrain. The claim is deliberately limited. The formal section establishes a mechanism, namely that a persistent, discoverable, and interpretable deposit alters a later explorer's feasible actions whenever it enables or forecloses something the rest of the environment does not already (Proposition~\ref{prop:alter}), and a conditional result giving sufficient conditions, under linear bounds on deposit yield, for saturation and for self-reinforcement (Proposition~\ref{prop:accum}). It does not establish that accumulation occurs in any particular practice, that it is monotone, or that it is beneficial. Section~\ref{sec:harm} shows that the mechanism is silent on soundness and therefore predicts harmful accumulation under stated conditions.
+
+The remainder of the essay proceeds as follows. Section~\ref{sec:graph} describes recursive exploration of a directed graph through an anonymized case. Section~\ref{sec:return} treats return structures and the cost of commitment, with an explicitly limited use of the secure-base analogy. Section~\ref{sec:deposit} distinguishes deposit from effective stigmergy. Section~\ref{sec:residue} develops the distinction between executable and declarative residue, the role of epistemic status, and the two margins on which residue acts. Section~\ref{sec:inherit} examines the ambivalence of inheritance and places it in the history of pedagogical residue. Section~\ref{sec:model} gives the formal model, which fixes what the other sections may claim. Section~\ref{sec:fail} treats failure conditions, and Section~\ref{sec:conc} concludes. Appendix~\ref{app:scope} states which claims the formal results license.
+
+\section{Recursive Exploration of a Directed Graph}\label{sec:graph}
+
+Consider a directed social graph $\mathcal{G}=(\mathcal{V},\mathcal{E})$ in which an edge $(u,v)$ records that $u$ follows $v$. For a vertex $v$ the in-neighborhood $N^-(v)$ is the set of followers and the out-neighborhood $N^+(v)$ is the set of accounts followed, and the two establish different kinds of adjacency: the first lists those who have selected $v$, and the second lists those $v$ has selected. An explorer who has found an interesting account $v$ inspects whichever of the two neighborhoods is smaller, selects a promising member $u$ according to a semantic criterion, moves to $u$, and repeats, perhaps descending several levels while retaining a route back to $v$. The procedure resembles depth-first search with a return stack, except that the order of expansion is determined by a judgment of interest and not by an enumeration order, and no attempt is made to exhaust the graph. The explorer is looking for interesting accounts, not enumerating vertices.
+
+Two features of this procedure must be separated, because one is a graph-theoretic fact and the other is a behavioral hypothesis. The first is that inspecting the smaller neighborhood bounds the effort required to exhaust the candidates at $v$ by $\min(|N^-(v)|,|N^+(v)|)$. The second would be that the rule improves the rate at which interesting accounts are found, and that does not follow. Let $q^-$ and $q^+$ denote the fractions of relevant vertices in $N^-(v)$ and $N^+(v)$. When candidates are inspected in an order that is uninformative about relevance, the expected yield per inspection is $q^-$ or $q^+$ respectively, independent of the size of the neighborhood, so the smaller-neighborhood rule improves discovery per unit effort only when the smaller neighborhood has the higher fraction, and an explorer who does not exhaust the neighborhood may forfeit a larger one with a better yield. Informed selection raises the yield in both neighborhoods without by itself favoring the smaller one. What the rule reliably does is reduce the branching factor and hence the cost of a complete inspection. Whether that matters depends on the distribution of relevant vertices across the two neighborhoods, and the model of Section~\ref{sec:model} makes no claim about it.
+
+The semantic criterion can be given content by a corpus-relative account of selection. Anderson (2022) defines understanding as corpus congruence and describes a receiver that judges whether an input is congruent with the model acquired from its corpus, asks whether an input that is not congruent is nonetheless close enough to be worth extending the model, and treats well-known inputs as safe to ignore. Read together, these two questions describe a selection region. Candidates highly congruent with the explorer's accumulated experience add little, and candidates distant from it are unreadable for that corpus, so interesting candidates lie between the two. The criterion is indexed to the explorer's corpus $\Gamma$. Low congruence with $\Gamma$ is not nonsense in general and shows only that a candidate is unrewarding for this explorer, a limit that matters for the argument below because deposits are valuable precisely to explorers whose corpora differ from the depositor's.
+
+Following is not only traversal. Each follow writes an edge into the explorer's own set of relations, so that exploration produces a residue before any code or documentation is contributed, and the explorer's network becomes a partial record of where it has been and what it judged worth retaining. On a platform where follows are publicly visible, the same edge is also a deposit of minimal content, which is why Section~\ref{sec:model} treats the visibility of such edges as a parameter of the model and not as a fact about exploration.
+
+\section{Return Structures and the Cost of Commitment}\label{sec:return}
+
+The return stack in the procedure above is a particular case of a more general object. A stack, a browser history, a filesystem path, a nested shell, a permission hierarchy, and a social tie all support continuity across transitions, and they do so by different mechanisms. The claim made here is functional and not an assertion that their underlying mathematics or psychology is identical. Each retains some means of recovering a prior position after a move, and the formal model of Section~\ref{sec:model} calls that retained object the return structure $S_t$ within the explorer's private state.
+
+The image of the vine is borrowed in part from the work of Harlow (1958), whose experiments separated contact comfort from feeding and showed that a cloth surrogate could function as a secure base from which infant monkeys explored, a concept developed in the attachment literature by Bowlby (1988). The analogy is intelligible but must be stated with care. The secure-base concept concerns the relation between reliable attachment and exploratory behavior in a developing organism, and a return stack or browser history serves an analogous navigational function without sharing any psychological mechanism of attachment. The defensible claim is structural and modest: where moves are reversible and losing one's place is costly, a retained means of return can reduce the expected cost of exploratory commitment.
+
+\begin{remark}[A stylized cost comparison]
+Let $c_0(m)$ be the direct cost of a move $m$, let $\ell$ be the cost to the explorer of losing its place, and let $\theta_S\in[0,1]$ be the probability that the return structure $S$ restores the prior position. The expected cost of commitment is $C(m)=c_0(m)+(1-\theta_S)\,\ell$, which is nonincreasing in $\theta_S$ and whose sensitivity to $\theta_S$ is proportional to $\ell$. Three limits follow. When $\ell$ is small the return structure is nearly irrelevant to the cost. When a move is irreversible, $\theta_S$ is effectively zero and the return structure contributes nothing. And availability of a return structure does not by itself change behavior: a policy that exploits it changes behavior, so that the claim about exploration concerns the combination of structure and policy, and a return path is neither necessary for exploration nor guaranteed to encourage it.
+\end{remark}
+
+The return structure is also not a fixed resource consulted during navigation. It is constructed, revised, and lost as the explorer moves, which is why the formal model gives it an update rule of its own (equation~\eqref{eq:hist}) and distinguishes it from the public environment.
+
+\section{Deposit and Effective Stigmergy}\label{sec:deposit}
+
+The companion essay defines a berm, in outline, as a persistent modification of a shared environment whose resulting morphology biases successor action, in a way that reduces the cost or raises the probability of subsequent deposits, without requiring any individual agent to represent the structure as a whole. Two consequences of that definition carry over. A berm need not have been designed as the structure it becomes, since repeated small deposits can produce a durable structure that nobody planned. And a berm is not intrinsically useful: the definition allows misleading and harmful berms, because usefulness is not built into it.
+
+What the present essay adds is an explicit distinction between inscription and effective stigmergy. A residue is a trace when it merely persists. An abandoned file that nobody can find or interpret is a trace, and it coordinates nothing. For stigmergy to occur the residue must enter a feedback relationship with later activity: someone must encounter it, interpret it sufficiently to act, and potentially modify the environment again. Each of these is a separate event that can fail independently, and Section~\ref{sec:model} defines them precisely (Definition~\ref{def:events} and Lemma~\ref{lem:sep}). The feedback loop is closed when uptake leads to a further public deposit, and the accumulation result of Section~\ref{sec:model} depends on how often it closes relative to the rate at which effective deposits decay.
+
+There is an asymmetry between the two processes that the formal model preserves. In exploration the existing environment supplies paths and the explorer's attachment to earlier positions preserves its own continuity. In deposition the explorer supplies paths, and those who follow them have no attachment to the depositor and may never learn who laid them. The stigmergic assumption of Section~\ref{sec:model} (Assumption~\ref{ass:channel}) makes the asymmetry formal, because explorers influence one another only through the public environment and never through one another's private return structures.
+
+\section{Executable and Declarative Residue}\label{sec:residue}
+
+\subsection{Two kinds}
+
+An executable residue contains an operational component. It may be incomplete, defective, or poorly documented, but it performs some identifiable function: a visualizer that renders synchronized captions without yet offering controls, a parser that handles one subtitle format correctly, a compilation workaround, a reusable shell command. A declarative residue contains a specification, an interface contract, a constraint, or a sufficiently determinate description of a possible construction. Its contribution is not execution but the reduction of subsequent design uncertainty. The category includes the written specification for a project that was never begun, which is residue in the full sense even though nothing runs.
+
+The two kinds are not exclusive classes. A single repository can contain functioning code, a specification, and provisional claims at once, so the formal model assigns kinds to components and lets them overlap (Definition~\ref{def:deposit}). The distinction explains what can be inherited. An executable residue passes on a function that a builder can run, repair, or extend. A declarative residue passes on a set of decisions that a builder need not make again.
+
+\subsection{Bearing weight}
+
+The operational criterion is that an artifact bears weight when it performs an identifiable operation or constrains a subsequent operation in a way that can be demonstrated. A working parser satisfies the first condition and a file-format specification can satisfy the second. A vague proposal that something ought to exist satisfies neither, unless it has additional coordinating effects. In the formal model the criterion has two margins. On the extensive margin a deposit bears weight for an explorer when it persists, is discoverable, is interpretable, and enables or forecloses an action not already enabled or foreclosed by the rest of the environment (Proposition~\ref{prop:alter}). On the intensive margin it bears weight when it changes the cost of an action that remains feasible, as a script does when it shortens an operation that was already possible (Definition~\ref{def:cost} and Proposition~\ref{prop:weight}).
+
+Three refinements follow. First, bearing weight need not mean being followed. A specification may be rejected, partially adopted, contradicted, or used as a negative example, and its effect on subsequent decisions can still be demonstrable, because it provides a sufficiently definite object of disagreement. In the model such effects appear as actions defined relative to the deposit, such as replacing or contradicting it. Second, incompleteness is compatible with bearing weight and is sometimes an advantage. A working but unfinished artifact exposes its seams, so that a later builder inherits a function that already does something together with visible places where it stops, whereas a polished release tends to hide its structure behind completeness. A practice of publishing only what works in some way is effectively a threshold for when a trace becomes a berm, since it requires that the artifact bear some weight.
+
+Third, the claim that a specification removes the costliest step, deciding what to build, cannot be sustained in general. Implementation is sometimes substantially more expensive than specification, and an apparently complete specification can conceal unresolved design decisions. The defensible claim is that a sufficiently determinate specification transfers some design decisions from a future builder's problem into the builder's inherited conditions. That transfer is a statement about the enabled and foreclosed sets of the model, and it is compatible with large remaining costs of implementation.
+
+\subsection{Epistemic status}
+
+Executable and declarative residue differ in what they do. They also carry an epistemic status, and that status can be marked or left unmarked. Anderson's account supplies a receiver-side policy: accept an input close enough to extend the model, and flag it as fresh and untested knowledge that may prove irrelevant, false, counterproductive, or noise. The depositor-side counterpart, marking provisionality at the time of deposit, is an addition made here. A visualizer that states which of its controls have been tested, or a specification that separates decided points from open ones, lowers the interpretation cost for a later explorer and indicates how much weight to place on each component. Epistemic status is distinct from correctness, since a component can be well evidenced and defective or untested and correct.
+
+Status attaches to components and not to whole artifacts, because a single repository can contain well-tested code beside a speculative claim. It is also independent of kind, since executable, declarative, and claim-bearing components can each be provisional or established. The corpus-relativity of interpretation makes explicit marking more important and not less. The depositor cannot know the corpus of a future explorer, so an annotation that depends on shared background will fail for those who lack it, whereas an explicit annotation on the component travels with the deposit. Whether annotations are accurate, and whether later explorers respect them, are separate questions that the model keeps apart.
+
+\subsection{Extensive and intensive effects}\label{sec:margins}
+
+The two margins distinguished in Section~\ref{sec:model}, change in which actions are feasible and change in the cost of actions that remain feasible, are not associated equally with the two kinds of residue, and the association clarifies what each kind contributes. Executable residue most often acts on the intensive margin. A script that performs in seconds an operation that was already possible by hand, a parser that handles a format an explorer could have handled with effort, and a workaround that removes a recurring compilation failure all change what an action costs without changing whether it can be taken. Their value lies in the displacement of effort, and it accrues to every later explorer who performs the operation, which is why such residue can bear weight even when nothing it does is new. Extensive effects of executable residue are comparatively less frequent and arise when a working component brings within reach an action that no individual explorer could have afforded to build, so that an operation moves from infeasible to feasible.
+
+Declarative residue acts on both margins, and in a characteristic way. A determinate specification enlarges the feasible set when it makes identifiable an action that explorers could not previously identify, such as implementing an interface whose existence was not otherwise apparent, and it contracts the set, through the foreclosed set of the model, when it fixes conventions that make alternatives prohibitively costly. It also acts on the intensive margin by reducing design uncertainty: decisions already made no longer have to be made, and the cost of the remaining actions falls accordingly. This is the sense in which a specification transfers design decisions into the builder's inherited conditions, and the transfer need not be accompanied by any change in what is feasible. The cost reduction can also coexist with a foreclosure, since the same convention that cheapens work within it raises the cost of departing from it.
+
+Three consequences follow for the argument. First, the accumulation analysis of Section~\ref{sec:model} counts a deposit as effective when it bears weight on either margin, so the distinction does not alter the stock dynamics, but it does alter what accumulates and what is lost when a deposit decays. Second, a feasibility-based account alone would miss much of the practical importance of residue, because many valuable deposits leave the feasible set unchanged. Third, the margins fail in different ways. Extensive effects depend on the explorer's interpretation of what a deposit enables or forecloses, and a misleading affordance is typically an enabled action that appears available but performs poorly. Intensive effects can degrade silently, as when a cost reduction erodes through format obsolescence or dependency drift while the operation remains feasible, and the accumulation of technical debt can be understood as a rise in the cost of existing actions that no change in feasibility records.
+
+\section{Inherited Decisions}\label{sec:inherit}
+
+\subsection{The ambivalence of inheritance}
+
+A builder who starts from an incomplete model does not start from nothing, and the difference is one of kind as well as of cost. The builder inherits the earlier builder's decisions together with the code or specification: the interface, the file format, the control scheme, and the conventions of naming and structure. Those decisions become the default terrain. An existing interface reduces some future decisions while making alternatives more expensive, which the model records through the foreclosed set. A file format can enable interoperability and at the same moment entrench an unfortunate assumption. A working prototype can make further development easier while making fundamental redesign less likely.
+
+The berm is therefore not intrinsically beneficial. It can create path dependence in the sense studied by David (1985) and Arthur (1989), in which early and partly arbitrary choices become locked in because later actors find it cheaper to conform than to depart. It can accumulate technical debt, and it can offer misleading affordances, in which an artifact appears to support an action that it does not support reliably. These are consequences of the same mechanism that produces beneficial inheritance and not exceptions to it, and Section~\ref{sec:harm} gives a formal example.
+
+\subsection{Pedagogical residue}
+
+The mechanism is older than any repository. A teacher prepares an explanation, exercise, diagram, or textbook for a particular group of students, and some of that material survives its original setting, is copied or revised, and is inherited by later teachers. A curriculum fixes a sequence of encounters with knowledge, and where it supplies prerequisites, cross-references, and paths of revisitation it also functions as a shared return structure, a prescribed sequence alone being a weaker instance. The teaching materials are the deposits that make those encounters possible. A later teacher inherits both the content and some of the decisions about how to traverse it. Scientific instruments, mathematical notation, laboratory procedures, reference tables, and experimental protocols behave likewise, since each preserves decisions about how knowledge is organized, taught, tested, and extended as well as the information itself.
+
+The qualification of the preceding subsection applies with full force. Educational materials preserve obsolete conventions, misleading simplifications, institutional prejudice, and unnecessary complexity, frequently unmarked. In the vocabulary of Section~\ref{sec:model} these are unsound components. They may carry high evidential support and a confident annotation, since material can be confidently taught, institutionally established, and incorrect, so that calibration of annotation alone does not protect against them. Their reproduction by successive teachers is an instance of the self-propagation described in Example~\ref{ex:harm}, whose mechanism requires only the stated growth condition. A cultural berm can support later inquiry and constrain it at once, and accumulation is not the same as continuous improvement.
+
+Cumulative culture also precedes formal education, in oral tradition, apprenticeship, imitation, and shared practice. Writing, schools, libraries, universities, printing, and software repositories successively changed the conditions under which it operates, namely the persistence, reproducibility, accessibility, and recomposability of deposits. In the model of Section~\ref{sec:model} these changes enter as parameters. Persistence appears in the decay rate $\rho$, accessibility and interpretability appear in the encounter and interpretation factors of the marginal yield $\gamma$, and recomposability appears in the number of public deposits generated per act of uptake. The thesis that software repositories belong to this lineage is therefore a claim about parameter values and not about the existence of accumulation. It is compatible with the treatment of GitHub as persistent, recomposable infrastructure for collective cognition in Flyxion (2026b). That essay contrasts the preservation of finished outputs with the preservation of development process and does not treat teaching materials or curricula, which is the extension made here. The point added is that the novelty lies in the speed and granularity with which inherited work can be recovered, modified, tested, and redistributed, not in the fact that one generation builds on another.
+
+A decomposition question follows. An apparent gain in collective capability can come from an increase in the capacity of individual explorers, which enters the model through the policies $\pi_j$ and $\alpha_j$, or from an increase in the amount of completed work that explorers can access and recombine, which enters through the environment $G$. Distinguishing the two contributions is an empirical task, and the contribution of the model is to state the question in a form that keeps them apart. A further axis cuts across the decomposition. Access to completed work frequently lowers the cost of actions that were already feasible in principle, since a determined individual could in principle have reconstructed an explanation from first principles, so the access contribution may act mainly on the intensive margin of Section~\ref{sec:margins}, and an apparent gain in capability may then reflect cheapening of what could already be done and not enlargement of what can be done at all.
+
+\section{The Coupled Model}\label{sec:model}
+
+\subsection{State, actions, and the stigmergic channel}
+
+Stigmergy, in the sense introduced by Grass\'e (1959) and reviewed by Theraulaz and Bonabeau (1999), is coordination mediated by the products of earlier work in a shared medium. The model below preserves that structure through an explicit assumption: explorers influence one another only through a public environment.
+
+Let $\mathcal{D}$ be a universe of artifacts (repositories, files, specifications, accounts, notes) and $\mathcal{A}$ a universe of actions. The public environment at time $t$ is $G_t=(V_t,\Lambda_t)$, where $V_t\subseteq\mathcal{D}$ is a finite set of persistent artifacts and $\Lambda_t\subseteq V_t\times V_t$ is the publicly visible access relation (links, references, listings, search adjacency). Each of $m$ explorers has a position $x_t^j\in V_t$ and a private navigational state $H_t^j=(S_t^j,N_t^j)$, where $S_t^j$ is a return structure (a stack, a history, a path) and $N_t^j$ is a set of private edges and records (bookmarks, local copies, notes, and, where a platform keeps them private, follows). The separation matters because following an account, bookmarking a repository, and publishing a reusable artifact are different kinds of act. The first two alter $H$. Only the third alters $G$. Where a platform makes follows publicly visible, the corresponding edges belong in $\Lambda_t$ and the follow is modelled as a public action with negligible content. Which edges lie in $\Lambda$ is therefore a parameter of the model and not a general fact about exploration.
+
+At each step explorer $j$ selects a move and an action $a_t^j=(a_t^{j,\mathrm{priv}},a_t^{j,\mathrm{pub}})=\alpha_j(G_t,x_t^j,H_t^j)$, either component of which may be null ($\varnothing$). The action is performed at that step, and the model has no separate stage at which an action is merely selected. The state evolves by
+\begin{align}
+x_{t+1}^j &= \pi_j(G_t,\,x_t^j,\,H_t^j), \label{eq:nav}\\
+H_{t+1}^j &= R\bigl(H_t^j,\,x_t^j,\,x_{t+1}^j,\,a_t^{j,\mathrm{priv}}\bigr), \label{eq:hist}\\
+G_{t+1} &= U\bigl(G_t,\,a_t^{1,\mathrm{pub}},\dots,a_t^{m,\mathrm{pub}}\bigr), \label{eq:env}
+\end{align}
+with $U(G,\varnothing,\dots,\varnothing)=G$. The history update receives the private component of the action, and the environment update receives only the public components. Equation \eqref{eq:nav} is the navigation policy, \eqref{eq:hist} is the construction, revision, and loss of the return path, and \eqref{eq:env} is the deposit process.
+
+\begin{assumption}[Stigmergic channel]\label{ass:channel}
+For $i\neq j$, the private state $H_t^i$ is not an argument of $\pi_j$ or $\alpha_j$. Explorers affect one another only through $G_t$.
+\end{assumption}
+
+\subsection{What is deposited, what is claimed, what is done}
+
+\begin{definition}[Deposit, component, annotation]\label{def:deposit}
+A deposit is a triple $d=(C_d,\kappa_d,\sigma_d)$. $C_d$ is a finite set of components. $\kappa_d$ assigns each component a nonempty subset of $\{\mathrm{exec},\mathrm{decl},\mathrm{claim}\}$, so that kinds may overlap: a single repository can contain functioning code, a specification, and provisional claims at once. Let $(W,\le)$ be a finite totally ordered set of status levels (for example untested $<$ tested $<$ established), and let $\sigma_d:C_d\to W\cup\{\bot\}$ be the annotation, with $\bot$ meaning unmarked. Annotation attaches to components, never to the artifact as a whole.
+\end{definition}
+
+Let $\omega(c)\in W$ denote the evidential support that component $c$ actually has, the level against which a status claim about $c$ is assessed, which in general is accessible to neither depositor nor explorer at the time of deposit. Warrant is distinct from correctness. Let $\tau(c)\in\{\mathrm{sound},\mathrm{unsound}\}$ record whether $c$ is correct relative to a specified requirement (the code works, the specification is consistent, the claim is true). An untested but correct component has low $\omega$ and $\tau=\mathrm{sound}$, and a thoroughly tested but defective one may have high $\omega$ and $\tau=\mathrm{unsound}$. The annotation $\sigma_d$ reports an epistemic status and need not track either. A marked annotation is \emph{overclaiming} if $\sigma_d(c)>\omega(c)$ and \emph{non-overclaiming} if $\sigma_d(c)\le\omega(c)$. An unmarked component makes no claim and is therefore a separate case from both.
+
+A relation $\rhd\subseteq\mathcal{A}\times\bigcup_d C_d$ records dependence: $a\rhd c$ means that action $a$ depends on component $c$. Three objects are thereby kept apart: what is deposited ($C_d$ and $\kappa_d$), what is claimed about its status ($\sigma_d$), and what later explorers actually do with it ($\rhd$ over the actions taken). An accurate and an inaccurate annotation attach to the same deposited object, and an explorer who builds on the component has done a third thing that is determined by neither.
+
+Anderson (2022) defines understanding as corpus congruence: a receiver holds a corpus, judges whether an input is congruent with the model acquired from it, absorbs inputs close enough to be worth absorbing, and, because the receiver alone cannot distinguish a new fact from an error, accepts such input with a note that it is fresh and untested. That is a receiver-side policy, and it is used here in that role. The interpretation maps introduced below are indexed to an explorer's corpus $\Gamma_j$, so that whether an artifact is interpretable, and whether it is taken up, is relative to $\Gamma_j$. The depositor-side counterpart, marking provisionality at the time of deposit through $\sigma_d$, is an addition made here and does not belong to Anderson's account. It gains importance under corpus relativity. The depositor cannot know $\Gamma_j$ for a future explorer $j$, so an annotation whose force depends on shared background will fail for explorers who lack that background, whereas an explicit annotation on the component itself travels with the deposit.
+
+\subsection{Six separate events}
+
+Let $\Acc(G,x,H)\subseteq V$ be the set of artifacts that an explorer at position $x$ with private state $H$ can reach and open within its access budget. For each explorer $j$ let $\Phi_j,\Psi_j,\Theta_j:\mathcal{D}\to 2^{\mathcal{A}}$ be interpretation maps, determined by $\Gamma_j$, with $\Phi_j(d)\cap\Psi_j(d)=\varnothing$. The set $\Phi_j(d)$ contains the actions that $j$ can take because of $d$, including actions defined relative to $d$ such as extending, contradicting, or replacing it. The set $\Psi_j(d)$ contains the actions that $d$ makes unavailable or prohibitively costly for $j$, as an inherited interface convention does for alternative conventions. The set $\Theta_j(d)$ contains the actions whose cost $d$ changes for $j$ without changing their feasibility, as a script does for an operation that was already possible. The corpus $\Gamma_j$ is held fixed in the model. In practice exploration extends it, so that interpretability would itself be time-indexed and exploration would affect which deposits can be understood. This further coupling lies outside the formal results.
+
+\begin{definition}[Events]\label{def:events}
+For explorer $j$, deposit $d$, and time $t$:
+\begin{itemize}
+\item $\Dep_t(d)$: $d\in V_t$ (the deposit persists).
+\item $\Enc_t^j(d)$: $d\in\Acc(G_t,x_t^j,H_t^j)$ (the deposit is encountered).
+\item $\Int^j(d)$: $\Phi_j(d)\cup\Psi_j(d)\cup\Theta_j(d)\neq\varnothing$ (the deposit is interpretable by $j$).
+\item $\Upt_t^j(d)$: $\Enc_t^j(d)$ and $\Int^j(d)$ hold, and for some component $a$ of $a_t^j$ and some $c\in C_d$ we have $a\rhd c$ and $a\in\Phi_j(d)\cup\Theta_j(d)$ (the deposit is taken up through an action that $j$'s interpretation of $d$ makes available or cheaper).
+\item $\mathsf{Ann}_t(d,c,s)$: the annotation $\sigma_d(c)$ is set to $s$. This occurs at deposit, or later when the annotation is revised in place, which is a public action.
+\item $\Cor_t(d',d)$: a deposit $d'\in V_t$ has a component that supersedes or qualifies a component of $d$.
+\end{itemize}
+\end{definition}
+
+\begin{lemma}[Separation]\label{lem:sep}
+$\Enc_t^j(d)\Rightarrow\Dep_t(d)$ and $\Upt_t^j(d)\Rightarrow\Enc_t^j(d)\wedge\Int^j(d)$. No further implication among $\Dep$, $\Enc$, $\Int$, and $\Upt$ holds in general.
+\end{lemma}
+\begin{proof}
+The two implications hold because $\Acc\subseteq V$ and by the definition of $\Upt$. For separation, exhibit instances. A deposit with no inbound path in $\Lambda_t$ and not returned by search from $x_t^j$ satisfies $\Dep\wedge\neg\Enc$. A deposit in a notation outside $\Gamma_j$ satisfies $\Enc\wedge\neg\Int$ because $\Phi_j=\Psi_j=\Theta_j=\varnothing$. A deposit in $j$'s notation but beyond $j$'s access budget satisfies $\Int\wedge\neg\Enc$. A deposit that is encountered and interpreted but on which no chosen action depends satisfies $\Enc\wedge\Int\wedge\neg\Upt$.
+\end{proof}
+
+\begin{remark}[Reachability of corrections]
+Corrections reference what they correct, so $\Lambda$ typically contains an edge from $d'$ to $d$ and not the reverse. An explorer who encounters $d$ is then not thereby exposed to $d'$. For a correction to alter what later explorers do, $d'$ must itself pass through $\Enc$, $\Int$, and $\Upt$ for those explorers, and the existence of $\Cor_t(d',d)$ does not by itself guarantee this. Whether the reverse edge exists, or whether the annotation of $d$ is revised in place, is a property of the platform and is a decisive parameter for the failure analysis in Section 8.
+\end{remark}
+
+\subsection{Alteration of feasible actions and costs}
+
+Let $A_0(x,H)\subseteq\mathcal{A}$ be the baseline actions available independently of any deposit.
+
+\begin{definition}[Feasible actions]\label{def:feasible}
+$$F_j(G,x,H)\;=\;\Bigl(A_0(x,H)\,\cup\bigcup_{d\in\Acc(G,x,H)}\Phi_j(d)\Bigr)\setminus\bigcup_{d\in\Acc(G,x,H)}\Psi_j(d).$$
+\end{definition}
+
+For a deposit $d\in V$ write $G^{-d}$ for $G$ with $d$ and its incident links removed, and assume $\Acc(G^{-d},x,H)=\Acc(G,x,H)\setminus\{d\}$, so that $d$ is not a bridge on which access to other artifacts depends, and assume that the explorer is not positioned at $d$ itself. Put
+$$B=A_0\cup\bigcup_{d'\in\Acc\setminus\{d\}}\Phi_j(d'),\qquad P=\bigcup_{d'\in\Acc\setminus\{d\}}\Psi_j(d'),\qquad F^{-d}=B\setminus P,$$
+and, if $d\in\Acc(G,x,H)$, define the \emph{newly enabled} and \emph{newly foreclosed} sets
+$$E_j(d)=\Phi_j(d)\setminus(B\cup P),\qquad X_j(d)=\Psi_j(d)\cap F^{-d}.$$
+If $d\notin\Acc(G,x,H)$ set $E_j(d)=X_j(d)=\varnothing$.
+
+\begin{proposition}[Alteration]\label{prop:alter}
+Under the assumption above, $F_j(G,x,H)=(F^{-d}\setminus X_j(d))\cup E_j(d)$, with $E_j(d)\cap F^{-d}=\varnothing$ and $X_j(d)\subseteq F^{-d}$. Consequently
+$$F_j(G,x,H)\neq F_j(G^{-d},x,H)\iff d\in\Acc(G,x,H)\ \text{and}\ E_j(d)\cup X_j(d)\neq\varnothing.$$
+In particular, a deposit alters the feasible action set of explorer $j$ only if it persists, is discoverable by $j$, and is interpretable by $j$, and then only if it enables or forecloses something not already enabled or foreclosed by the rest of the environment.
+\end{proposition}
+\begin{proof}
+If $d\notin\Acc$ then $F_j(G,x,H)=F^{-d}$ and $E=X=\varnothing$, so the claim holds. If $d\in\Acc$ then $F_j(G,x,H)=(B\cup\Phi_j(d))\setminus(P\cup\Psi_j(d))$. Let $a$ belong to this set. If $a\in B$ then $a\notin P\cup\Psi_j(d)$, so $a\in F^{-d}$ and $a\notin X_j(d)$. If $a\notin B$ then $a\in\Phi_j(d)$ and $a\notin P\cup\Psi_j(d)$, so $a\in E_j(d)$. Conversely, if $a\in F^{-d}\setminus X_j(d)$ then $a\in B$, $a\notin P$, and $a\notin\Psi_j(d)$, hence $a\in F_j(G,x,H)$; and if $a\in E_j(d)$ then $a\in\Phi_j(d)$, $a\notin B\cup P$, and $a\notin\Psi_j(d)$ because $\Phi_j(d)\cap\Psi_j(d)=\varnothing$, hence $a\in F_j(G,x,H)$. The set $E_j(d)$ is disjoint from $F^{-d}\subseteq B$ by construction and $X_j(d)\subseteq F^{-d}$ by definition. Therefore $(F^{-d}\setminus X)\cup E=F^{-d}$ if and only if $X=\varnothing$ and $E=\varnothing$. If $\Int^j(d)$ fails then $\Phi_j(d)=\Psi_j(d)=\varnothing$ and both sets are empty.
+\end{proof}
+
+\begin{definition}[Cost and weight]\label{def:cost}
+Let $c_j(a\mid G,x,H)\in[0,\infty]$ be the cost to explorer $j$ of action $a$, with the convention that $c_j(a\mid G,x,H)=\infty$ if and only if $a\notin F_j(G,x,H)$. For a deposit $d$ define the \emph{intensive set}
+$$I_j(d)=\bigl\{a\in F_j(G,x,H)\cap F_j(G^{-d},x,H):\ c_j(a\mid G,x,H)\neq c_j(a\mid G^{-d},x,H)\bigr\},$$
+and assume that costs change only through interpretation, so that $I_j(d)\subseteq\Theta_j(d)$. The deposit $d$ \emph{bears weight} for $j$ at $(G,x,H)$ if $E_j(d)\cup X_j(d)\cup I_j(d)\neq\varnothing$.
+\end{definition}
+
+\begin{proposition}[Weight]\label{prop:weight}
+Under the assumptions of Proposition~\ref{prop:alter}, $c_j(\cdot\mid G,x,H)\neq c_j(\cdot\mid G^{-d},x,H)$ if and only if $d$ bears weight for $j$ at $(G,x,H)$.
+\end{proposition}
+\begin{proof}
+If $a\in E_j(d)$ then $a\in F_j(G,x,H)\setminus F_j(G^{-d},x,H)$, so the cost is finite with $d$ and infinite without it. If $a\in X_j(d)$ the roles are reversed. If $a\in I_j(d)$ the costs differ by definition. Conversely, suppose the costs differ at some $a$. If $a$ is feasible in exactly one of the two environments then $a\in E_j(d)\cup X_j(d)$ by Proposition~\ref{prop:alter}. If $a$ is feasible in both then $a\in I_j(d)$. If $a$ is feasible in neither then both costs are infinite and do not differ.
+\end{proof}
+
+Proposition~\ref{prop:alter} therefore characterizes the extensive margin of weight, change in which actions are feasible, and $I_j(d)$ is the intensive margin, change in the cost of actions that remain feasible. Executable residue frequently acts on the intensive margin, as when a script reduces a long manual operation to a short one without making any new operation possible.
+
+\begin{remark}
+The proposition says that a deposit \emph{alters} the feasible set, and it says nothing about whether the alteration is beneficial. It contains no reference to $\omega$ or to $\sigma_d$. When $X_j(d)=\varnothing$ the deposit weakly expands the feasible set, strictly when $E_j(d)\neq\varnothing$. When $E_j(d)=\varnothing$ it weakly contracts it. The companion essay's operational criterion is a directional cost inequality, $\mathbb{E}[C(a_{\mathrm{future}})\mid B_t]<\mathbb{E}[C(a_{\mathrm{future}})\mid W_0]$. Proposition~\ref{prop:alter} is a non-directional analogue that detects change on the extensive margin only. It does not detect change in the cost of actions that remain feasible, which Definition~\ref{def:cost} adds. Under the convention that infeasible actions have infinite cost, a change in membership entails a change in cost but not conversely, and neither margin says whether a change lowers expected cost. The membership form is used here because it isolates the three hypotheses (persistence, discoverability, interpretability) that Section 8 treats as separate points of failure. Nor does an enlarged feasible set entail an increase in the value of the available actions. Let $v_j:\mathcal{A}\to\mathbb{R}$ be any valuation of actions for explorer $j$. An enabled action may have low or negative value because it is misleading, inherits an error, or is costly to interpret, and a foreclosed action may have high value. Any monotonicity claim that links alteration to benefit is therefore conditional on $v_j$ and is not asserted here.
+\end{remark}
+
+\subsection{Accumulation under stated conditions}
+
+Proposition~\ref{prop:alter} concerns a single deposit and a single explorer. Cumulative infrastructure requires a population-level account, and the account below is a mean-field idealization that makes its assumptions explicit.
+
+Call a deposit $d$ \emph{effective at $t$} if $d\in V_t$ and $d$ bears weight (Definition~\ref{def:cost}) for at least one explorer $j$ at the explorer's state. Let $n_t\ge 0$ be the expected number of effective deposits. Let $\rho\in(0,1]$ be the decay rate, the fraction of effective deposits per step that cease to be effective through loss of access, link failure, format obsolescence, or loss of interpretability. Let $\delta:\mathbb{R}_{\ge0}\to\mathbb{R}_{\ge0}$ give the expected number of new effective deposits per step as a function of the current stock. Then
+\begin{equation}\label{eq:stock}
+n_{t+1}=(1-\rho)\,n_t+\delta(n_t).
+\end{equation}
+
+\begin{proposition}[Conditional accumulation]\label{prop:accum}
+Let $(n_t)$ satisfy \eqref{eq:stock}.
+\begin{enumerate}
+\item[(a)] If $\delta\le\bar\delta<\infty$, then $n_t\le\max(n_0,\bar\delta/\rho)$ for all $t$.
+\item[(b)] If $\delta(n)\ge\delta_0+\gamma n$ with $\delta_0\ge0$ and $\gamma>\rho$, and $n_0>0$ or $\delta_0>0$, then $(n_t)$ is nondecreasing and, with $g=\gamma-\rho$, $\;n_t\ge n_0(1+g)^t+\delta_0\bigl((1+g)^t-1\bigr)/g$.
+\item[(b$'$)] If $\delta(n)\ge\delta_0+\rho n$ with $\delta_0>0$, then $n_t\ge n_0+t\,\delta_0$.
+\item[(c)] If $\delta(n)\le\delta_0+\gamma n$ with $0\le\gamma<\rho$, then $n_t\le(1-h)^t n_0+\delta_0\bigl(1-(1-h)^t\bigr)/h$ with $h=\rho-\gamma$, and $\limsup n_t\le\delta_0/h$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+(a) Let $M=\max(n_0,\bar\delta/\rho)$. If $n_t\le M$ then $n_{t+1}\le(1-\rho)M+\bar\delta\le(1-\rho)M+\rho M=M$. (b) Under the hypothesis, $n_{t+1}-n_t\ge\delta_0+(\gamma-\rho)n_t\ge0$, and $n_{t+1}\ge(1+g)n_t+\delta_0$. Since $n\mapsto(1+g)n+\delta_0$ is increasing, induction on $t$ gives the stated lower bound, which is positive and grows geometrically when $n_0>0$ or $\delta_0>0$. (b$'$) Here $n_{t+1}\ge n_t+\delta_0$. (c) Here $h\in(0,1]$ because $0\le\gamma<\rho\le1$, so $n_{t+1}\le(1-h)n_t+\delta_0$ with $1-h\ge0$, and induction gives the bound.
+\end{proof}
+
+The constant $\gamma$ is the marginal yield: the expected number of new effective deposits induced per existing effective deposit per step. Under a simplifying independence assumption it factors as a product of an encounter rate, an interpretation rate, an uptake rate, and a number of public deposits per act of uptake, corresponding to $\Enc$, $\Int$, $\Upt$, and $U$ in Section 7.3 and equation \eqref{eq:env}. Annotation enters through the interpretation and uptake factors. Proposition~\ref{prop:accum} then locates, under the linear bounds assumed, the boundary between saturation and self-reinforcement at a single comparison, $\gamma$ against $\rho$, with growth that is guaranteed to be geometric above the boundary and at least linear at it when $\delta_0>0$. What it establishes is a mechanism: if the marginal yield exceeds decay, the stock grows geometrically. The linear lower bound on $\delta$ is assumed for all stock sizes, whereas in practice finite attention bounds the yield, and the regimes can combine: $\delta$ may satisfy the lower bound for small $n$ and be bounded for large $n$, in which case growth is transient and the stock approaches saturation. The recurrence also describes an expected stock under a mean-field closure, so it says nothing about individual realizations or fluctuations, and $\gamma>\rho$ is a sufficient condition for geometric growth under the stated lower bound and not a necessary and sufficient threshold for arbitrary nonlinear deposition processes. Whether any real practice satisfies $\gamma>\rho$ is an empirical question that the formalism does not settle. Accumulation is also not asserted to be monotone in general, since only case (b) gives monotonicity. Finally, the counted quantity is effectiveness, and neither $\omega$ nor $\sigma_d$ appears in the hypotheses.
+
+\subsection{A counterexample: the unmarked provisional specification}\label{sec:harm}
+
+The last observation is not a technicality. It means the same conditions that yield cumulative infrastructure also yield the cumulative spread of an unsound component, as the following example shows.
+
+\begin{example}[A self-propagating unmarked specification]\label{ex:harm}
+Let $d^\ast$ be a specification with a component $c^\ast$ such that $\tau(c^\ast)=\mathrm{unsound}$ and $\sigma_{d^\ast}(c^\ast)=\bot$. Partition the effective deposits into a family $\mathfrak{F}$ of deposits that depend on $c^\ast$, with stock $f_t$, and the remainder $\mathfrak{S}$, with stock $s_t$, so that $n_t=f_t+s_t$. Assume that every dependent of $c^\ast$ inherits its defect, and define the \emph{defect-free share} $r_t=s_t/(s_t+f_t)$, the fraction of effective deposits that do not depend on $c^\ast$. Let $\lambda\in[0,1-\rho]$ be the rate at which dependents of $c^\ast$ are corrected or retired once the unsoundness is detected. Then
+$$f_{t+1}=(1-\rho-\lambda)f_t+\delta_f(f_t),\qquad s_{t+1}=(1-\rho)s_t+\delta_s(s_t).$$
+Assume that uptake depends on apparent warrant and that unmarked components are taken up at a higher rate than accurately marked provisional ones. The opposite relation, in which unmarked components are treated with suspicion, is also possible, and the example does not apply to it. Suppose, as a hypothesis motivated by this difference and not derived from it, that $\delta_f(f)\ge\delta_{f0}+\gamma_f f$ with $\gamma_f>\rho+\lambda$, while the more cautiously annotated remainder satisfies $\delta_s\le\bar\delta_s<\infty$. Take $f_0>0$.
+
+By Proposition~\ref{prop:accum}(b), applied with decay rate $\rho+\lambda$ and $g_f=\gamma_f-\rho-\lambda>0$, we have $f_t\ge f_0(1+g_f)^t$. By Proposition~\ref{prop:accum}(a), $s_t\le\bar s:=\max(s_0,\bar\delta_s/\rho)$. Since $r_t$ is increasing in $s_t$ and decreasing in $f_t$,
+$$r_t\;\le\;\frac{\bar s}{\bar s+f_0(1+g_f)^t}\;\longrightarrow\;0 .$$
+Adoption of the specification grows without bound while the defect-free share of effective deposits tends to zero.
+\end{example}
+
+The example establishes possibility and not prevalence, because the parameter regime is a hypothesis. What it shows is that the harmful berm is predicted by the mechanism and is not an incidental exception to it: the hypotheses of Proposition~\ref{prop:accum}(b) contain no condition on soundness. It also identifies the lever. The hypothesis $\gamma_f>\rho+\lambda$ is sufficient for geometric growth, so a correction rate $\lambda<\gamma_f-\rho$ cannot arrest it under the stated lower bound. Control is a separate claim that requires an upper bound on yield: if $\delta_f(f)\le\delta_{f0}+\gamma_f' f$ with $0\le\gamma_f'<\rho+\lambda$, then Proposition~\ref{prop:accum}(c), applied with decay rate $\rho+\lambda$, bounds the family by $\delta_{f0}/(\rho+\lambda-\gamma_f')$ in the limit. Calibrated annotation acts on these inequalities indirectly, by lowering the uptake of a defective component, while correction acts on them directly through $\lambda$, subject to the reachability condition in the remark of Section 7.3.
+
+\section{Failure Conditions}\label{sec:fail}
+
+The model of Section~\ref{sec:model} separates deposit, encounter, interpretation, uptake, annotation, and correction, and it therefore locates each way a deposit can fail to contribute to a feedback loop at a specific predicate or parameter. This permits a diagnosis that does not depend on the vague notion that a residue was ``not useful.'' The correspondence is summarized below, and the paragraphs that follow discuss the cases that interact.
+
+\begin{center}
+\begin{tabular}{p{0.34\textwidth}p{0.30\textwidth}p{0.26\textwidth}}
+\hline
+Failure & Predicate or parameter & Reference \\
+\hline
+Persists but is not found & $\Dep\wedge\neg\Enc$ & Lemma~\ref{lem:sep} \\
+Found but not understood & $\Enc\wedge\neg\Int$ & Lemma~\ref{lem:sep} \\
+Understood but not used & $\Enc\wedge\Int\wedge\neg\Upt$ & Lemma~\ref{lem:sep} \\
+Ceases to be effective over time & large $\rho$ & Proposition~\ref{prop:accum} \\
+Provisional status unmarked or overstated & $\sigma_d$ against $\omega$ & Example~\ref{ex:harm} \\
+Correction exists but is unreachable & no edge from $d$ to $d'$ & Remark in Section~\ref{sec:model} \\
+Correction too slow to bound the spread & $\lambda<\gamma_f-\rho$ under a lower yield bound & Example~\ref{ex:harm} \\
+\hline
+\end{tabular}
+\end{center}
+
+\paragraph{Discoverability and interpretation.} A deposit can persist without being found, can be found without being understood, and can be understood without being used, and no one of these implies the next. The practical consequence is that the preservation of a deposit is the weakest of the conditions for its effectiveness. A repository that remains publicly available but is reachable by no path from where explorers actually travel is a trace. The interpretation condition is relative to the explorer's corpus, which is why the same artifact can be a usable starting point for one explorer and unreadable for another. This relativity cannot be removed by the depositor, but explicit annotation and explicit statement of decided and open points reduce its force.
+
+\paragraph{Decay.} The decay rate $\rho$ collects several distinct processes: loss of access, link failure, obsolescence of formats and dependencies, and loss of the context needed for interpretation. They differ in remedy, since loss of access is repaired by mirroring, obsolescence by migration, and loss of context by documentation, but the accumulation result treats them together because only their combined effect on the stock matters. Media differ markedly in their decay rates, which is the sense in which successive technologies of inscription change the conditions of accumulation without changing its logic (Section~\ref{sec:inherit}).
+
+\paragraph{Unmarked provisional deposits and unreachable corrections.} These two failures interact, and their interaction is the content of Example~\ref{ex:harm}. Where uptake responds to apparent warrant, an unmarked provisional component can spread faster than an accurately marked one, although the opposite is possible where unmarked components are treated with suspicion. Correction is the process that would arrest the spread, but corrections reference what they correct and typically not the reverse, so an explorer who encounters the original deposit is not thereby exposed to its correction. Under a lower bound on yield, geometric spread follows whenever the correction rate $\lambda$ is below $\gamma_f-\rho$, and bounding the family requires in addition an upper bound on yield below $\rho+\lambda$. The correction rate depends on whether corrections are reachable from the deposits they concern. Platforms that revise status in place, or that expose backlinks, raise $\lambda$ for a given level of corrective effort, and platforms that do not leave the burden on explorers who have no reason to look. Loss of attribution, treated separately in the companion essay, is orthogonal to the three explorer-side predicates, since a deposit can be encountered, interpreted, and used without its source being known. It can nonetheless lower $\lambda$ where correction depends on contacting the depositor, and that effect is conditional on the platform and not guaranteed by the model.
+
+\section{Conclusion}\label{sec:conc}
+
+The vine preserves a route through the world, and the berm preserves a modification of the world. One supports the continuity of the explorer, and the other supports the possible continuity of the work beyond the explorer. The argument of the essay is that the two are most informative taken together. The distinction between executable and declarative residue, with epistemic status as an independent dimension, explains what can be inherited. Retained navigational history, formalized as a private return structure, explains how an explorer maintains continuity while encountering it and why exploratory commitment can be affordable. The coupled model explains how exploration produces new inheritable conditions, and it does so without assuming that an environment is a fixed resource that explorers merely consume.
+
+The results are limited in ways that are part of their value. A persistent, discoverable, and interpretable deposit alters a later explorer's feasible actions, and that alteration may expand them, contract them, or both. Under the linear bounds assumed, repeated deposition grows geometrically when the marginal yield of existing effective deposits exceeds their decay, which is a sufficient condition, and remains bounded when yield is bounded or falls below decay, and neither condition refers to the soundness of what accumulates. The counterexample shows that the same conditions can produce growing adoption and a vanishing share of deposits free of the defect, so that the harmful berm is a prediction of the theory and not an incidental exception. Whether any particular practice, platform, or institution satisfies the hypotheses is an empirical question. The same holds for the long history of pedagogical residue, in which the model's contribution is to express changes in media as changes in parameters and to state the question of capability versus access in a form that keeps the two apart.
+
+What follows for practice is correspondingly modest. Deposits that run in some way, expose their seams, state which of their components are decided and which are open, and remain reachable from the corrections that concern them are more likely to close the feedback loop and less likely to spread unsound components. A loosely organized collection of individual activities can acquire something resembling infrastructure without a central architect or a common plan, and the mechanism by which it does so is neither exclusively individual nor collaborative in the conventional sense. It consists of explorers who leave a route back for themselves and, without intending to, leave a route forward for others.
+
+\appendix
+\section{Scope of the Formal Results}\label{app:scope}
+
+This appendix states, for the sections that rely on the model of Section~\ref{sec:model}, which claims the formal results license and which they do not.
+\paragraph{Section 2 (graph exploration).} A follow that a platform keeps private is an action that updates $H$ and not $G$, and a publicly visible follow is a public action with negligible content. Selection by semantic criterion may be defined as a congruence judgment indexed to the explorer's corpus $\Gamma_j$, with the attribution to Anderson (2022) and the limit that low congruence with one corpus says nothing about value to another. Inspecting the smaller of two neighborhoods reduces the number of immediate candidates, which is a graph-theoretic fact. Any claim that it improves the chance of finding relevant vertices is a behavioral hypothesis that depends on how relevant vertices are distributed across the two neighborhoods, and it is not licensed by the model.
+
+\paragraph{Section 5 (executable and declarative residue).} Kinds overlap, and annotation attaches to components. An artifact bears weight at $(j,t)$ exactly when $E_j(d)\cup X_j(d)\cup I_j(d)\neq\varnothing$ (Definition~\ref{def:cost}), so that a working script that lowers the cost of an already feasible operation bears weight on the intensive margin even though Proposition~\ref{prop:alter} does not register it. A specification that is rejected, partially adopted, or contradicted can satisfy this through actions defined relative to it, which is the formal content of providing a definite object of disagreement. A vague proposal that something ought to exist has $\Phi_j=\Psi_j=\Theta_j=\varnothing$ for every explorer and bears no weight. The claim that a determinate specification transfers some design decisions from the future builder's problem to the builder's inherited conditions is expressed by $X_j(d)\neq\varnothing$ together with the corresponding enabled actions, and the model does not support the stronger claim that it removes the costliest step.
+
+\paragraph{Section 8 (failure conditions).} Each failure corresponds to a failed predicate or parameter: a deposit that persists but is undiscovered ($\neg\Enc$), discovered but uninterpreted ($\neg\Int$), interpreted but unused ($\neg\Upt$), lost to decay (large $\rho$), unmarked or overclaiming ($\sigma_d$ against $\omega$), corrected but unreachable from what it corrects (absent reverse edge), or insufficiently corrected ($\lambda$ small relative to $\gamma_f-\rho$).
+
+\paragraph{Not licensed.} The model does not establish that deposits are beneficial, that membership in the feasible set captures all of their effects, that accumulation is monotone or self-reinforcing outside the regime $\gamma>\rho$, that any particular platform or practice satisfies the hypotheses, that annotations are accurate, respected, or track correctness, or that return structures bear any psychological relation to attachment. The last point governs the use of the secure-base analogy in Section 3, where the claim remains structural: a retained return structure $S_t^j$ can lower the expected cost of exploratory commitment when moves are reversible.
+
+\begin{thebibliography}{99}
+\bibitem{anderson} Anderson, M. (2022). Corpus Congruence in NLU (Organic Learning, section B4). \emph{Experimental Epistemology}, 6 July 2022. \url{https://experimental-epistemology.ai/corpus-congruence/}
+\bibitem{arthur} Arthur, W. B. (1989). Competing technologies, increasing returns, and lock-in by historical events. \emph{The Economic Journal}, 99(394), 116--131.
+\bibitem{bowlby} Bowlby, J. (1988). \emph{A Secure Base: Parent-Child Attachment and Healthy Human Development}. Basic Books.
+\bibitem{david} David, P. A. (1985). Clio and the economics of QWERTY. \emph{The American Economic Review}, 75(2), 332--337.
+\bibitem{companion} Flyxion (2026a). The Stigmergic Berm: Residual Deposition, Boundary Formation, and the Inheritance of Collective Work.
+\bibitem{gpr} Flyxion (2026b). Globally Persistent Recomposable Thought: GitHub, the Intelligence Explosion, and the Admissibility Geometry of Collective Cognition. Essay dated 14 May 2026. \url{https://standardgalactic.github.io/spherepop/processing/intelligence-explosion.pdf}
+\bibitem{grasse} Grass\'e, P.-P. (1959). La reconstruction du nid et les coordinations interindividuelles chez \emph{Bellicositermes natalensis} et \emph{Cubitermes} sp. La th\'eorie de la stigmergie: essai d'interpr\'etation du comportement des termites constructeurs. \emph{Insectes Sociaux}, 6(1), 41--80. doi:10.1007/BF02223791
+\bibitem{harlow} Harlow, H. F. (1958). The nature of love. \emph{American Psychologist}, 13, 673--685.
+\bibitem{theraulaz} Theraulaz, G., and Bonabeau, E. (1999). A brief history of stigmergy. \emph{Artificial Life}, 5(2), 97--116.
+\end{thebibliography}
+
+\end{document}

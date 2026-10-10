@@ -1,0 +1,258 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\renewcommand{\Pr}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\title{Ambiguity as a Deferred Commitment}
+\author{Flyxion\\Independent Researcher}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A situation that admits several continuations can be left open in two quite different ways. It can be left open by design, with the alternatives retained, a trigger for choosing among them, and a rule for choosing, or it can be left open by default, because nothing in the situation settles which continuation holds and nothing is done about it. This essay calls the first deferral and the second underspecification, states four conditions under which a deferral is genuine, and develops a decision-theoretic account of when deferral is worth its cost. The value of deferral is the value of information under the standard assumptions that the original options persist, that information is free, and that it can be ignored; it is shown to be nonnegative, to be monotone in the informativeness of the signal, and to vanish exactly when every option that is optimal under the prior remains optimal under the posterior, which is a weaker requirement than that the information never change the choice, since ties permit a change of choice without a gain. Net of maintenance cost, lapse of options, and the benefit of committing early, deferral is preferred when its option value exceeds those costs. Reversible commitment is shown to be a cheaper substitute for deferral under an explicit condition. A deferral without a stated resolution rule is shown not to be a decision procedure: it collapses to a default only when a deadline and a default are imposed from outside. A formulation in terms of an append-only log represents a deferral as a tracked set of pending alternatives, and cases from design, parsing, programming, and environmental decision-making are compared against the four conditions.
+\end{abstract}
+
+\section{Introduction}
+
+Ordinary language has a single word for several different situations in which a matter is left unsettled. A sentence is ambiguous when it has more than one reading, a design is ambiguous when it can be developed in more than one direction, a negotiator speaks ambiguously when the terms of an agreement are phrased so that each party can read them favourably, and a forecast is ambiguous when the probabilities themselves are not known. The word covers cases in which the openness is an accident, cases in which it is a tactic, and cases in which it is a considered way of postponing a decision until it can be made well. The distinction between these is what makes the subject worth theoretical treatment, because the first is a defect to be repaired, the second is a move in a game, and the third is an operation with a value that can be calculated and a price that can be paid.
+
+The thesis of this essay is that the third case, deferral, is distinguishable from the first, underspecification, by a short list of structural conditions, and that when those conditions hold the worth of deferral has a precise form. It is the value of the information that will arrive before the commitment has to be made, reduced by what it costs to keep the alternatives available, by the chance that they will lapse, and by what is lost through not acting early. When the conditions do not hold, there is nothing that the value could be the value of. The thesis has a practical content. It implies that the often-repeated advice to keep one's options open is correct under a stated set of assumptions, that it is incorrect when those assumptions fail, and that the failures can be diagnosed from the structure of the situation.
+
+A word on terminology is required at the outset. The ambiguity of this essay is interpretive and practical: a situation, a text, or a design admits several continuations, and the question is which will be taken. It is not the ambiguity of decision theory in the sense of Ellsberg (1961), where the probabilities of the states are themselves unknown and the question is how an agent should respond to that. The two can coexist, but they are different problems, and the analysis here is conducted under a standard Bayesian description of the uncertainty about which continuation is best.\footnote{Ellsberg's paradox concerns aversion to uncertainty about the probabilities themselves. The present essay does not use that notion and assumes a single prior throughout. Extending the account to multiple priors is noted as an open question in the final section.}
+
+The essay proceeds as follows. Section 2 sets out the framework in which a situation has admissible continuations and defines deferral. Section 3 gives the criteria separating deferral from underspecification. Sections 4 and 5 give the option-value argument and its costs, with the conditions under which it fails stated explicitly. Section 6 treats the requirement for a resolution rule. Section 7 gives the formulation in terms of a log, and Section 8 applies the criteria to four domains. Section 9 states limits and open questions.
+
+\section{Admissible Continuations and Deferral}
+
+The framework assumed here is the history-primary one used in the author's earlier essays, in which what can happen next is constrained by what has happened, and the constraint is represented by a set of admissible continuations. For a history $h$ let $\mathrm{Adm}(h)$ be the set of continuations that are admissible after $h$. The set may have one element, in which case there is nothing to decide, and the interesting cases are those in which it has several.
+
+\begin{definition}[Open situation]
+A history $h$ is \emph{open} if $|\mathrm{Adm}(h)|>1$. A \emph{commitment} at $h$ is the selection of a single element of $\mathrm{Adm}(h)$, or of a subset, which restricts the continuations that remain admissible afterwards.
+\end{definition}
+
+An open situation can be left open without anything being done to it. Deferral is the case in which something is done: the alternatives are retained and a procedure for choosing among them is attached.
+
+\begin{definition}[Deferral]
+A \emph{deferral} at an open history $h$ is a quadruple $(A,\tau,\rho,m)$ in which $A\subseteq\mathrm{Adm}(h)$ is a retained set of alternatives, $\tau$ is a trigger, a stopping time that depends on the information available, $\rho$ is a resolution rule that maps the information available at $\tau$ to an element of the retained set that has not lapsed, and $m$ is the cost of maintaining the retained set until $\tau$. \emph{Underspecification} is the case in which the situation is open and no such quadruple is part of the state.
+\end{definition}
+
+The definition makes deferral a matter of what the state contains, not of how much uncertainty there is. A situation can be highly uncertain and yet not deferred, because nobody has retained the alternatives or specified how they will be chosen among, and it can be nearly certain and yet formally deferred, because a resolution rule has been attached to a choice that will in practice always go one way. This is the distinction between preserving several admissible continuations and merely failing to specify one.
+
+\section{Preserving versus Failing to Specify}
+
+The four components of a deferral suggest four conditions, each of which can fail independently. A deferral is \emph{genuine} when all four hold.
+
+\begin{enumerate}
+\item[(D1)] \emph{Retention.} Each alternative in $A$ remains available at the trigger with positive probability. If the alternatives lapse silently, what is called deferral is in practice a commitment to whatever is left.
+\item[(D2)] \emph{Relevance.} Information that bears on the ranking of the alternatives will arrive before the trigger, in the sense made precise in Section 4 by a positive value of information. If it will not, waiting buys nothing.
+\item[(D3)] \emph{Resolution.} A trigger $\tau$ and a rule $\rho$ are specified. Without them there is no procedure by which the retained set is reduced.
+\item[(D4)] \emph{Bounded maintenance.} The cost $m$ of keeping the alternatives available is finite and accounted for, whether it is attention, storage, or the loss of the benefits of acting.
+\end{enumerate}
+
+The conditions can be illustrated by contrasting two ways a manuscript might be left with its argument unsettled. In one, the author has noted three possible endings, kept the material needed for each, and decided that the choice will be made after a reader's response is in. This satisfies the four conditions. In the other, the argument has no ending, the notes for the possible endings have not been kept, and there is no plan for deciding. The two states of the manuscript may be identical in what is on the page. They differ in what has been preserved and in what procedure is attached, and it is these that give the first a value that the second lacks.
+
+The conditions also make clear that deferral has failure modes of its own. A deferral can fail D1 because the alternatives decay, as when an invitation to collaborate lapses while the decision is awaited. It can fail D2 because the awaited information would not change anything, as in the common case in which a person postpones a decision to gather evidence that would not alter the choice. It can fail D3 by having no trigger, so that waiting continues until events decide, and it can fail D4 when the cost of holding alternatives open, in attention and in foregone action, exceeds what the alternatives are worth. A theory of deferral is largely a theory of when these failures occur.
+
+\section{The Option-Value Argument}
+
+The standard account of the value of waiting is the value of information. The setting is as follows. There is a finite set of actions $\mathcal A$ and a finite set of states $\Theta$ with a prior $p$ and a utility $u(a,\theta)$. A signal $S$ will be observed before the choice is made if the choice is deferred, with a joint distribution of signal and state that is known. Write $\bar u(a)=\E[u(a,\theta)]$ for the prior expected utility and $\bar u(a\mid s)=\E[u(a,\theta)\mid S=s]$ for the posterior expected utility. The assumptions of the baseline case are four.
+
+\begin{enumerate}
+\item[(B1)] \emph{Persistence.} All original actions remain available after the signal arrives.
+\item[(B2)] \emph{Free information.} The signal arrives at no cost to the decision-maker, which includes the cost of maintaining the alternatives.
+\item[(B3)] \emph{Free disposal.} The decision-maker can ignore the signal, so that the policy of choosing a fixed action regardless of the signal remains available.
+\item[(B4)] \emph{No early benefit.} Acting early confers no benefit that waiting forgoes.
+\end{enumerate}
+
+Under these assumptions the value of deferring over committing to the best prior action is
+\[
+\mathrm{VOI} \;=\; \E\Bigl[\max_{a\in\mathcal A}\bar u(a\mid S)\Bigr] \;-\; \max_{a\in\mathcal A}\bar u(a).
+\]
+
+\begin{proposition}[Option value]
+Under (B1) to (B4):
+\begin{enumerate}
+\item[(a)] $\mathrm{VOI}\ge 0$.
+\item[(b)] $\mathrm{VOI}=0$ if and only if every action that is optimal under the prior is optimal under the posterior with probability one.
+\item[(c)] If the prior-optimal action is unique, $\mathrm{VOI}=0$ if and only if the posterior-optimal action coincides with it with probability one, that is, if and only if the information never changes the choice. If the prior-optimal action is not unique, the information may change which action is chosen without any gain in expected utility.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Let $a^\ast$ be any prior-optimal action. For every signal value, $\max_a\bar u(a\mid s)\ge\bar u(a^\ast\mid s)$. Taking expectations and using the law of iterated expectations, $\E[\max_a\bar u(a\mid S)]\ge\E[\bar u(a^\ast\mid S)]=\bar u(a^\ast)=\max_a\bar u(a)$, which gives (a). For (b), if $\mathrm{VOI}=0$, then for each prior-optimal $a^\ast$ the nonnegative random variable $\max_a\bar u(a\mid S)-\bar u(a^\ast\mid S)$ has expectation zero and is therefore zero with probability one, so $a^\ast$ is posterior-optimal almost surely. Conversely, if some prior-optimal $a^\ast$ is posterior-optimal almost surely, then $\E[\max_a\bar u(a\mid S)]=\E[\bar u(a^\ast\mid S)]=\max_a\bar u(a)$ and $\mathrm{VOI}=0$. For (c), when the prior-optimal action is unique, (b) states that it is posterior-optimal almost surely, which is the statement that the choice never changes. The final sentence follows from an example: let two actions have identical payoffs in every state. Every action is prior-optimal and posterior-optimal, the value of information is zero, and a decision-maker who switches from one to the other after the signal has changed the choice and gained nothing.
+\end{proof}
+
+Part (c) corrects a tempting slip. It is natural to say that information has value only if it would change what is done, and in the generic case this is correct. In the presence of ties it is not, since a change of choice among equally good options is not an improvement. The right statement is in terms of expected utility: information is valueless exactly when it cannot improve on what could be obtained without it, and the corresponding condition on choices is the one in part (b).
+
+The value of information increases with the quality of the signal in the following sense, due to Blackwell (1953).
+
+\begin{proposition}[Monotonicity in informativeness]
+Suppose $\theta\to S'\to S$ is a Markov chain, so that $S$ is a garbling of $S'$. Then $\mathrm{VOI}(S')\ge\mathrm{VOI}(S)$.
+\end{proposition}
+
+\begin{proof}
+By the Markov property, $\bar u(a\mid S)=\E[\bar u(a\mid S')\mid S]$. The maximum of conditional expectations is at most the conditional expectation of the maximum, so $\max_a\bar u(a\mid S)\le\E[\max_a\bar u(a\mid S')\mid S]$. Taking expectations over $S$ gives $\E[\max_a\bar u(a\mid S)]\le\E[\max_a\bar u(a\mid S')]$, and the prior term in the definition is common to both.
+\end{proof}
+
+\paragraph{An illustration.} Let there be two equiprobable states, $L$ and $R$, and three actions: $a_L$, which pays 1 if the state is $L$ and 0 otherwise, $a_R$, which pays 1 if the state is $R$ and 0 otherwise, and a safe action $a_0$ which pays $0.55$ in either state. The safe action is optimal under the prior, with expected payoff $0.55$ against $0.5$ for each of the others. A signal reports the state correctly with probability $q$. After the signal the posterior probability of the reported state is $q$, so the decision-maker prefers the matching risky action when $q>0.55$ and the safe action otherwise. Hence $\mathrm{VOI}=\max(q,0.55)-0.55$.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{rrrr}
+\toprule
+Signal accuracy $q$ & $\mathrm{VOI}$ ($p=1$) & $\mathrm{VOI}_p$ ($p=0.7$) & $\mathrm{VOI}_p$ ($p=0.4$) \\
+\midrule
+0.50 & 0.000 & 0.000 & 0.000 \\
+0.55 & 0.000 & 0.000 & 0.000 \\
+0.60 & 0.050 & 0.035 & 0.020 \\
+0.70 & 0.150 & 0.105 & 0.060 \\
+0.80 & 0.250 & 0.175 & 0.100 \\
+0.90 & 0.350 & 0.245 & 0.140 \\
+1.00 & 0.450 & 0.315 & 0.180 \\
+\bottomrule
+\end{tabular}
+\caption{Option value in the illustration. The column $p$ is the probability that each risky action is still available when the signal arrives, with the safe action always available; the corresponding value is defined in Section 5. The parameters are chosen for exposition.}
+\end{table}
+
+The table shows two features that the proposition predicts. For accuracy at or below $0.55$ the signal never changes the choice and the value is zero, so deferral is worth nothing however long the wait. Above that threshold the value rises with the accuracy, and it falls in proportion to the chance that the risky actions lapse.
+
+\section{What Deferral Costs}
+
+The baseline assumptions (B1) to (B4) fail in practice, and each failure corresponds to a cost. Three are considered: lapse of options, the cost of maintaining them, and the benefit of acting early.
+
+Let each action $a$ be available at the time of choice with probability $\sigma_a$, independently of the state and signal, with a designated fallback action always available. Let $\xi_a\in\{0,1\}$ indicate availability. Let $m\ge0$ be the cost of maintenance. Let committing at the outset to $a$ yield, in addition to its expected utility, an early benefit $\beta(a)\ge0$. Then
+\[
+V_{\mathrm{now}} \;=\; \max_{a}\bigl[\bar u(a)+\beta(a)\bigr],\qquad
+V_{\mathrm{def}} \;=\; \E\Bigl[\max_{a:\,\xi_a=1}\bar u(a\mid S)\Bigr]-m.
+\]
+Define the option value net of lapse, $\mathrm{VOI}_\sigma=\E[\max_{a:\xi_a=1}\bar u(a\mid S)]-\max_a\bar u(a)$, and the value of early commitment, $\Delta=V_{\mathrm{now}}-\max_a\bar u(a)\ge0$.
+
+\begin{proposition}[Net value of deferral]
+$V_{\mathrm{def}}-V_{\mathrm{now}}=\mathrm{VOI}_\sigma-m-\Delta$, and $\mathrm{VOI}_\sigma\le\mathrm{VOI}$. Deferral is preferred to immediate commitment if and only if $m\le\mathrm{VOI}_\sigma-\Delta$.
+\end{proposition}
+
+\begin{proof}
+Subtract and add $\max_a\bar u(a)$ in the difference: $V_{\mathrm{def}}-V_{\mathrm{now}}=\bigl(\E[\max_{\xi_a=1}\bar u(a\mid S)]-\max_a\bar u(a)\bigr)-m-\bigl(V_{\mathrm{now}}-\max_a\bar u(a)\bigr)$. The inequality holds because a maximum over a subset of the actions does not exceed the maximum over all of them.
+\end{proof}
+
+The proposition formalizes the idea that deferral is valuable when the alternatives have genuine future utility and the cost of keeping them does not exceed the expected cost of committing prematurely. The expected cost of premature commitment, in the baseline, is the value of information itself; the proposition replaces it with what remains after lapse and after the benefit of early action. Two consequences follow directly. If the awaited information has no value, so that $\mathrm{VOI}_\sigma=0$, deferral is strictly worse than commitment whenever $m>0$ or $\Delta>0$, which is the case of waiting for information that would not matter. And if the options are likely to lapse, so that $\sigma_a$ is small, the value shrinks in proportion, which is the case of waiting for a better moment while the opportunity expires. The third column of the table shows the effect numerically.
+
+\subsection{Reversible commitment as a substitute}
+
+A decision-maker who can commit now and later reverse the commitment at a cost has an alternative to deferral. Suppose the baseline conditions hold except that early commitment to the prior-optimal action $a_0$ confers a benefit $\beta\ge0$ and that after the signal the decision-maker may switch to any action at a cost $r\ge0$ incurred only if a switch is made. Let $Z=\max_a\bigl(\bar u(a\mid S)-\bar u(a_0\mid S)\bigr)\ge0$ be the gain from the best switch, ignoring the cost.
+
+\begin{proposition}[Reversible commitment versus deferral]
+Let $V_{\mathrm{rev}}(r)$ be the value of committing to $a_0$ and switching optimally at cost $r$, and let $V_{\mathrm{def}}(m)$ be the value of deferral with maintenance cost $m$ and no lapse. Then
+\[
+V_{\mathrm{rev}}(r)-V_{\mathrm{def}}(m) \;=\; \beta+m-\E[\min(Z,r)].
+\]
+\end{proposition}
+
+\begin{proof}
+Write $\E[\max_a\bar u(a\mid S)]=\bar u(a_0)+\E[Z]$, so $V_{\mathrm{def}}(m)=\bar u(a_0)+\E[Z]-m$. The commitment yields $\bar u(a_0)+\beta+\E[(Z-r)^+]$, since a switch is made when and only when its gain exceeds its cost. Subtracting and using $(Z-r)^+-Z=-\min(Z,r)$ gives the stated expression.
+\end{proof}
+
+The expression shows how reversibility and deferral are related. At $r=0$ the expectation of $\min(Z,r)$ vanishes and reversible commitment is at least as good as deferral, with equality when $\beta+m=0$: free reversal is deferral at no charge. As $r$ grows the term $\E[\min(Z,r)]$ increases to $\E[Z]$, which is the full option value, and reversible commitment loses the whole of it when reversal is prohibitively costly. Reversible commitment wins whenever $\beta+m\ge\E[\min(Z,r)]$, and in particular whenever $r\le\beta+m$. Deferral wins when reversal is expensive relative to the information gain and the benefit of early action is small. In the illustration with $q=0.9$ the gain $Z$ equals $0.35$ with certainty, so with a reversal cost of $0.1$ reversible commitment beats deferral whenever $\beta+m\ge0.1$, while with a reversal cost of $0.5$ it does so only when $\beta+m\ge0.35$. The practical content is that deferral is the right instrument for decisions that are costly to reverse, and that for decisions that can be cheaply revisited the tidier course is often to commit and revise.
+
+\section{Deadlines and Resolution Rules}
+
+The remaining condition of Section 3 is the resolution rule (D3), and its role requires separate treatment, because a common claim is that an ambiguity left open indefinitely will in the end resolve to a default. The claim is true under particular conditions that the claim itself does not state.
+
+Let a deferral policy be a pair $(\tau,\rho)$, where $\tau\in[0,\infty]$ is a stopping time and $\rho$ maps the information at $\tau$ to an available action, with $\tau=\infty$ meaning that no commitment is ever made and a payoff $u_\varnothing$ is received, net of maintenance. The value of the policy is defined only when $(\tau,\rho)$ is specified.
+
+\begin{proposition}[Resolution rules and the default]
+\begin{enumerate}
+\item[(a)] Deferral without a specified trigger and rule has no value as a decision procedure. Its value is determined by whatever the environment supplies in their place.
+\item[(b)] If the environment imposes a deadline $T$ and the decision-maker may choose at $T$ with the information then available, the policy $(T,\rho^{\mathrm{Bayes}})$ is a genuine deferral with the value of Section 5.
+\item[(c)] If the environment imposes a deadline $T$ and a default action $d$ that takes effect regardless of the information, the value is $\bar u(d)-mT$ with maintenance accruing at rate $m$, which does not exceed the value of committing to $d$ at the outset when $m\ge0$ and $\beta(d)\ge0$.
+\item[(d)] If there is no deadline and no trigger, the value is $u_\varnothing$ less the accumulated maintenance cost, and deferral is preferred to commitment only if that quantity exceeds $\max_a[\bar u(a)+\beta(a)]$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part (a) is the observation that the value of a policy is a function of $(\tau,\rho)$. Part (b) follows because choosing at $T$ with the information then available is the Bayes rule applied at $\tau=T$, which gives the value $\E[\max\bar u(a\mid S_T)]-mT$, the quantity of Section 5 with the maintenance cost accrued over the interval. For (c), the action taken is $d$ irrespective of the signal, so the value is $\bar u(d)$ less the maintenance accrued by the deadline, and committing to $d$ at the outset yields $\bar u(d)+\beta(d)$ without maintenance. For (d), no action is taken and the only payoff is the non-commitment payoff less its maintenance.
+\end{proof}
+
+The conclusion usually drawn, that indefinite ambiguity collapses to a default, is therefore the content of part (c) and depends on an external deadline and an externally imposed default. Where a decision-maker retains the power to choose at the deadline, part (b), nothing collapses and the deferral retains its full value. Where there is neither deadline nor trigger, part (d), the situation does not collapse to a default at all; it persists, and what it is worth depends on what the non-commitment state yields. This is the sense in which a resolution rule is not an optional refinement. It is what makes the difference between the three outcomes.
+
+\section{A Log Formulation}
+
+In the framework of the earlier essays, state is a fold over an append-only log, and the formulation of deferral in that framework is brief. Let the log contain entries of two further kinds: a \emph{deferral entry} $d(A,\tau,\rho)$ that records the retained set, the trigger, and the rule, and a \emph{resolution entry} $r(a)$ that records the selection of an element. The state of the fold is then extended with a set of pending deferrals, each with its set of retained alternatives. A resolution entry removes the pending deferral it resolves and restricts the admissible continuations to those consistent with the selected element.
+
+\begin{proposition}[Monotone resolution]
+Suppose that resolution entries only remove alternatives and that no entry adds an alternative to a pending set. Then along any prefix chain of the log, the retained set of each pending deferral is nonincreasing, and the log records which alternatives were retained at each stage.
+\end{proposition}
+
+\begin{proof}
+By hypothesis each entry maps the retained set of a pending deferral to a subset of it or leaves it unchanged. Prefixes are ordered by extension, so the retained sets form a chain under inclusion. The record of retained sets at each prefix is recoverable because the fold over each prefix is recoverable.
+\end{proof}
+
+The formulation makes the distinction of Section 3 observable. A situation that is deferred has a deferral entry in its log and a retained set in its state. A situation that is merely underspecified has neither, so that the openness is a property of the world and nothing in the state represents it. The fold cannot tell which alternatives were left open or by whom, and an audit of the log cannot reconstruct what was available when a later choice was made. The formulation does not add a result beyond the two propositions above and the observation that deferral is representable in the log as a set-valued component of the state; it is included because it connects the account to the treatment of retraction and authority in the same framework, where the question of what an entry preserves and what it removes is the central one.
+
+\section{Four Domains}
+
+The criteria of Section 3 can be applied to domains in which deferral is practised, and the application shows both where the account fits and where it must be qualified.
+
+\paragraph{Design and creative production.} Sketching is a classical case of deferred commitment. Schön and Wiggins (1992) describe designers reinterpreting their own sketches, seeing in a drawing configurations they had not intended, and Goel (1995) argues that the ambiguity and density of sketch notation are what permit this reinterpretation. A sketch retains alternatives (D1) cheaply, since the lines support several readings, and the triggers (D3) are the designer's own recognitions. Whether information of relevance (D2) arrives depends on the practice; a designer who sketches to find out what the design could be is, in effect, generating the information that makes the deferral valuable. This is a case in which the retained set is not fixed at the outset but enlarged by the process of waiting, which the option-value account of Section 4 does not cover and which is noted among the open questions.
+
+\paragraph{Parsing and delayed interpretation.} A sentence whose structure is ambiguous at an early point can be processed by committing to one analysis and revising if it proves wrong, or by retaining several analyses until later material decides among them. The garden-path literature (Frazier and Rayner 1982) concerns the cost of commitment followed by revision, and constraint-based accounts allow several analyses to be maintained in parallel with weights. In formal semantics, underspecified representations (Reyle 1993; Copestake et al. 2005) are the clearest example of a genuine deferral in the technical sense: a single representation denotes a defined set of fully specified readings, so that retention (D1) is by construction, the set of readings is explicit, and resolution is a defined operation on the representation. The maintenance cost (D4) is the cost of manipulating one underspecified structure in place of several, which is why the technique exists.
+
+\paragraph{Programming.} Non-strict evaluation defers a computation until its result is demanded (Hughes 1989), and a typed hole in a program defers the choice of a term while the rest of the program is checked. Both retain the alternative by retaining the expression (D1), have a trigger, namely demand or the later filling of the hole (D3), and have a bounded maintenance cost in memory and in the loss of immediate error reporting (D4). The relevance condition (D2) is the less obvious one; the value of lazy evaluation lies in avoiding computations whose results turn out not to be needed, which is a value of information about the future course of the program.
+
+\paragraph{Irreversible decisions under learning.} The economics of irreversibility supplies the original form of the argument. Arrow and Fisher (1974) and Henry (1974) showed that when a decision is irreversible and information will arrive, the prospect of learning raises the value of preserving options, a quantity now known as quasi-option value, and Dixit and Pindyck (1994) developed the corresponding theory of investment under uncertainty. These are the cases in which the reversal cost $r$ of Section 5 is large, so that Proposition 4 favours deferral over reversible commitment, and in which lapse of options is a main concern, so that the net value of Proposition 3 can be dominated by $\sigma_a$.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{p{2.8cm}p{2.6cm}p{2.6cm}p{2.6cm}p{2.2cm}}
+\toprule
+Domain & Retention (D1) & Relevance (D2) & Resolution (D3) & Maintenance (D4) \\
+\midrule
+Sketching & Cheap, by ambiguity of notation & Generated by the process & Designer's recognition & Low \\
+Underspecified semantics & By construction & From later context & Defined operation & Lower than enumerating readings \\
+Lazy evaluation & Retained expression & Future demand & Demand or filling & Memory, delayed errors \\
+Irreversible investment & Depends on the option & Arrival of data & Decision rule & Foregone returns \\
+\bottomrule
+\end{tabular}
+\caption{The four conditions applied to cases. The entries are qualitative summaries and do not measure anything.}
+\end{table}
+
+The table indicates that cases of genuine deferral differ widely in which condition is carrying the weight. In underspecified semantics it is retention and resolution, which the formalism guarantees, and in sketching it is relevance, which the practice generates. This suggests that advice about when to defer is best framed as a question about which of the four conditions is least secure in the case at hand.
+
+\section{Limits and Open Questions}
+
+The account has several limits. The decision-theoretic analysis assumes a single prior, a finite set of actions, and independence of availability from state and signal. Relaxing the single prior leads to the problem of ambiguity in the sense of Ellsberg, in which the value of waiting depends on the decision-maker's attitude toward uncertainty about the probabilities themselves. Relaxing independence allows for the case in which options lapse precisely when the information would have favoured them, as in competitive settings, and the results of Section 5 would then change. The baseline assumption of free disposal (B3) is itself questionable for human decision-makers, since information, once received, may be difficult to ignore, and may bias subsequent choice; in that case the option value of Proposition 1 is an upper bound on what a person can capture.
+
+Three questions follow. The first concerns deferral that enlarges the set of alternatives. In creative work the purpose of waiting is often to find alternatives that are not yet available, and the framework of Section 4, in which the action set is fixed, cannot represent a value of search. A model in which waiting also generates new options would require a different object than $\mathrm{VOI}$. The second concerns strategic ambiguity, in which the openness is maintained between parties, each with its own rule of resolution, and in which the value of leaving a matter unsettled can arise from the parties' relationship and not from information. The third concerns the cost of maintenance, which has been treated as a single constant $m$ although for a person it is largely a cost of attention, which may grow with the number of alternatives held and with the length of time. A treatment of maintenance as a function of the size of the retained set would give a sharper account of when it is better to defer partially, narrowing the set while leaving some alternatives open.
+
+The summary is brief. Leaving a matter open is not in itself a virtue, and neither is it a failing. Whether it is one or the other depends on structural conditions that can be stated and, in many cases, checked: whether the alternatives are retained, whether information will arrive that bears on their ranking, whether there is a rule for choosing, and whether the cost of waiting is bounded and less than what waiting is worth.
+
+\begin{thebibliography}{99}\small
+\bibitem{arrow} Arrow, K. J., and Fisher, A. C. (1974). Environmental preservation, uncertainty, and irreversibility. \emph{Quarterly Journal of Economics} 88, 312--319.
+\bibitem{blackwell} Blackwell, D. (1953). Equivalent comparisons of experiments. \emph{Annals of Mathematical Statistics} 24, 265--272.
+\bibitem{copestake} Copestake, A., Flickinger, D., Pollard, C., and Sag, I. A. (2005). Minimal recursion semantics: An introduction. \emph{Research on Language and Computation} 3, 281--332.
+\bibitem{dixit} Dixit, A. K., and Pindyck, R. S. (1994). \emph{Investment under Uncertainty}. Princeton University Press.
+\bibitem{ellsberg} Ellsberg, D. (1961). Risk, ambiguity, and the Savage axioms. \emph{Quarterly Journal of Economics} 75, 643--669.
+\bibitem{frazier} Frazier, L., and Rayner, K. (1982). Making and correcting errors during sentence comprehension: Eye movements in the analysis of structurally ambiguous sentences. \emph{Cognitive Psychology} 14, 178--210.
+\bibitem{goel} Goel, V. (1995). \emph{Sketches of Thought}. MIT Press.
+\bibitem{henry} Henry, C. (1974). Investment decisions under uncertainty: The ``irreversibility effect''. \emph{American Economic Review} 64, 1006--1012.
+\bibitem{hughes} Hughes, J. (1989). Why functional programming matters. \emph{The Computer Journal} 32, 98--107.
+\bibitem{reyle} Reyle, U. (1993). Dealing with ambiguities by underspecification: Construction, representation and deduction. \emph{Journal of Semantics} 10, 123--179.
+\bibitem{schon} Sch\"on, D. A., and Wiggins, G. (1992). Kinds of seeing and their functions in designing. \emph{Design Studies} 13, 135--156.
+\end{thebibliography}
+
+\end{document}
