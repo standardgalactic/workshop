@@ -1,0 +1,24 @@
+[
+ {
+  "link": "wan",
+  "rule": "avg",
+  "H": 500,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 2225.5,
+  "comm_wait_total": 1920.6,
+  "gb_total": 48.0,
+  "final_loss": 0.013652948196977377
+ },
+ {
+  "link": "wan",
+  "rule": "nesterov",
+  "H": 500,
+  "reached": 0,
+  "seeds": 2,
+  "time_to_target": NaN,
+  "comm_wait_total": 1920.6,
+  "gb_total": 48.0,
+  "final_loss": 0.0370055828243494
+ }
+]

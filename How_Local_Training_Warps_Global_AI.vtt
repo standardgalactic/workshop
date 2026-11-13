@@ -1,0 +1,3572 @@
+WEBVTT
+
+00:00.000 --> 00:05.660
+So, I want you to imagine for a second that you are managing this massive construction crew, right?
+
+00:05.720 --> 00:07.400
+Like, you're building a massive skyscraper.
+
+00:07.520 --> 00:07.980
+Oh, man.
+
+00:08.400 --> 00:09.780
+That sounds stressful already.
+
+00:09.940 --> 00:11.120
+Right. And it gets worse.
+
+00:11.900 --> 00:17.260
+Your framers are over in Tokyo, the concrete-pouring teams are in New York,
+
+00:17.380 --> 00:19.840
+and your electricians are, I don't know, sitting in London.
+
+00:20.060 --> 00:21.280
+Yeah, completely scattered.
+
+00:21.460 --> 00:22.100
+Completely scattered.
+
+00:22.520 --> 00:24.960
+And they all have, you know, slightly different blueprints.
+
+00:25.560 --> 00:30.060
+Plus, by law, you can only actually communicate with them exactly once a month.
+
+00:30.520 --> 00:33.180
+Wow. That is a recipe for disaster.
+
+00:33.580 --> 00:34.500
+It really is.
+
+00:34.500 --> 00:38.360
+I mean, the result is obviously a lopsided tower.
+
+00:38.680 --> 00:43.400
+You've got wires leading to absolutely nowhere and just a fundamentally unstable structure.
+
+00:43.940 --> 00:46.680
+Which, yeah, no one would ever want to step foot in that building.
+
+00:46.920 --> 00:47.300
+Exactly.
+
+00:47.860 --> 00:51.960
+But the thing is, this isn't just some wacky construction hypothetical.
+
+00:51.960 --> 00:57.780
+It is, it's the exact nightmare that's playing out right now in the multi-billion dollar race
+
+00:57.780 --> 01:00.040
+to train global artificial intelligence models.
+
+01:00.540 --> 01:01.220
+It really is.
+
+01:01.460 --> 01:04.280
+Because the structural integrity of these AI models,
+
+01:04.460 --> 01:09.240
+it relies entirely on these independent, geographically isolated machines.
+
+01:09.420 --> 01:13.840
+And they are all trying to, like, agree on a single mathematical reality.
+
+01:14.080 --> 01:16.000
+While dealing with huge bottlenecks, right?
+
+01:16.140 --> 01:18.220
+Oh, massive communication bottlenecks, yeah.
+
+01:18.520 --> 01:19.580
+Well, welcome to this deep dive.
+
+01:19.580 --> 01:24.060
+Today, we are unpacking a really dense, just highly mathematical paper
+
+01:24.060 --> 01:25.960
+by an independent researcher named Flyxion.
+
+01:26.440 --> 01:29.300
+Yeah, it's called Hierarchical Synchronization.
+
+01:29.860 --> 01:32.900
+Local Training, Global State, and the Composition of Updates.
+
+01:33.080 --> 01:34.720
+That's a mouthful of a title for sure.
+
+01:34.900 --> 01:35.360
+It is.
+
+01:35.460 --> 01:37.120
+But the paper itself is brilliant.
+
+01:37.400 --> 01:42.560
+It basically dissects the mechanics of how distributed systems actually reach consensus.
+
+01:43.020 --> 01:43.280
+Right.
+
+01:43.280 --> 01:47.600
+Like, it moves way past the surface-level engineering of, you know, network bandwidth.
+
+01:47.960 --> 01:53.040
+And it really digs into the fundamental structural mathematics of how we combine all these disparate
+
+01:53.040 --> 01:54.440
+updates from isolated computers.
+
+01:55.180 --> 01:55.220
+Right.
+
+01:55.300 --> 01:57.420
+Which brings us to our mission for this deep dive today.
+
+01:57.600 --> 02:02.380
+We really want to explore how these independent remote training sites, these computers,
+
+02:02.560 --> 02:07.600
+can work together to build a shared AI model without, you know, drowning in the sheer cost
+
+02:07.600 --> 02:09.520
+of saying terabytes of data back and forth.
+
+02:09.620 --> 02:11.900
+Because that data transfer is incredibly expensive.
+
+02:11.900 --> 02:13.020
+Super expensive.
+
+02:13.360 --> 02:17.180
+But even more importantly, we're going to uncover the mathematical traps that are kind
+
+02:17.180 --> 02:18.500
+of baked into this whole process.
+
+02:18.740 --> 02:18.880
+Yeah.
+
+02:18.980 --> 02:20.420
+The traps are the really scary part.
+
+02:20.680 --> 02:21.320
+They really are.
+
+02:21.780 --> 02:26.920
+Traps that can completely ruin a model even if, say, the network hardware itself works flawlessly.
+
+02:27.200 --> 02:27.760
+So, okay.
+
+02:28.220 --> 02:28.920
+Let's unpack this.
+
+02:29.240 --> 02:29.440
+Yeah.
+
+02:29.540 --> 02:33.340
+To really grasp this, we have to kind of shift our perspective.
+
+02:33.820 --> 02:39.400
+We need to zoom out from the macro level of the giant AI and go down to the local reality
+
+02:39.400 --> 02:41.180
+of the individual training sites.
+
+02:41.180 --> 02:41.460
+Okay.
+
+02:41.540 --> 02:43.200
+So, it boots on the ground at the local server.
+
+02:43.460 --> 02:43.940
+Exactly.
+
+02:44.460 --> 02:50.080
+So, in a decentralized training environment, you have this central server and it periodically
+
+02:50.080 --> 02:51.580
+broadcasts a checkpoint.
+
+02:51.920 --> 02:53.360
+And what's in that checkpoint exactly?
+
+02:53.880 --> 02:58.120
+Basically, the checkpoint contains the entirety of the current global model.
+
+02:58.240 --> 03:01.380
+So, all the weights, the biases, the optimizer states.
+
+03:01.800 --> 03:06.560
+It's the baseline reality for the entire network at that specific moment in time.
+
+03:06.560 --> 03:07.080
+Got it.
+
+03:07.420 --> 03:12.420
+So, all the local sites receive that checkpoint and then the communication lines just essentially
+
+03:12.420 --> 03:13.220
+go dead, right?
+
+03:13.380 --> 03:13.580
+Right.
+
+03:13.660 --> 03:14.800
+They go completely dark.
+
+03:15.020 --> 03:19.200
+So, the sites then train the model locally using their own isolated data sets.
+
+03:19.560 --> 03:23.280
+And then after a set number of local steps, they generate a shift.
+
+03:23.700 --> 03:24.760
+A shift, exactly.
+
+03:25.140 --> 03:26.100
+Which is just the delta.
+
+03:26.420 --> 03:26.640
+Right.
+
+03:26.760 --> 03:27.160
+The delta.
+
+03:27.160 --> 03:31.860
+It's the mathematical representation of the changes they've made to the weights based on
+
+03:31.860 --> 03:32.720
+their own local data.
+
+03:33.220 --> 03:36.120
+And then they send that shift back into the network to be aggregated.
+
+03:36.280 --> 03:36.400
+Yeah.
+
+03:36.440 --> 03:39.900
+And the paper points out this fundamental paradox in the architecture right away.
+
+03:40.420 --> 03:45.120
+Flyxion writes, the assumption of a global state is compatible with local ignorance.
+
+03:45.240 --> 03:45.940
+Local ignorance.
+
+03:45.940 --> 03:47.340
+I love that phrasing.
+
+03:47.760 --> 03:48.540
+It's very accurate.
+
+03:48.800 --> 03:48.980
+Yeah.
+
+03:49.120 --> 03:53.440
+Because during an active training round, the nodes in the network are operating with entirely
+
+03:53.440 --> 03:54.600
+fragmented knowledge.
+
+03:54.760 --> 03:58.460
+So, if you picture the whole network as a giant branching tree, right?
+
+03:58.760 --> 04:03.680
+Like a relay node sitting somewhere in the middle, it might know that a specific cluster
+
+04:03.680 --> 04:07.060
+of leaf nodes below it has finished processing.
+
+04:07.700 --> 04:08.160
+Exactly.
+
+04:08.340 --> 04:08.480
+Yeah.
+
+04:08.480 --> 04:09.640
+It sees its own little world.
+
+04:09.640 --> 04:14.700
+But it has absolutely no idea if a node on an entirely different branch has even, you
+
+04:14.700 --> 04:16.560
+know, downloaded the initial checkpoint yet.
+
+04:16.900 --> 04:16.980
+Right.
+
+04:17.080 --> 04:19.880
+A relay only has visibility into its own subtree.
+
+04:20.280 --> 04:24.480
+And this fragmented visibility, it forces the system to answer three entirely distinct
+
+04:24.480 --> 04:27.580
+questions at every single synchronization boundary.
+
+04:27.820 --> 04:28.020
+Okay.
+
+04:28.100 --> 04:28.920
+Lay those out for us.
+
+04:29.240 --> 04:29.460
+Sure.
+
+04:29.600 --> 04:30.360
+So, question one.
+
+04:30.680 --> 04:34.160
+Do the local records agree on what actually happened in the network?
+
+04:34.280 --> 04:35.020
+The basic facts.
+
+04:35.360 --> 04:35.500
+Yeah.
+
+04:35.500 --> 04:40.580
+Question two, how do we mathematically combine the distinct updates submitted by all those
+
+04:40.580 --> 04:40.860
+sites?
+
+04:41.120 --> 04:41.620
+Doing the math.
+
+04:41.960 --> 04:42.080
+Yep.
+
+04:42.580 --> 04:48.240
+And question three, does the resulting combined update actually advance the intended objective
+
+04:48.240 --> 04:49.380
+of the AI model?
+
+04:49.860 --> 04:50.120
+Okay.
+
+04:50.220 --> 04:53.480
+So, think about it like organizing a massive global potluck.
+
+04:53.860 --> 04:54.680
+Oh, I like this.
+
+04:54.780 --> 04:55.300
+It's a potluck.
+
+04:55.460 --> 04:55.560
+Yeah.
+
+04:55.620 --> 04:57.640
+So, question one is just the logistics, right?
+
+04:57.740 --> 05:01.020
+Like, did everyone agree on the recipe and who is actually bringing what?
+
+05:01.320 --> 05:01.520
+Okay.
+
+05:01.720 --> 05:01.860
+Yeah.
+
+05:02.240 --> 05:03.900
+Then question two, it's the execution.
+
+05:03.900 --> 05:08.400
+Did we mix all the ingredients correctly without, you know, spilling anything or double
+
+05:08.400 --> 05:09.120
+measuring the flour?
+
+05:09.400 --> 05:10.220
+Which is the math.
+
+05:10.440 --> 05:10.720
+Exactly.
+
+05:11.400 --> 05:12.980
+And then question three is the outcome.
+
+05:13.360 --> 05:15.300
+Does the final dish actually taste good?
+
+05:15.600 --> 05:15.940
+Right.
+
+05:16.400 --> 05:21.020
+And if we connect this to the bigger picture, the real risk of decentralized systems is that
+
+05:21.020 --> 05:25.000
+an affirmative answer to one of those questions leaves the other two completely open.
+
+05:25.220 --> 05:25.660
+Oh, interesting.
+
+05:26.100 --> 05:27.820
+So, they aren't guaranteed to follow each other.
+
+05:27.980 --> 05:28.620
+Not at all.
+
+05:29.080 --> 05:33.560
+You can have a flawlessly logged network where everyone completely agrees on the recipe.
+
+05:34.260 --> 05:38.860
+But if the mathematical aggregation is flawed, well, you've mixed the ingredients wrong.
+
+05:38.980 --> 05:39.780
+The cake is ruined.
+
+05:39.940 --> 05:40.960
+The cake is totally ruined.
+
+05:41.340 --> 05:46.060
+Or alternatively, you can perfectly mix the ingredients according to the recipe, but the
+
+05:46.060 --> 05:51.960
+model still degrades because those local ingredients just don't combine to form a coherent global
+
+05:51.960 --> 05:52.380
+dish.
+
+05:52.380 --> 05:53.420
+Man, that is tricky.
+
+05:53.420 --> 05:58.120
+So, the first major trap we really need to look at is that disconnect between the first
+
+05:58.120 --> 05:59.060
+two questions, right?
+
+05:59.540 --> 06:03.340
+The difference between keeping the record and actually doing the math.
+
+06:03.700 --> 06:03.800
+Yeah.
+
+06:03.960 --> 06:04.560
+This is crucial.
+
+06:05.000 --> 06:09.360
+Flyxion introduces two concepts to frame how a distributed system logs its reality.
+
+06:09.600 --> 06:11.400
+The first is the sheaf condition.
+
+06:11.640 --> 06:12.420
+The sheaf condition.
+
+06:12.420 --> 06:12.740
+Right.
+
+06:12.940 --> 06:17.240
+It basically dictates exact agreement on overlapping data.
+
+06:17.900 --> 06:23.020
+So, if two different observing nodes both log an event, let's say WorkerA, submitting
+
+06:23.020 --> 06:28.080
+a specific update, their records have to match down to the cryptographic hash.
+
+06:28.340 --> 06:29.620
+So, no discrepancies at all?
+
+06:29.760 --> 06:29.960
+Zero.
+
+06:30.440 --> 06:36.000
+The base checkpoint used, the schema, the payload digest, all of it must be identical.
+
+06:36.380 --> 06:39.840
+Basically, if they overlap, they have to glue together perfectly without any contradiction.
+
+06:39.960 --> 06:40.280
+Exactly.
+
+06:40.720 --> 06:45.760
+And then the second concept is the information order, which deals with accumulating incomplete
+
+06:45.760 --> 06:46.800
+evidence over time.
+
+06:46.980 --> 06:47.240
+Okay.
+
+06:47.380 --> 06:47.960
+How does that work?
+
+06:48.440 --> 06:54.000
+Well, if my logs show that WorkerA and WorkerB submitted their shifts, and your logs show
+
+06:54.000 --> 06:58.320
+that WorkerB and WorkerC submitted theirs, we can safely join that knowledge.
+
+06:58.660 --> 06:58.960
+Oh, I see.
+
+06:58.960 --> 07:00.520
+So, we've just merged them.
+
+07:01.100 --> 07:01.160
+Right.
+
+07:01.300 --> 07:03.480
+We now know that A, B, and C have all participated.
+
+07:03.820 --> 07:04.000
+Okay.
+
+07:04.180 --> 07:09.720
+So, merging that knowledge, it introduces this really vital property of the historical record,
+
+07:09.840 --> 07:11.540
+which is idempotence.
+
+07:11.960 --> 07:12.400
+Yes.
+
+07:13.080 --> 07:13.600
+Idempotence.
+
+07:13.980 --> 07:15.620
+A great computer science term.
+
+07:15.820 --> 07:16.020
+Yeah.
+
+07:16.460 --> 07:22.740
+So, in computer science, an operation is idempotent if applying it multiple times yields
+
+07:22.740 --> 07:25.480
+the exact same result as just applying it once.
+
+07:25.760 --> 07:26.000
+Right.
+
+07:26.040 --> 07:28.040
+Like pressing an elevator button a bunch of times.
+
+07:28.040 --> 07:29.160
+It doesn't make it come faster.
+
+07:29.600 --> 07:29.820
+Exactly.
+
+07:30.560 --> 07:34.020
+The historical record of a training ground operates this way.
+
+07:34.420 --> 07:40.420
+So, if two different relays report to the central server that WorkerA finished, the joint
+
+07:40.420 --> 07:42.700
+record simply states that WorkerA finished.
+
+07:42.700 --> 07:43.260
+Right.
+
+07:43.260 --> 07:47.300
+Repeating a factual observation doesn't alter the state of the record itself.
+
+07:47.660 --> 07:52.180
+The historical log is just recording the existence of the event, but the math being
+
+07:52.180 --> 07:58.680
+done on the payloads, like the actual numerical summaries of the AI weights, that is not idempotent.
+
+07:58.680 --> 08:00.180
+No, it is not.
+
+08:00.320 --> 08:02.120
+Summaries do not restrict themselves.
+
+08:02.580 --> 08:02.800
+Okay.
+
+08:02.960 --> 08:07.140
+So, break down the specific mathematical failure that the paper outlines here.
+
+08:07.760 --> 08:08.000
+Okay.
+
+08:08.060 --> 08:11.000
+Let's imagine a network with three active workers.
+
+08:11.420 --> 08:14.440
+Worker 1 and Worker 2 each have a data weight of 1.
+
+08:14.860 --> 08:17.160
+And Worker 3 has a weight of 2.
+
+08:17.600 --> 08:17.880
+Okay.
+
+08:18.080 --> 08:18.740
+Tracking so far.
+
+08:18.740 --> 08:23.380
+Now, they're computed shifts, which are the vectors they want to apply to the global model.
+
+08:23.940 --> 08:29.180
+Let's represent those by the values 2, negative 1, and 3, respectively.
+
+08:29.740 --> 08:35.020
+So, we have shifts of 2, negative 1, and 3 with varying weights.
+
+08:35.140 --> 08:35.380
+Right.
+
+08:36.180 --> 08:41.040
+Now, in a perfectly clean tree topology, aggregating these is super simple.
+
+08:41.160 --> 08:42.200
+You just add them up.
+
+08:42.680 --> 08:44.760
+But real-world networks are messy.
+
+08:45.080 --> 08:45.700
+They're chaotic.
+
+08:46.100 --> 08:46.360
+Very.
+
+08:46.360 --> 08:53.660
+They are often directed acyclic graphs, or DAGs, where routing paths can literally cross each other.
+
+08:54.540 --> 08:59.860
+So, suppose Relay Node 1 aggregates the outputs of Worker 1 and Worker 2.
+
+09:00.340 --> 09:00.820
+Okay.
+
+09:00.960 --> 09:03.180
+It calculates a weighted sum of their vectors.
+
+09:03.940 --> 09:08.740
+But meanwhile, Relay Node 2 aggregates the outputs of Worker 2 and Worker 3.
+
+09:09.140 --> 09:12.380
+Wait, so Worker 2's data just went to both relays?
+
+09:13.060 --> 09:13.980
+The routing overlapped?
+
+09:14.360 --> 09:14.740
+Exactly.
+
+09:14.740 --> 09:19.620
+Maybe for redundancy, or maybe load balancing, but it overlapped.
+
+09:20.280 --> 09:24.740
+Okay, so both relays then send their computed partial sums up to the central root server.
+
+09:25.020 --> 09:25.380
+Right.
+
+09:26.120 --> 09:28.680
+And the sheaf condition holds up perfectly here.
+
+09:29.060 --> 09:33.300
+Both relays agree exactly on the cryptographic identity of what Worker 2 submitted.
+
+09:33.720 --> 09:35.340
+So, the logs are totally pristine.
+
+09:35.340 --> 09:36.920
+The logs are flawless.
+
+09:37.740 --> 09:48.300
+But, if the root server relies on a standard operation-based aggregation, like just adding the numerical partial sums together, it mathematically double counts Worker 2.
+
+09:48.620 --> 09:49.040
+Hang on.
+
+09:49.400 --> 09:51.340
+I'm kind of stuck on this double counting thing.
+
+09:51.500 --> 09:51.760
+Okay.
+
+09:51.940 --> 09:52.560
+Where are you stuck?
+
+09:53.020 --> 09:57.700
+Well, if I hear a rumor from two different people, I don't believe the rumor twice as much.
+
+09:57.700 --> 10:01.280
+You know, I just realized two different people heard the exact same thing.
+
+10:01.740 --> 10:03.460
+My brain filters out the overlap.
+
+10:03.860 --> 10:04.120
+Right.
+
+10:04.120 --> 10:09.680
+So, why can't the network just look at the numerical data and realize, oh, hey, I already have this tensor.
+
+10:10.000 --> 10:11.000
+I shouldn't add it again.
+
+10:11.660 --> 10:16.120
+Because the root server isn't actually receiving the raw tensors from the workers anymore.
+
+10:16.280 --> 10:16.860
+Oh, it's not?
+
+10:17.000 --> 10:20.080
+No, it's receiving intermediate partial sums from the relays.
+
+10:20.460 --> 10:25.180
+So, it sees a combined vector from relay 1 and a combined vector from relay 2.
+
+10:25.180 --> 10:31.980
+It has literally no way of untangling those partial sums to see that Worker 2's data is secretly baked into both of them.
+
+10:32.160 --> 10:32.880
+Ah, I see.
+
+10:33.400 --> 10:35.060
+It's already mixed into the cake batter.
+
+10:35.580 --> 10:36.060
+Exactly.
+
+10:36.460 --> 10:40.580
+And even if it could see it, AI updates aren't qualitative facts like a rumor.
+
+10:40.900 --> 10:44.860
+They are geometric vectors in a multidimensional parameter space.
+
+10:45.180 --> 10:49.620
+So, the model is physically navigating coordinates to find, like, the lowest error rate.
+
+10:49.780 --> 10:50.060
+Right.
+
+10:50.700 --> 10:52.580
+An update vector is an instruction.
+
+10:52.580 --> 10:57.580
+It says, move 5 steps along this axis and 2 steps along this other axis.
+
+10:58.360 --> 10:58.520
+Okay.
+
+10:58.860 --> 11:05.720
+So, if you add a partial sum containing that instruction to another partial sum containing that exact same instruction,
+
+11:06.100 --> 11:08.500
+the system doesn't recognize the redundancy.
+
+11:08.680 --> 11:10.200
+It just executes the math.
+
+11:10.440 --> 11:10.840
+Oh, boy.
+
+11:11.640 --> 11:13.680
+So, you move 10 steps and 4 steps.
+
+11:14.260 --> 11:14.780
+Exactly.
+
+11:15.500 --> 11:20.880
+By double counting, you literally double the magnitude of that specific worker's gradient step.
+
+11:20.880 --> 11:27.740
+You're completely warping the global model's trajectory, yanking it toward one random node's local data set.
+
+11:28.680 --> 11:38.760
+So, the math just inherently acts on whatever is fed into it, meaning a perfectly functioning, highly redundant network topology is actively toxic to the AI's geometry.
+
+11:39.120 --> 11:40.620
+Toxic is a good word for it, yeah.
+
+11:40.620 --> 11:43.500
+How in the world does the paper propose to solve this?
+
+11:43.800 --> 11:47.220
+Well, Flyxion proposes the use of what they call tagged summaries.
+
+11:47.440 --> 11:48.260
+Tagged summaries.
+
+11:48.460 --> 11:48.560
+Okay.
+
+11:48.700 --> 11:53.700
+Basically, a numerical summary cannot just traverse the network as raw math anymore.
+
+11:53.940 --> 11:59.360
+It has to carry an exact, verifiable set of accepted contribution identifiers along with it.
+
+11:59.360 --> 12:01.960
+Oh, so it's like a payload attached to a guest list.
+
+12:02.120 --> 12:03.460
+A guest list, exactly.
+
+12:04.040 --> 12:07.060
+Like a bitmap or a bloom filter that explicitly states,
+
+12:07.340 --> 12:10.920
+hey, exactly this person's data is inside this partial sum.
+
+12:11.440 --> 12:15.060
+And so that changes the rules of aggregation at the relay level, right?
+
+12:15.220 --> 12:15.660
+Completely.
+
+12:16.420 --> 12:22.640
+A merge operation is strictly defined as valid only when the tag sets of the two summaries are entirely disjoint.
+
+12:23.000 --> 12:24.200
+No overlap allowed?
+
+12:24.280 --> 12:24.660
+None.
+
+12:24.740 --> 12:29.980
+If a parent node receives two summaries and sees that worker two's identifier is tagged in both,
+
+12:30.480 --> 12:32.380
+the merge is mathematically undefined.
+
+12:32.740 --> 12:35.160
+The system physically refuses to compute the addition.
+
+12:35.580 --> 12:37.360
+And just halt tree operation right there.
+
+12:38.020 --> 12:39.100
+So what happens next?
+
+12:39.160 --> 12:43.020
+Is it just like throw an error and crash the whole training round?
+
+12:43.440 --> 12:43.800
+No, no.
+
+12:43.840 --> 12:45.560
+It forces a resolution protocol.
+
+12:46.020 --> 12:51.580
+The parent node has to either recover the distinct leaf contributions from a lower level to bypass that overlap,
+
+12:51.580 --> 12:56.860
+or it must request a revised disjoint summary from one of its child relays.
+
+12:57.220 --> 13:00.520
+So it's enforcing strict structural accountability on the math.
+
+13:00.640 --> 13:01.080
+Exactly.
+
+13:01.660 --> 13:07.140
+Guaranteeing that the geometry of the update exactly matches that idempotent historical record we talked about.
+
+13:07.280 --> 13:07.560
+Okay.
+
+13:08.580 --> 13:12.960
+So tagged summaries solve the problem of nodes speaking twice.
+
+13:13.160 --> 13:15.400
+But what about the nodes that don't speak at all?
+
+13:16.040 --> 13:16.960
+The silent nodes.
+
+13:17.400 --> 13:17.700
+Right.
+
+13:17.700 --> 13:22.040
+If we are strictly regulating the math of the workers who do submit data,
+
+13:22.840 --> 13:26.800
+how does this distributed architecture handle a computer that just goes completely silent?
+
+13:27.200 --> 13:29.360
+This is a really cool part of the paper.
+
+13:29.700 --> 13:33.280
+It borrows a framework from asynchronous digital circuit design.
+
+13:33.480 --> 13:35.820
+It's called null convention logic.
+
+13:36.180 --> 13:37.640
+Null convention logic.
+
+13:37.640 --> 13:38.200
+Yeah.
+
+13:38.700 --> 13:43.840
+It basically provides a formal, rigorous way to distinguish between a computed value of zero
+
+13:43.840 --> 13:46.600
+and the sheer absence of a computation.
+
+13:47.240 --> 13:47.460
+Right.
+
+13:47.520 --> 13:53.040
+Because in standard programming, the distinction between zero and null is just notorious for causing database errors.
+
+13:53.160 --> 13:53.400
+Oh, yeah.
+
+13:53.460 --> 13:54.020
+It breaks everything.
+
+13:54.700 --> 13:57.380
+But in this context, it's not just a software bug.
+
+13:57.480 --> 14:00.700
+It fundamentally alters the weight of the global training route.
+
+14:00.780 --> 14:02.800
+Because they mean completely different things.
+
+14:03.160 --> 14:06.880
+A tensor filled with zeros is formally classified as data.
+
+14:06.880 --> 14:08.520
+Wait, zeros are data?
+
+14:08.800 --> 14:09.060
+Yes.
+
+14:09.540 --> 14:12.320
+It means a worker site received the global checkpoint,
+
+14:12.940 --> 14:16.500
+processed its local data set through the forward and backward passes,
+
+14:16.820 --> 14:21.360
+and mathematically concluded that the gradients for all parameters are exactly zero.
+
+14:21.560 --> 14:22.480
+No shift is required.
+
+14:22.680 --> 14:22.900
+Right.
+
+14:23.140 --> 14:26.660
+The local data perfectly aligns with the global model's current state.
+
+14:26.940 --> 14:31.060
+It is an active, computed decision to just remain stationary.
+
+14:31.520 --> 14:31.820
+Okay.
+
+14:32.160 --> 14:35.380
+But null represents an absolute lack of evidence.
+
+14:35.440 --> 14:35.820
+Exactly.
+
+14:35.820 --> 14:38.240
+The worker hasn't reported back at all.
+
+14:38.820 --> 14:45.520
+The node could be experiencing a hardware failure, a latency spike, or maybe a backhoe just severed the network connection.
+
+14:45.880 --> 14:45.940
+Right.
+
+14:46.360 --> 14:49.740
+The system has zero information about the state of that worker's gradient.
+
+14:50.100 --> 14:50.540
+Zero.
+
+14:50.540 --> 14:55.760
+Taking that to a real-world scenario, it's kind of like the difference between casting a ballot that says,
+
+14:56.100 --> 14:58.740
+I abstain, versus just staying home on election day.
+
+14:58.940 --> 15:00.540
+That's a perfect analogy, actually.
+
+15:00.680 --> 15:00.820
+Right.
+
+15:00.880 --> 15:05.000
+Because the zero tensor, the abstention, it counts toward the total voter turnout.
+
+15:05.380 --> 15:09.120
+It influences the denominator when you are calculating the weighted average of the round.
+
+15:09.240 --> 15:09.520
+Yes.
+
+15:09.940 --> 15:12.000
+But the null doesn't even exist in the denominator.
+
+15:12.500 --> 15:12.960
+Exactly.
+
+15:12.960 --> 15:17.340
+And that distinction drives the entire consensus mechanism for closing a training round.
+
+15:17.880 --> 15:20.480
+Flyxion outlines two operational modes for this.
+
+15:21.240 --> 15:23.760
+Input completeness and policy closure.
+
+15:24.460 --> 15:24.500
+Okay.
+
+15:24.600 --> 15:25.720
+What's input completeness?
+
+15:26.380 --> 15:27.700
+Input completeness is rigid.
+
+15:27.700 --> 15:34.000
+Like, a synchronization stage is only complete when every single expected input has arrived and transitioned from null to data.
+
+15:34.620 --> 15:37.740
+Which seems completely unworkable in a global WAN environment.
+
+15:37.960 --> 15:42.220
+Like, if you have 10,000 nodes waiting for the absolute slowest machine on a terrible connection,
+
+15:42.560 --> 15:46.820
+it means your multi-million dollar GPU cluster is just sitting idle, what, 90% of the time?
+
+15:46.940 --> 15:47.360
+Exactly.
+
+15:47.700 --> 15:54.020
+It's totally impractical, which is why practical systems rely on policy closure, often implemented as a quorum.
+
+15:54.580 --> 15:55.080
+A quorum.
+
+15:55.300 --> 15:55.440
+Yeah.
+
+15:55.440 --> 15:58.460
+The central root server basically evaluates a condition.
+
+15:58.980 --> 16:05.280
+Maybe a strict time limit has expired, or maybe a specific threshold of total data weight has been accumulated.
+
+16:06.000 --> 16:09.920
+Once that policy condition is met, the root unilaterally closes the round.
+
+16:10.480 --> 16:16.080
+And any node still registering as null at that specific millisecond is officially designated as absent.
+
+16:16.320 --> 16:16.680
+Yes.
+
+16:17.180 --> 16:22.260
+And what's fascinating here is how policy closure actually fractures the timeline of the network.
+
+16:22.660 --> 16:24.060
+Fractures the timeline.
+
+16:24.060 --> 16:24.840
+How so?
+
+16:25.440 --> 16:28.520
+Well, think about a delayed message from an absent worker.
+
+16:29.060 --> 16:32.640
+It might arrive at the central server two minutes after the quorum was already called.
+
+16:32.880 --> 16:34.100
+Oh, right, because of latency.
+
+16:34.400 --> 16:34.580
+Yeah.
+
+16:34.860 --> 16:36.240
+That late message is logged.
+
+16:36.400 --> 16:39.300
+It officially becomes part of the historical record of the system.
+
+16:39.300 --> 16:42.080
+Like, the node did eventually finish its work.
+
+16:42.080 --> 16:48.500
+But it is permanently excluded from the committed accepted set of that specific training round.
+
+16:48.500 --> 16:49.940
+Because the round was already closed.
+
+16:49.940 --> 16:50.440
+Right.
+
+16:50.740 --> 16:51.360
+Okay.
+
+16:51.360 --> 16:56.140
+So the accepted set is basically the immutable foundation for the next checkpoint.
+
+16:56.140 --> 16:57.840
+So let's recap.
+
+16:57.840 --> 16:59.660
+We've secured the foundation.
+
+16:59.660 --> 17:05.000
+We have tagged summaries preventing routing overlaps from warping the vectors.
+
+17:05.000 --> 17:05.440
+Yep.
+
+17:05.440 --> 17:11.600
+We have null convention logic strictly defining who is participating and who is absent based on quorum rules.
+
+17:11.600 --> 17:15.880
+So we have theoretically perfect records and perfectly executed math.
+
+17:15.880 --> 17:17.460
+In theory, yes.
+
+17:18.080 --> 17:22.260
+So the resulting AI model must be moving closer to its objective, right?
+
+17:22.700 --> 17:26.140
+Well, this is where the paper delivers its most severe warning.
+
+17:26.400 --> 17:26.740
+Oh, no.
+
+17:26.740 --> 17:27.100
+Yeah.
+
+17:27.240 --> 17:28.840
+This is the quadratic obstruction.
+
+17:29.620 --> 17:34.720
+Flyxion proves mathematically that even if the protocol layer is absolutely flawless,
+
+17:35.020 --> 17:37.660
+like no missing workers, no stale data, no double counting,
+
+17:38.180 --> 17:41.420
+the model can still systematically destroy its own performance.
+
+17:41.820 --> 17:42.500
+Wait, what?
+
+17:43.180 --> 17:46.240
+The math is perfectly executed, but the objective is lost anyway?
+
+17:46.780 --> 17:47.240
+Exactly.
+
+17:47.640 --> 17:51.360
+To illustrate this, the paper builds a two-site quadratic example.
+
+17:51.780 --> 17:54.680
+We basically have two remote sites, site one and site two,
+
+17:54.680 --> 17:57.600
+and they have completely different local data sets.
+
+17:58.380 --> 18:02.140
+Mathematically, we represent these local loss functions as parabolas.
+
+18:02.920 --> 18:06.180
+Let's try to visualize the loss landscape for the listeners.
+
+18:06.700 --> 18:10.060
+So a neural network is essentially trying to find the minimum of a function,
+
+18:10.360 --> 18:13.460
+the lowest point in the valley where the error is smallest, right?
+
+18:13.780 --> 18:15.120
+That's right, the bottom of the valley.
+
+18:15.340 --> 18:17.760
+But because site one and site two have different data,
+
+18:18.220 --> 18:20.520
+they are looking at two entirely different valleys.
+
+18:20.860 --> 18:21.180
+Yes.
+
+18:21.180 --> 18:25.440
+Site one's local function has a minimum at, let's say, coordinate U.
+
+18:26.140 --> 18:28.860
+Site two's local function has a minimum at coordinate V.
+
+18:29.360 --> 18:32.640
+And the steepness of those valleys is dictated by their curvature,
+
+18:33.120 --> 18:35.620
+which the paper defines as variables A and B.
+
+18:36.300 --> 18:40.100
+But the true global objective, like the model we actually want to build,
+
+18:40.660 --> 18:46.060
+is the exact mathematical minimum of the combined averaged function of both sites, right?
+
+18:46.060 --> 18:50.080
+Exactly. Now we have to introduce the variable H.
+
+18:50.480 --> 18:52.840
+H represents the number of local steps.
+
+18:53.180 --> 18:54.380
+This is the horizon.
+
+18:54.720 --> 18:55.180
+The horizon.
+
+18:55.480 --> 19:01.660
+It dictates how many sequential gradient descent updates a specific site executes on its local data
+
+19:01.660 --> 19:05.520
+before it is forced to communicate its shift back to the central server.
+
+19:05.760 --> 19:10.640
+So if H is one, they take a single step and immediately sync up with the server.
+
+19:10.640 --> 19:15.140
+Right. But to save on those massive communication costs we talked about,
+
+19:15.640 --> 19:17.420
+architects push H higher.
+
+19:17.900 --> 19:23.000
+They let the sites train independently for 50, 100, or even 500 steps.
+
+19:23.460 --> 19:26.220
+Right. Less syncing means less money spent on bandwidth.
+
+19:26.820 --> 19:30.920
+But as H increases, the system falls victim to client drift,
+
+19:30.920 --> 19:35.540
+which Flachian formally refers to as objective inconsistency.
+
+19:36.000 --> 19:38.860
+When sites train locally for an extended horizon,
+
+19:39.260 --> 19:43.100
+the effective weighting of their gradient steps actually saturates.
+
+19:43.680 --> 19:46.120
+Okay, let's break down exactly why it saturates,
+
+19:46.220 --> 19:48.860
+because it's not just a matter of walking too far, is it?
+
+19:49.020 --> 19:49.820
+No. No.
+
+19:50.200 --> 19:52.640
+The local gradient descent is an iterative process.
+
+19:53.340 --> 19:56.220
+With every single step, the model moves closer to the local minimum,
+
+19:56.460 --> 19:58.800
+which means the slope gets flatter, right?
+
+19:58.800 --> 20:03.020
+And so the subsequent gradient steps just become smaller and smaller.
+
+20:03.760 --> 20:06.980
+Exactly. The magnitude of the shift is decaying exponentially
+
+20:06.980 --> 20:09.100
+as it approaches that local fixed point.
+
+20:09.300 --> 20:09.800
+Oh, I see.
+
+20:10.160 --> 20:12.040
+And the mathematical proof in the paper demonstrates
+
+20:12.040 --> 20:14.960
+that taking a large number of local steps
+
+20:14.960 --> 20:18.760
+is not equivalent to taking one large step on the global gradient.
+
+20:19.540 --> 20:23.460
+The composite operator created by chaining H local steps together
+
+20:23.460 --> 20:25.240
+fundamentally warps the geometry.
+
+20:25.820 --> 20:27.520
+So it points in the wrong direction entirely.
+
+20:27.920 --> 20:28.200
+Yes.
+
+20:28.200 --> 20:30.620
+The global model converges to a fixed point
+
+20:30.620 --> 20:34.380
+that is mathematically distinct from the true global minimizer.
+
+20:34.660 --> 20:34.780
+Wow.
+
+20:35.500 --> 20:38.700
+It just stabilizes at a completely incorrect coordinate.
+
+20:39.320 --> 20:41.080
+And we really have to hammer this home for the listener.
+
+20:41.420 --> 20:43.920
+This is an exact mathematical obstruction.
+
+20:44.620 --> 20:45.480
+It is not a bug.
+
+20:45.800 --> 20:46.080
+Right.
+
+20:46.300 --> 20:48.320
+It is a property of the vector geometry.
+
+20:48.960 --> 20:50.120
+The system isn't breaking.
+
+20:50.460 --> 20:52.340
+It is functioning exactly as designed,
+
+20:52.980 --> 20:54.740
+calculating the gradients flawlessly,
+
+20:55.060 --> 20:57.760
+and arriving at a biased, objectively worse outcome.
+
+20:57.760 --> 21:01.280
+Just because the independent horizons altered the trajectory.
+
+21:01.500 --> 21:04.720
+Because you can't engineer your way out of a geometric reality.
+
+21:04.980 --> 21:05.180
+Yeah.
+
+21:06.100 --> 21:08.500
+Here's where it gets really interesting, I think.
+
+21:09.460 --> 21:12.340
+Think about a band practicing for a massive concert.
+
+21:12.460 --> 21:12.700
+Okay.
+
+21:12.900 --> 21:13.780
+Back to the analogies.
+
+21:13.780 --> 21:18.960
+If the drummer and the lead guitarist practice in their own separate soundproof rooms for 10 minutes,
+
+21:19.340 --> 21:20.760
+so a low H horizon,
+
+21:21.400 --> 21:24.180
+they can come back together, count off, and sync up perfectly.
+
+21:24.300 --> 21:24.540
+Sure.
+
+21:24.540 --> 21:27.880
+But if they practice in total isolation for a month,
+
+21:28.360 --> 21:29.600
+a massive H horizon,
+
+21:30.160 --> 21:31.960
+they aren't just playing the song anymore.
+
+21:32.360 --> 21:35.060
+They're developing entirely independent micro rhythms.
+
+21:35.680 --> 21:36.740
+Oh, I see where you're going with this.
+
+21:36.840 --> 21:38.760
+The drummer starts leaning slightly behind the beat.
+
+21:39.200 --> 21:41.780
+The guitarist starts pushing the tempo on the chorus.
+
+21:42.520 --> 21:45.440
+They are basically optimizing for their own isolated soundscapes.
+
+21:45.680 --> 21:45.880
+Right.
+
+21:46.200 --> 21:48.880
+And when you force them back together after a month,
+
+21:49.100 --> 21:50.880
+and perfectly combine their audio feeds,
+
+21:50.920 --> 21:52.620
+it just sounds like total chaos.
+
+21:52.620 --> 21:53.100
+Exactly.
+
+21:53.680 --> 21:56.560
+The resulting music is mathematically out of phase.
+
+21:57.100 --> 21:59.480
+They have drifted toward their own local minima.
+
+21:59.840 --> 22:00.940
+That's a great way to picture it.
+
+22:01.300 --> 22:02.760
+And what's really alarming is that
+
+22:02.760 --> 22:06.800
+throwing standard AI optimization tricks at this doesn't work at all.
+
+22:07.140 --> 22:08.960
+Like if the band sounds terrible,
+
+22:09.260 --> 22:11.200
+you can't just tell them to play faster or louder.
+
+22:11.480 --> 22:11.740
+Right.
+
+22:11.840 --> 22:13.860
+But that's exactly what people try to do with the math.
+
+22:14.320 --> 22:16.420
+The instinct is to apply outer momentum,
+
+22:16.800 --> 22:18.220
+like Nesterov momentum,
+
+22:18.220 --> 22:21.500
+or to just scale the outer learning rate on the central server
+
+22:21.500 --> 22:23.700
+to kind of force the model toward the target.
+
+22:24.280 --> 22:24.900
+Does that not work?
+
+22:25.160 --> 22:25.320
+No.
+
+22:25.680 --> 22:28.480
+Because momentum is just a rolling average of past gradients.
+
+22:28.760 --> 22:31.860
+It alters the speed and the oscillation of the convergence path,
+
+22:31.980 --> 22:35.560
+but it absolutely cannot move the fixed point itself.
+
+22:35.840 --> 22:36.220
+Wow.
+
+22:36.640 --> 22:40.560
+If the geometry of the H-step composite operator points to a biased coordinate,
+
+22:41.020 --> 22:44.040
+momentum just gets you to that incorrect coordinate faster.
+
+22:44.240 --> 22:46.140
+It's just accelerating towards failure.
+
+22:46.140 --> 22:49.980
+So if standard optimizers are completely blind to the drift,
+
+22:50.460 --> 22:52.460
+how does the field attempt to actually solve it?
+
+22:52.860 --> 22:55.740
+Well, the paper discusses control variate corrections,
+
+22:56.320 --> 22:58.560
+drawing parallels to algorithms like SCAFFOLD.
+
+22:58.960 --> 22:59.520
+SCAFFOLD.
+
+22:59.660 --> 22:59.880
+Okay.
+
+23:00.220 --> 23:03.220
+The concept is to basically provide each local site
+
+23:03.220 --> 23:06.200
+with a continuous mathematical correction term.
+
+23:06.480 --> 23:09.240
+Like a local compass that points to the global reality.
+
+23:09.780 --> 23:12.880
+So how do you actually calculate that correction term?
+
+23:12.880 --> 23:16.080
+The central server calculates the true global gradient
+
+23:16.080 --> 23:18.900
+and the exact local gradient at the starting checkpoint.
+
+23:19.340 --> 23:22.500
+The difference between those two vectors becomes the control variate.
+
+23:23.060 --> 23:24.620
+So it's basically a penalty term.
+
+23:25.140 --> 23:25.540
+Exactly.
+
+23:26.000 --> 23:28.300
+When the local site takes its independent steps,
+
+23:28.460 --> 23:31.260
+it adds this control variate to every single calculation,
+
+23:31.880 --> 23:33.480
+artificially tilting its local valley
+
+23:33.480 --> 23:36.020
+so that the bottom aligns more closely with the global valley.
+
+23:36.560 --> 23:39.520
+So it forces the drummer to hear like a ghost track of the guitarist
+
+23:39.520 --> 23:40.420
+while they practice alone.
+
+23:40.580 --> 23:40.880
+Yes.
+
+23:40.880 --> 23:45.200
+But Flyxion refers to this as an idealized solution
+
+23:45.200 --> 23:49.360
+because if we need the exact global gradient to fix the local drift,
+
+23:49.460 --> 23:51.460
+aren't we just like downloading this solution
+
+23:51.460 --> 23:52.840
+to figure out how to find the solution?
+
+23:53.320 --> 23:54.780
+That's exactly the paradox.
+
+23:55.300 --> 23:58.120
+The compupational and bandwidth costs of calculating
+
+23:58.120 --> 24:00.860
+and distributing that exact global gradient
+
+24:00.860 --> 24:03.740
+at the start of every single synchronization round
+
+24:03.740 --> 24:04.740
+are just exorbitant.
+
+24:04.960 --> 24:05.160
+Right.
+
+24:05.160 --> 24:08.580
+It requires a full pass over the entire global data set
+
+24:08.580 --> 24:10.080
+just to calibrate the compass.
+
+24:10.640 --> 24:13.720
+In a truly decentralized, massive scale system,
+
+24:13.840 --> 24:16.900
+the overhead of the correction destroys the communication savings
+
+24:16.900 --> 24:19.400
+you gained by isolating the workers in the first place.
+
+24:19.400 --> 24:25.980
+So we are just completely stuck between the physical limits of network bandwidth
+
+24:25.980 --> 24:30.240
+and the geometric limits of objective inconsistency.
+
+24:30.720 --> 24:31.200
+Precisely.
+
+24:31.480 --> 24:35.080
+Which is why Flyxion moves from the theoretical quadratics
+
+24:35.080 --> 24:36.620
+into a rigorous simulation
+
+24:36.620 --> 24:41.160
+to measure exactly how much this drift costs us in real world scenarios.
+
+24:41.160 --> 24:42.160
+Okay.
+
+24:42.400 --> 24:43.620
+Let's dig into that simulation.
+
+24:44.120 --> 24:45.300
+What was the setup?
+
+24:46.040 --> 24:49.880
+The simulation models a multilayer perceptron, or MLP,
+
+24:50.520 --> 24:52.280
+tasked with a classification problem.
+
+24:52.880 --> 24:54.720
+The architecture has 32 inputs,
+
+24:55.340 --> 24:57.000
+two hidden layers of width 128,
+
+24:57.280 --> 24:58.700
+and eight output nodes.
+
+24:58.960 --> 25:02.040
+And the training is distributed across two separate workers.
+
+25:02.260 --> 25:02.640
+Got it.
+
+25:03.500 --> 25:05.540
+And they test this architecture
+
+25:05.540 --> 25:08.180
+across two vastly different network environments, right?
+
+25:08.440 --> 25:08.700
+Right.
+
+25:08.700 --> 25:11.040
+A high-speed local area network environment
+
+25:11.040 --> 25:12.780
+representing a clustered supercomputer
+
+25:12.780 --> 25:14.400
+where latency is virtually zero.
+
+25:14.680 --> 25:16.720
+And then a wide area network environment
+
+25:16.720 --> 25:19.800
+representing the brutal realities of decentralized computing.
+
+25:20.360 --> 25:22.080
+So high latency, drop packets,
+
+25:22.260 --> 25:23.620
+and severe bandwidth constraints.
+
+25:23.720 --> 25:24.140
+Exactly.
+
+25:24.800 --> 25:28.180
+And the budget is capped at 3,000 local steps per worker
+
+25:28.180 --> 25:30.800
+to reach a specific target validation loss.
+
+25:31.280 --> 25:33.260
+Let's examine the raw economic incentive
+
+25:33.260 --> 25:35.400
+of the high H horizon first.
+
+25:35.720 --> 25:37.720
+Because on the slow high latency WAN link,
+
+25:37.720 --> 25:39.980
+forcing the workers to synchronize frequently,
+
+25:40.380 --> 25:41.920
+say, setting H to 50 steps,
+
+25:42.060 --> 25:44.620
+that requires constant back-and-forth communication.
+
+25:44.760 --> 25:46.240
+Yes, and the simulation shows
+
+25:46.240 --> 25:49.600
+it takes 12,306 modeled seconds
+
+25:49.600 --> 25:51.100
+to reach the target loss that way.
+
+25:51.420 --> 25:51.640
+Wow.
+
+25:52.000 --> 25:52.260
+Okay.
+
+25:52.660 --> 25:54.780
+But if you cut the communication overhead
+
+25:54.780 --> 25:56.480
+by letting the workers run independently
+
+25:56.480 --> 25:58.860
+for 500 steps before syncing...
+
+25:58.860 --> 26:02.420
+Then the time drops to just 2,226 seconds.
+
+26:02.860 --> 26:05.020
+That is a 5.5x speedup.
+
+26:05.360 --> 26:07.040
+The network savings are just immense.
+
+26:07.040 --> 26:07.640
+They're huge.
+
+26:07.920 --> 26:09.560
+You are slashing your cloud compute
+
+26:09.560 --> 26:12.620
+and your egress bandwidth bills by like 80%.
+
+26:12.620 --> 26:14.700
+But then the paper flips the script, right?
+
+26:14.780 --> 26:17.860
+By altering the statistical distribution of the data sets
+
+26:17.860 --> 26:19.240
+sitting on those two workers.
+
+26:19.380 --> 26:19.640
+Yes.
+
+26:20.260 --> 26:24.680
+They test mild heterogeneity versus strong heterogeneity.
+
+26:24.880 --> 26:27.520
+And heterogeneity basically defines
+
+26:27.520 --> 26:29.640
+how different the local data sets are
+
+26:29.640 --> 26:30.760
+from the global average.
+
+26:30.880 --> 26:31.100
+Right.
+
+26:31.100 --> 26:33.200
+Under mild heterogeneity,
+
+26:33.420 --> 26:36.260
+where the local data is largely identically distributed,
+
+26:36.480 --> 26:37.880
+just maybe slightly skewed,
+
+26:38.400 --> 26:41.600
+the long horizon of H equals 500 works beautifully.
+
+26:41.600 --> 26:44.720
+So the 5.5x speedup holds up.
+
+26:44.840 --> 26:45.260
+It does.
+
+26:45.760 --> 26:47.960
+And the model reaches the target validation loss
+
+26:47.960 --> 26:49.120
+without severe drift.
+
+26:49.280 --> 26:51.060
+Because the local valleys are close enough
+
+26:51.060 --> 26:52.640
+to the global valley
+
+26:52.640 --> 26:54.500
+that the model doesn't get completely lost.
+
+26:54.500 --> 26:54.980
+Exactly.
+
+26:55.520 --> 26:58.440
+But when they switch to strong heterogeneity,
+
+26:58.580 --> 27:00.900
+where the data sets are highly non-IID,
+
+27:01.240 --> 27:03.480
+meaning they look completely different from each other,
+
+27:03.980 --> 27:05.820
+the H equals 500 horizon
+
+27:05.820 --> 27:07.960
+completely detonates the model.
+
+27:08.360 --> 27:09.020
+Detonates it.
+
+27:09.160 --> 27:09.740
+Detonates it.
+
+27:09.900 --> 27:12.060
+So it doesn't just fail to reach the target loss
+
+27:12.060 --> 27:12.940
+in the allotted time.
+
+27:13.100 --> 27:13.680
+No, it's worse.
+
+27:14.180 --> 27:16.260
+The validation loss actually spikes.
+
+27:17.060 --> 27:18.400
+The model's performance degrades
+
+27:18.400 --> 27:21.660
+by over 172% compared to the baseline.
+
+27:21.660 --> 27:24.100
+So it actively unlearns.
+
+27:24.420 --> 27:26.260
+The parameters are just violently ripped apart
+
+27:26.260 --> 27:27.660
+by the divergent local gradients,
+
+27:27.840 --> 27:29.820
+and the model becomes catastrophically dumber
+
+27:29.820 --> 27:31.080
+the longer you let it train.
+
+27:31.180 --> 27:31.800
+It really does.
+
+27:32.200 --> 27:34.520
+And Flyxion runs the specific catastrophic failure
+
+27:34.520 --> 27:36.780
+using the Atom-W optimizer.
+
+27:37.080 --> 27:38.000
+Okay, Atom-W.
+
+27:38.380 --> 27:40.960
+Yeah, Atom-W is a highly sophisticated optimizer
+
+27:40.960 --> 27:43.440
+that maintains a running exponential moving average
+
+27:43.440 --> 27:46.200
+at both the first and second moments of the gradients.
+
+27:46.200 --> 27:49.100
+So it has a really heavy, persistent memory
+
+27:49.100 --> 27:49.760
+of where it has been.
+
+27:50.320 --> 27:51.800
+One could argue that the memory itself
+
+27:51.800 --> 27:54.240
+is actually dragging the model off course, right?
+
+27:54.260 --> 27:56.420
+Like the optimizer remembers the wrong valley
+
+27:56.420 --> 27:57.640
+and just refuses to leave.
+
+27:58.400 --> 27:59.180
+You could argue that,
+
+27:59.600 --> 28:02.220
+which is exactly why they rerun the entire simulation
+
+28:02.220 --> 28:05.860
+using standard, memoryless, stochastic gradient descent.
+
+28:06.160 --> 28:06.640
+SGD.
+
+28:07.020 --> 28:07.280
+Right.
+
+28:07.760 --> 28:09.520
+SGD doesn't track historical momentum.
+
+28:09.720 --> 28:12.080
+It just steps based on the immediate gradient
+
+28:12.080 --> 28:13.020
+of the current batch.
+
+28:13.540 --> 28:14.260
+And the result?
+
+28:14.260 --> 28:16.960
+SGD. The exact same catastrophic drift occurs
+
+28:16.960 --> 28:18.180
+under strong heterogeneity.
+
+28:18.380 --> 28:18.760
+SGD. Wow.
+
+28:19.380 --> 28:21.240
+So that isolates the variable completely.
+
+28:21.640 --> 28:23.820
+It proves definitively that the drift is geometric.
+
+28:24.080 --> 28:26.200
+It's caused by the interaction of the h-horizon
+
+28:26.200 --> 28:28.220
+and the disparate data distributions,
+
+28:28.320 --> 28:31.200
+not just some artifact of an optimizer's memory states.
+
+28:31.540 --> 28:32.020
+SGD. Yes.
+
+28:32.760 --> 28:35.340
+SGD. So you are basically looking at a system architecture
+
+28:35.340 --> 28:38.340
+that guarantees a 5.5x speedup
+
+28:38.340 --> 28:39.820
+if the data is similar,
+
+28:39.820 --> 28:43.720
+but guarantees a total catastrophic collapse of the model
+
+28:43.720 --> 28:44.940
+if the data is too different.
+
+28:44.940 --> 28:46.360
+SGD. Basically, yeah.
+
+28:46.800 --> 28:47.840
+SGD. And as a systems engineer,
+
+28:47.980 --> 28:50.720
+you have no visibility into the statistical distribution
+
+28:50.720 --> 28:52.120
+of the remote edge devices.
+
+28:52.620 --> 28:55.040
+So how do you mathematically detect
+
+28:55.040 --> 28:56.560
+if your model is learning
+
+28:56.560 --> 28:58.280
+or if it is currently in the process
+
+28:58.280 --> 28:59.600
+of completely unlearning?
+
+28:59.600 --> 29:00.980
+SGD. The paper proposes
+
+29:00.980 --> 29:03.220
+a critical diagnostic tool for this,
+
+29:03.580 --> 29:05.520
+calculating the mean local shift
+
+29:05.520 --> 29:06.740
+at a reference solution.
+
+29:06.940 --> 29:07.300
+SGD. Okay.
+
+29:07.660 --> 29:09.640
+Walk us through the mechanics of that calculation.
+
+29:09.780 --> 29:09.920
+SGD. Sure.
+
+29:10.460 --> 29:12.700
+So instead of looking at the aggregate shift
+
+29:12.700 --> 29:13.900
+at the end of the round,
+
+29:14.440 --> 29:15.240
+you freeze the model
+
+29:15.240 --> 29:17.760
+at a specific central reference parameter,
+
+29:18.020 --> 29:19.420
+usually just the starting checkpoint.
+
+29:19.620 --> 29:20.500
+SGD. Okay. Freeze it there.
+
+29:20.720 --> 29:22.200
+SGD. Then you instruct the local nodes
+
+29:22.200 --> 29:23.400
+to evaluate the gradient
+
+29:23.400 --> 29:25.020
+of their local loss functions
+
+29:25.020 --> 29:26.820
+at that exact frozen coordinate
+
+29:26.820 --> 29:28.800
+without taking any steps.
+
+29:28.800 --> 29:29.500
+SGD. Got it.
+
+29:29.560 --> 29:31.920
+So you are basically taking a snapshot
+
+29:31.920 --> 29:33.500
+of the slope at the starting line.
+
+29:33.560 --> 29:33.840
+SGD. Exactly.
+
+29:34.600 --> 29:36.240
+You average those local gradients
+
+29:36.240 --> 29:37.820
+to find the true global gradient
+
+29:37.820 --> 29:38.940
+at that exact point.
+
+29:39.640 --> 29:41.480
+SGD. Then you let the local nodes
+
+29:41.480 --> 29:44.020
+run their full H-step local training
+
+29:44.020 --> 29:46.520
+and look at the final composite shift
+
+29:46.520 --> 29:47.120
+they produce.
+
+29:47.120 --> 29:47.600
+SGD. Okay.
+
+29:48.020 --> 29:49.240
+SGD. By comparing the direction
+
+29:49.240 --> 29:51.000
+of the composite H-step shift
+
+29:51.000 --> 29:52.220
+against the direction
+
+29:52.220 --> 29:54.540
+of the true instantaneous global gradient
+
+29:54.540 --> 29:55.660
+at the reference point,
+
+29:55.800 --> 29:57.720
+you can mathematically measure
+
+29:57.720 --> 29:59.080
+the angular divergence.
+
+29:59.580 --> 30:00.720
+SGD. Ah, I see.
+
+30:01.160 --> 30:02.440
+So if the composite vector
+
+30:02.440 --> 30:04.400
+is pointing like 90 degrees away
+
+30:04.400 --> 30:05.260
+from the true gradient,
+
+30:05.920 --> 30:06.700
+you know the horizon
+
+30:06.700 --> 30:08.540
+has totally warped the geometry
+
+30:08.540 --> 30:10.520
+and the model is actively drifting
+
+30:10.520 --> 30:11.860
+toward a biased fixed point.
+
+30:12.080 --> 30:12.680
+SGD. Exactly.
+
+30:13.260 --> 30:14.560
+It is a really brilliant way
+
+30:14.560 --> 30:15.860
+to bridge the network theory
+
+30:15.860 --> 30:17.120
+of the first half of the paper
+
+30:17.120 --> 30:18.560
+with the optimization geometry
+
+30:18.560 --> 30:19.440
+of the second half.
+
+30:19.620 --> 30:21.020
+SGD. It provides real observability.
+
+30:21.580 --> 30:22.160
+But you know,
+
+30:22.220 --> 30:23.380
+it leads to a much more difficult
+
+30:23.380 --> 30:25.340
+structural question regarding trust.
+
+30:25.420 --> 30:26.020
+SGD. Oh, absolutely.
+
+30:26.580 --> 30:27.080
+SGD. Like,
+
+30:27.420 --> 30:28.280
+if the architecture
+
+30:28.280 --> 30:30.180
+is this inherently fragile,
+
+30:30.820 --> 30:32.700
+if it requires tagged summaries
+
+30:32.700 --> 30:33.920
+to prevent rooting graphs
+
+30:33.920 --> 30:35.160
+from double counting vectors,
+
+30:35.740 --> 30:36.920
+and if it requires
+
+30:36.920 --> 30:38.340
+asynchronous null logic
+
+30:38.340 --> 30:39.200
+to handle latency,
+
+30:39.880 --> 30:41.460
+and if it is mathematically
+
+30:41.460 --> 30:42.460
+guaranteed to drift
+
+30:42.460 --> 30:43.680
+under heterogeneity,
+
+30:44.220 --> 30:45.620
+how can the end user
+
+30:45.620 --> 30:46.520
+ever actually trust
+
+30:46.520 --> 30:47.700
+the final model artifact
+
+30:47.700 --> 30:48.200
+they're given?
+
+30:48.540 --> 30:48.560
+SGD. Right.
+
+30:49.320 --> 30:50.520
+And this is where Flyxion
+
+30:50.520 --> 30:51.580
+introduces the concept
+
+30:51.580 --> 30:52.980
+of the commit certificate.
+
+30:53.840 --> 30:55.400
+It's essentially a final,
+
+30:55.720 --> 30:56.460
+formal proof
+
+30:56.460 --> 30:57.460
+of the model's construction.
+
+30:58.300 --> 30:59.340
+SGD. The commit certificate.
+
+30:59.540 --> 30:59.780
+Mm-hmm.
+
+30:59.780 --> 31:01.020
+SGD. It's envisioned
+
+31:01.020 --> 31:03.300
+as kind of a cryptographic passport.
+
+31:03.900 --> 31:04.380
+SGD. Yes.
+
+31:04.560 --> 31:05.780
+It is permanently bound
+
+31:05.780 --> 31:06.820
+to the newly generated
+
+31:06.820 --> 31:07.840
+successor checkpoint.
+
+31:08.220 --> 31:09.640
+So it doesn't just present
+
+31:09.640 --> 31:10.440
+the final weights
+
+31:10.440 --> 31:11.440
+of the neural network.
+
+31:11.440 --> 31:12.580
+It actually carries
+
+31:12.580 --> 31:13.800
+the cryptographic proof
+
+31:13.800 --> 31:15.480
+of the entire historical
+
+31:15.480 --> 31:16.940
+and mathematical supply chain
+
+31:16.940 --> 31:18.160
+that generated those weights.
+
+31:18.580 --> 31:18.600
+SGD. Okay.
+
+31:18.700 --> 31:20.720
+So what exactly does it prove?
+
+31:21.340 --> 31:22.240
+SGD. At the protocol level,
+
+31:22.680 --> 31:23.780
+the certificate asserts
+
+31:23.780 --> 31:25.060
+four definitive claims.
+
+31:25.480 --> 31:26.200
+First, origin.
+
+31:26.620 --> 31:27.740
+It cryptographically binds
+
+31:27.740 --> 31:28.380
+every shift
+
+31:28.380 --> 31:29.400
+to the specific node
+
+31:29.400 --> 31:30.320
+that generated it.
+
+31:30.540 --> 31:30.680
+SGD. Okay.
+
+31:30.920 --> 31:32.000
+Second, uniqueness.
+
+31:32.600 --> 31:34.080
+It utilizes the disjoint
+
+31:34.080 --> 31:35.040
+tag sets we discussed
+
+31:35.040 --> 31:36.640
+to prove that no single update
+
+31:36.640 --> 31:37.520
+was double counted
+
+31:37.520 --> 31:38.400
+in the routing graph.
+
+31:38.500 --> 31:38.780
+SGD. Essential.
+
+31:39.500 --> 31:40.400
+Third, eligibility.
+
+31:41.020 --> 31:41.800
+It proves that
+
+31:41.800 --> 31:42.700
+the aggregated data
+
+31:42.700 --> 31:43.780
+satisfied the specific
+
+31:43.780 --> 31:44.720
+quorum policies
+
+31:44.720 --> 31:45.360
+of that round.
+
+31:45.520 --> 31:45.720
+SGD. Right.
+
+31:45.760 --> 31:46.340
+The voting rules.
+
+31:46.780 --> 31:47.920
+And fourth, closure.
+
+31:48.320 --> 31:49.620
+It provides the definitive,
+
+31:49.940 --> 31:50.800
+unalterable verdict
+
+31:50.800 --> 31:51.660
+of which nodes
+
+31:51.660 --> 31:52.180
+were included
+
+31:52.180 --> 31:52.960
+in the data set
+
+31:52.960 --> 31:54.520
+and which were marked absent.
+
+31:55.320 --> 31:55.340
+Okay.
+
+31:55.460 --> 31:56.160
+So that covers
+
+31:56.160 --> 31:56.800
+the logistics
+
+31:56.800 --> 31:57.820
+of the network perfectly.
+
+31:57.820 --> 31:58.860
+But what about
+
+31:58.860 --> 31:59.660
+the math itself?
+
+32:00.400 --> 32:01.660
+Because a relay node
+
+32:01.660 --> 32:02.800
+could perfectly
+
+32:02.800 --> 32:03.640
+route the tags
+
+32:03.640 --> 32:04.820
+but like deliberately
+
+32:04.820 --> 32:06.480
+alter the numerical values
+
+32:06.480 --> 32:07.500
+of the partial sum.
+
+32:07.620 --> 32:08.440
+SGD. They absolutely could.
+
+32:08.900 --> 32:09.500
+How do we prove
+
+32:09.500 --> 32:10.100
+that tensors
+
+32:10.100 --> 32:10.980
+were added correctly
+
+32:10.980 --> 32:11.600
+without forcing
+
+32:11.600 --> 32:12.460
+the central server
+
+32:12.460 --> 32:13.920
+to just recalculate everything?
+
+32:14.420 --> 32:14.880
+SGD. The paper
+
+32:14.880 --> 32:16.200
+delineates three distinct
+
+32:16.200 --> 32:17.260
+fault model regimes
+
+32:17.260 --> 32:18.680
+for mathematical verification.
+
+32:19.500 --> 32:19.980
+Regime one
+
+32:19.980 --> 32:21.180
+is just trusted relays.
+
+32:21.380 --> 32:22.200
+We simply assume
+
+32:22.200 --> 32:22.880
+the relay nodes
+
+32:22.880 --> 32:23.500
+are benevolent
+
+32:23.500 --> 32:24.520
+and their math is correct.
+
+32:24.520 --> 32:25.320
+Which is, I mean,
+
+32:25.380 --> 32:26.000
+standard practice
+
+32:26.000 --> 32:27.080
+inside a closed
+
+32:27.080 --> 32:28.440
+corporate cluster, sure.
+
+32:28.600 --> 32:29.740
+But that's entirely
+
+32:29.740 --> 32:30.420
+unacceptable
+
+32:30.420 --> 32:31.440
+in a decentralized
+
+32:31.440 --> 32:33.140
+Byzantine environment
+
+32:33.140 --> 32:34.320
+where nodes might
+
+32:34.320 --> 32:35.220
+actually have financial
+
+32:35.220 --> 32:36.100
+incentives to poison
+
+32:36.100 --> 32:36.540
+the model.
+
+32:36.860 --> 32:37.240
+SGD. Exactly.
+
+32:37.660 --> 32:38.560
+Which brings us
+
+32:38.560 --> 32:39.840
+to regime two.
+
+32:40.260 --> 32:41.840
+This forces the leaf nodes
+
+32:41.840 --> 32:42.980
+to cryptographically
+
+32:42.980 --> 32:44.500
+sign their raw data
+
+32:44.500 --> 32:46.180
+and the central root node
+
+32:46.180 --> 32:46.900
+must download
+
+32:46.900 --> 32:48.340
+every single signature
+
+32:48.340 --> 32:49.560
+and recalculate
+
+32:49.560 --> 32:50.620
+the entire sum
+
+32:50.620 --> 32:51.480
+from scratch.
+
+32:51.480 --> 32:52.180
+But wait,
+
+32:52.260 --> 32:53.000
+if the root server
+
+32:53.000 --> 32:53.700
+has to ingest
+
+32:53.700 --> 32:54.420
+the raw data
+
+32:54.420 --> 32:56.060
+of 10,000 remote nodes
+
+32:56.060 --> 32:57.660
+just to verify the math,
+
+32:58.180 --> 32:59.480
+we have completely destroyed
+
+32:59.480 --> 33:00.080
+the decentralized
+
+33:00.080 --> 33:01.160
+bandwidth architecture.
+
+33:01.340 --> 33:01.780
+We have.
+
+33:02.000 --> 33:02.760
+We've just recreated
+
+33:02.760 --> 33:03.800
+the exact bottleneck
+
+33:03.800 --> 33:04.540
+we engineered
+
+33:04.540 --> 33:05.340
+the DAG routing
+
+33:05.340 --> 33:06.420
+to avoid in the first place.
+
+33:06.540 --> 33:06.840
+Right.
+
+33:07.180 --> 33:07.820
+Which leaves
+
+33:07.820 --> 33:08.920
+regime three,
+
+33:09.500 --> 33:11.120
+relying on cryptographic proofs.
+
+33:11.540 --> 33:12.620
+A relay node
+
+33:12.620 --> 33:13.480
+doesn't just send
+
+33:13.480 --> 33:14.260
+the partial sum.
+
+33:14.600 --> 33:15.140
+It attaches
+
+33:15.140 --> 33:15.940
+a sophisticated
+
+33:15.940 --> 33:17.120
+mathematical proof,
+
+33:17.260 --> 33:17.820
+such as a
+
+33:17.820 --> 33:18.860
+zero-knowledge proof,
+
+33:19.220 --> 33:20.200
+that mathematically
+
+33:20.200 --> 33:20.880
+guarantees
+
+33:20.880 --> 33:21.600
+the summary
+
+33:21.600 --> 33:22.400
+is the exact
+
+33:22.400 --> 33:23.820
+correct sum
+
+33:23.820 --> 33:24.720
+of the signed
+
+33:24.720 --> 33:25.520
+leaf vectors
+
+33:25.520 --> 33:26.120
+below it.
+
+33:26.520 --> 33:27.240
+Oh, that's clever.
+
+33:28.000 --> 33:29.340
+So, the relay
+
+33:29.340 --> 33:30.180
+proves it did
+
+33:30.180 --> 33:31.000
+the matrix addition
+
+33:31.000 --> 33:31.600
+correctly
+
+33:31.600 --> 33:33.080
+without ever revealing
+
+33:33.080 --> 33:34.100
+the underlying matrices
+
+33:34.100 --> 33:34.740
+to the root.
+
+33:35.000 --> 33:35.400
+Exactly.
+
+33:36.040 --> 33:36.980
+But while theoretically
+
+33:36.980 --> 33:37.620
+sound,
+
+33:37.860 --> 33:39.060
+generating zero-knowledge
+
+33:39.060 --> 33:40.080
+proofs for the summation
+
+33:40.080 --> 33:41.020
+of massive
+
+33:41.020 --> 33:42.140
+billion-parameter
+
+33:42.140 --> 33:43.360
+floating-point tensors
+
+33:43.360 --> 33:44.860
+is incredibly
+
+33:44.860 --> 33:46.220
+computationally expensive
+
+33:46.220 --> 33:46.700
+right now.
+
+33:46.900 --> 33:47.580
+Yeah, I imagine
+
+33:47.580 --> 33:48.300
+that's pretty tough.
+
+33:48.940 --> 33:49.860
+Flyxion acknowledges
+
+33:49.860 --> 33:50.780
+this is really
+
+33:50.780 --> 33:51.460
+at the frontier
+
+33:51.460 --> 33:52.140
+of current
+
+33:52.140 --> 33:53.300
+cryptographic research.
+
+33:53.940 --> 33:55.020
+But even if we assume
+
+33:55.020 --> 33:56.140
+we have perfect,
+
+33:56.680 --> 33:57.800
+totally costless
+
+33:57.800 --> 33:58.760
+cryptographic proofs
+
+33:58.760 --> 33:59.280
+for the math,
+
+33:59.480 --> 34:01.140
+we still hit the final,
+
+34:01.540 --> 34:02.340
+sobering limitation
+
+34:02.340 --> 34:03.000
+of the certificate.
+
+34:03.580 --> 34:04.120
+Yeah, the paper
+
+34:04.120 --> 34:05.160
+makes it brutally clear.
+
+34:05.760 --> 34:06.740
+The commit certificate
+
+34:06.740 --> 34:08.380
+can definitively prove
+
+34:08.380 --> 34:09.460
+the math was executed
+
+34:09.460 --> 34:09.920
+correctly,
+
+34:10.340 --> 34:11.260
+and it can prove
+
+34:11.260 --> 34:12.440
+the protocol quorum
+
+34:12.440 --> 34:13.440
+was enforced,
+
+34:13.840 --> 34:15.180
+but it absolutely
+
+34:15.180 --> 34:16.120
+cannot prove
+
+34:16.120 --> 34:17.080
+that the remote worker
+
+34:17.080 --> 34:17.880
+actually trained
+
+34:17.880 --> 34:18.860
+on legitimate data.
+
+34:18.860 --> 34:19.800
+No, it can't.
+
+34:19.940 --> 34:21.200
+Like, a malicious node
+
+34:21.200 --> 34:21.940
+could generate
+
+34:21.940 --> 34:23.100
+perfectly formatted,
+
+34:23.560 --> 34:24.740
+cryptographically signed
+
+34:24.740 --> 34:25.720
+garbage tensors.
+
+34:26.440 --> 34:27.280
+And more importantly,
+
+34:27.980 --> 34:29.220
+the certificate cannot prove
+
+34:29.220 --> 34:30.140
+that the resulting model
+
+34:30.140 --> 34:31.220
+is actually any better.
+
+34:31.640 --> 34:33.020
+The certificate is totally
+
+34:33.020 --> 34:34.140
+blind to objective
+
+34:34.140 --> 34:35.140
+inconsistency.
+
+34:35.520 --> 34:36.680
+You could have a flawlessly
+
+34:36.680 --> 34:37.620
+verified certificate
+
+34:37.620 --> 34:38.980
+for a model that has
+
+34:38.980 --> 34:39.860
+suffered catastrophic
+
+34:40.600 --> 34:41.420
+client drift
+
+34:41.420 --> 34:43.740
+and lost 170%
+
+34:43.740 --> 34:44.440
+of its performance.
+
+34:44.440 --> 34:45.920
+So, it's basically
+
+34:45.920 --> 34:47.280
+a perfectly secure,
+
+34:47.520 --> 34:48.420
+cryptographically
+
+34:48.420 --> 34:49.380
+pristine receipt
+
+34:49.380 --> 34:50.780
+for a cake
+
+34:50.780 --> 34:51.880
+that is either
+
+34:51.880 --> 34:52.880
+entirely poisoned
+
+34:52.880 --> 34:53.880
+or just tastes
+
+34:53.880 --> 34:54.720
+completely terrible.
+
+34:54.960 --> 34:55.240
+Yes.
+
+34:55.460 --> 34:56.260
+What is the value
+
+34:56.260 --> 34:56.940
+of the certificate
+
+34:56.940 --> 34:57.920
+if it guarantees
+
+34:57.920 --> 34:58.940
+the process
+
+34:58.940 --> 35:00.380
+but provides
+
+35:00.380 --> 35:01.160
+zero guarantee
+
+35:01.160 --> 35:02.640
+on the actual outcome?
+
+35:03.200 --> 35:04.000
+Well, this raises
+
+35:04.000 --> 35:05.140
+an important question, right?
+
+35:05.220 --> 35:06.560
+Why build the system
+
+35:06.560 --> 35:06.920
+at all?
+
+35:07.640 --> 35:08.380
+Flyxion defines
+
+35:08.380 --> 35:09.380
+the value of the certificate
+
+35:09.380 --> 35:11.440
+as portable warrant.
+
+35:12.060 --> 35:12.820
+It establishes
+
+35:12.820 --> 35:14.140
+the exact boundaries
+
+35:14.140 --> 35:14.760
+of trust.
+
+35:15.260 --> 35:16.580
+Portable warrant.
+
+35:17.200 --> 35:18.200
+So, it tells the recipient
+
+35:18.200 --> 35:19.360
+exactly what assumptions
+
+35:19.360 --> 35:20.500
+they are inheriting.
+
+35:20.800 --> 35:21.320
+Precisely.
+
+35:21.660 --> 35:22.060
+It says,
+
+35:22.180 --> 35:22.940
+I cannot guarantee
+
+35:22.940 --> 35:23.980
+this model will perform
+
+35:23.980 --> 35:25.300
+well on your task
+
+35:25.300 --> 35:26.880
+but I can guarantee
+
+35:26.880 --> 35:28.520
+with cryptographic certainty
+
+35:28.520 --> 35:29.580
+that it was constructed
+
+35:29.580 --> 35:30.900
+using these specific
+
+35:30.900 --> 35:32.000
+mathematical bounds
+
+35:32.000 --> 35:33.720
+relying on this
+
+35:33.720 --> 35:34.860
+exact network quorum
+
+35:34.860 --> 35:35.820
+under this defined
+
+35:35.820 --> 35:36.600
+fault model.
+
+35:37.400 --> 35:38.060
+It disentangles
+
+35:38.060 --> 35:39.060
+the engineering guarantees
+
+35:39.060 --> 35:39.940
+from the statistical
+
+35:39.940 --> 35:40.940
+optimization outcomes.
+
+35:41.000 --> 35:41.460
+Exactly.
+
+35:41.460 --> 35:42.680
+It provides
+
+35:42.680 --> 35:43.280
+the diagnostic
+
+35:43.280 --> 35:44.040
+audit trail.
+
+35:44.680 --> 35:45.200
+Because if the model
+
+35:45.200 --> 35:46.160
+outputs hallucinated
+
+35:46.160 --> 35:46.660
+garbage,
+
+35:47.160 --> 35:47.860
+you have the historical
+
+35:47.860 --> 35:48.660
+record to trace
+
+35:48.660 --> 35:50.060
+exactly which nodes
+
+35:50.060 --> 35:51.180
+contributed to the
+
+35:51.180 --> 35:51.720
+vector space
+
+35:51.720 --> 35:52.720
+which allows you
+
+35:52.720 --> 35:53.360
+to isolate
+
+35:53.360 --> 35:54.180
+whether the failure
+
+35:54.180 --> 35:55.160
+was a malicious
+
+35:55.160 --> 35:56.200
+data poisoning attack
+
+35:56.200 --> 35:57.700
+or just a geometric
+
+35:57.700 --> 35:58.880
+failure of the H-horizon.
+
+35:59.060 --> 35:59.340
+Right.
+
+35:59.960 --> 36:01.200
+You can't necessarily
+
+36:01.200 --> 36:01.980
+prevent the failure
+
+36:01.980 --> 36:02.780
+but you make
+
+36:02.780 --> 36:03.880
+the failure transparent.
+
+36:04.400 --> 36:05.580
+It forces the
+
+36:05.580 --> 36:06.520
+decentralized network
+
+36:06.520 --> 36:07.140
+to be structurally
+
+36:07.140 --> 36:07.920
+honest about its
+
+36:07.920 --> 36:08.540
+own fragility.
+
+36:08.900 --> 36:09.280
+Yes.
+
+36:09.280 --> 36:10.400
+Yeah.
+
+36:11.500 --> 36:12.460
+Let's take a step
+
+36:12.460 --> 36:13.000
+back and view
+
+36:13.000 --> 36:13.780
+the entire landscape
+
+36:13.780 --> 36:14.420
+we've mapped out
+
+36:14.420 --> 36:14.660
+today.
+
+36:15.660 --> 36:17.020
+Training a geographically
+
+36:17.020 --> 36:17.900
+distributed AI
+
+36:17.900 --> 36:20.320
+is just a brutal
+
+36:20.320 --> 36:21.140
+tightrope walk.
+
+36:21.780 --> 36:22.320
+You are fighting
+
+36:22.320 --> 36:23.200
+the physical limits
+
+36:23.200 --> 36:24.160
+of hardware latency
+
+36:24.160 --> 36:25.660
+forcing you to
+
+36:25.660 --> 36:26.860
+utilize disconnected
+
+36:26.860 --> 36:28.000
+routing topologies
+
+36:28.000 --> 36:29.020
+and asynchronous
+
+36:29.020 --> 36:30.360
+quorums just to
+
+36:30.360 --> 36:30.860
+keep the network
+
+36:30.860 --> 36:31.340
+alive.
+
+36:31.680 --> 36:32.220
+And those network
+
+36:32.220 --> 36:34.060
+choices inherently
+
+36:34.060 --> 36:35.160
+introduce mathematical
+
+36:35.160 --> 36:35.600
+traps.
+
+36:35.820 --> 36:36.680
+Redundant routing
+
+36:36.680 --> 36:38.060
+graphs inevitably lead
+
+36:38.060 --> 36:38.740
+to double counted
+
+36:38.740 --> 36:40.020
+vectors unless you
+
+36:40.020 --> 36:41.280
+enforce strict
+
+36:41.280 --> 36:42.580
+tagged disjointness.
+
+36:42.740 --> 36:42.960
+Right.
+
+36:43.120 --> 36:43.840
+And asynchronous
+
+36:43.840 --> 36:44.960
+latency forces you
+
+36:44.960 --> 36:45.860
+to draw a hard line
+
+36:45.860 --> 36:46.700
+between a computed
+
+36:46.700 --> 36:47.840
+zero and a missing
+
+36:47.840 --> 36:49.180
+node, altering the
+
+36:49.180 --> 36:49.900
+historical record
+
+36:49.900 --> 36:50.960
+of the accepted set.
+
+36:50.960 --> 36:52.080
+And even if you
+
+36:52.080 --> 36:52.960
+navigate the protocol
+
+36:52.960 --> 36:54.200
+perfectly, you're
+
+36:54.200 --> 36:55.100
+subjected to the
+
+36:55.100 --> 36:56.140
+inescapable gravity
+
+36:56.140 --> 36:56.960
+of the quadratic
+
+36:56.960 --> 36:57.600
+obstruction.
+
+36:58.280 --> 36:58.840
+The mathematical
+
+36:58.840 --> 36:59.600
+certainty that
+
+36:59.600 --> 37:01.000
+allowing local nodes
+
+37:01.000 --> 37:01.560
+to operate
+
+37:01.560 --> 37:02.640
+independently on
+
+37:02.640 --> 37:03.700
+heterogeneous data
+
+37:03.700 --> 37:04.880
+for too long
+
+37:04.880 --> 37:06.420
+will warp the
+
+37:06.420 --> 37:07.200
+composite gradient.
+
+37:07.200 --> 37:08.200
+Yes, the global
+
+37:08.200 --> 37:08.840
+model will
+
+37:08.840 --> 37:09.860
+inevitably drift
+
+37:09.860 --> 37:10.620
+into bias and
+
+37:10.620 --> 37:11.960
+failure, completely
+
+37:11.960 --> 37:12.800
+blind to the
+
+37:12.800 --> 37:13.520
+true objective.
+
+37:14.060 --> 37:15.120
+It is a profound
+
+37:15.120 --> 37:16.060
+demonstration of how
+
+37:16.060 --> 37:17.040
+the geometry of
+
+37:17.040 --> 37:18.460
+optimization is
+
+37:18.460 --> 37:19.440
+fundamentally hostile
+
+37:19.440 --> 37:20.300
+to the isolation
+
+37:20.300 --> 37:21.060
+required by
+
+37:21.060 --> 37:22.060
+decentralized networks.
+
+37:22.260 --> 37:22.960
+It really is.
+
+37:23.400 --> 37:24.900
+Which brings me
+
+37:24.900 --> 37:25.560
+to a final thought
+
+37:25.560 --> 37:26.000
+I want to leave
+
+37:26.000 --> 37:26.480
+you with today.
+
+37:27.420 --> 37:28.040
+We have spent
+
+37:28.040 --> 37:28.900
+this entire deep
+
+37:28.900 --> 37:29.760
+dive analyzing
+
+37:29.760 --> 37:30.700
+floating point
+
+37:30.700 --> 37:32.360
+tensors, directed
+
+37:32.360 --> 37:33.340
+acyclic graphs,
+
+37:33.800 --> 37:34.920
+and the mathematics
+
+37:34.920 --> 37:35.760
+of objective
+
+37:35.760 --> 37:36.680
+inconsistency.
+
+37:36.680 --> 37:37.280
+A lot of heavy
+
+37:37.280 --> 37:37.640
+math.
+
+37:38.060 --> 37:39.000
+But the core
+
+37:39.000 --> 37:39.700
+finding here,
+
+37:40.180 --> 37:40.820
+that systems
+
+37:40.820 --> 37:41.720
+permanently drift
+
+37:41.720 --> 37:42.400
+toward biased
+
+37:42.400 --> 37:43.080
+outcomes when
+
+37:43.080 --> 37:43.720
+local nodes
+
+37:43.720 --> 37:44.700
+operate independently
+
+37:44.700 --> 37:45.460
+for too long
+
+37:45.460 --> 37:46.740
+on local data,
+
+37:47.280 --> 37:48.520
+that is not just
+
+37:48.520 --> 37:49.100
+a property of
+
+37:49.100 --> 37:49.840
+silicon and code.
+
+37:50.000 --> 37:50.320
+No.
+
+37:50.960 --> 37:51.720
+What does this
+
+37:51.720 --> 37:52.600
+mathematical law
+
+37:52.600 --> 37:53.280
+mean for
+
+37:53.280 --> 37:54.620
+decentralized human
+
+37:54.620 --> 37:55.220
+organizations?
+
+37:56.080 --> 37:57.300
+We exist in an
+
+37:57.300 --> 37:58.140
+era of remote
+
+37:58.140 --> 37:59.200
+work, globally
+
+37:59.200 --> 38:00.040
+distributed teams,
+
+38:00.220 --> 38:01.080
+and decentralized
+
+38:01.080 --> 38:01.680
+autonomous
+
+38:01.680 --> 38:02.360
+organizations.
+
+38:02.360 --> 38:03.940
+If a human
+
+38:03.940 --> 38:04.740
+team goes too
+
+38:04.740 --> 38:05.440
+long without a
+
+38:05.440 --> 38:06.580
+true, synchronous
+
+38:06.580 --> 38:07.800
+alignment, if we
+
+38:07.800 --> 38:08.820
+just sit in our
+
+38:08.820 --> 38:09.940
+isolated silos,
+
+38:10.520 --> 38:11.320
+optimizing solely
+
+38:11.320 --> 38:12.260
+for our local
+
+38:12.260 --> 38:13.240
+KPIs and our
+
+38:13.240 --> 38:14.280
+local perspectives,
+
+38:14.680 --> 38:15.960
+do we suffer from
+
+38:15.960 --> 38:16.640
+the exact same
+
+38:16.640 --> 38:17.500
+mathematical drift?
+
+38:17.960 --> 38:18.700
+We probably do.
+
+38:19.460 --> 38:20.100
+Do our human
+
+38:20.100 --> 38:20.820
+teams fundamentally
+
+38:20.820 --> 38:21.640
+lose the shared
+
+38:21.640 --> 38:22.100
+objective?
+
+38:22.500 --> 38:23.380
+Not because any
+
+38:23.380 --> 38:24.420
+individual is acting
+
+38:24.420 --> 38:25.800
+maliciously, and
+
+38:25.800 --> 38:26.460
+not because our
+
+38:26.460 --> 38:27.280
+communication tools
+
+38:27.280 --> 38:28.620
+are broken, but
+
+38:28.620 --> 38:29.360
+simply because the
+
+38:29.360 --> 38:30.300
+geometry of our
+
+38:30.300 --> 38:31.500
+isolated, independent
+
+38:31.500 --> 38:33.360
+horizons inevitably
+
+38:33.360 --> 38:34.220
+warps the
+
+38:34.220 --> 38:34.900
+collective goal.
+
+38:35.800 --> 38:36.440
+If you are
+
+38:36.440 --> 38:37.360
+building a skyscraper
+
+38:37.360 --> 38:38.500
+with teams scattered
+
+38:38.500 --> 38:40.000
+across the globe, and
+
+38:40.000 --> 38:40.700
+you only sync up
+
+38:40.700 --> 38:42.000
+once a month, it
+
+38:42.000 --> 38:42.820
+isn't the blueprints
+
+38:42.820 --> 38:43.460
+you need to worry
+
+38:43.460 --> 38:43.720
+about.
+
+38:44.080 --> 38:44.520
+It is the
+
+38:44.520 --> 38:45.400
+mathematical certainty
+
+38:45.400 --> 38:46.320
+that, without
+
+38:46.320 --> 38:47.600
+continuous global
+
+38:47.600 --> 38:49.160
+synchronization, you
+
+38:49.160 --> 38:49.960
+are guaranteed to
+
+38:49.960 --> 38:50.640
+build a lopsided
+
+38:50.640 --> 38:50.940
+tower.
+

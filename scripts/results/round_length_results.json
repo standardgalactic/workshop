@@ -1,0 +1,134 @@
+[
+ {
+  "link": "lan",
+  "rule": "avg",
+  "H": 50,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 580.9370000000004,
+  "comm_wait_total": 192.05999999999975,
+  "gb_total": 480.0,
+  "final_loss": 0.013192811980843544
+ },
+ {
+  "link": "lan",
+  "rule": "avg",
+  "H": 200,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 585.2110000000001,
+  "comm_wait_total": 48.015,
+  "gb_total": 120.0,
+  "final_loss": 0.013444111682474613
+ },
+ {
+  "link": "lan",
+  "rule": "avg",
+  "H": 500,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 641.005,
+  "comm_wait_total": 19.206,
+  "gb_total": 48.0,
+  "final_loss": 0.013652948196977377
+ },
+ {
+  "link": "lan",
+  "rule": "nesterov",
+  "H": 50,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 463.1795000000002,
+  "comm_wait_total": 192.05999999999975,
+  "gb_total": 480.0,
+  "final_loss": 0.011374106165021658
+ },
+ {
+  "link": "lan",
+  "rule": "nesterov",
+  "H": 200,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 611.8115000000001,
+  "comm_wait_total": 48.015,
+  "gb_total": 120.0,
+  "final_loss": 0.01329649006947875
+ },
+ {
+  "link": "lan",
+  "rule": "nesterov",
+  "H": 500,
+  "reached": 0,
+  "seeds": 2,
+  "time_to_target": NaN,
+  "comm_wait_total": 19.206,
+  "gb_total": 48.0,
+  "final_loss": 0.015052137430757284
+ },
+ {
+  "link": "wan",
+  "rule": "avg",
+  "H": 50,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 12306.200000000008,
+  "comm_wait_total": 19206.0,
+  "gb_total": 480.0,
+  "final_loss": 0.013192811980843544
+ },
+ {
+  "link": "wan",
+  "rule": "avg",
+  "H": 200,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 4071.0999999999995,
+  "comm_wait_total": 4801.5,
+  "gb_total": 120.0,
+  "final_loss": 0.013444111682474613
+ },
+ {
+  "link": "wan",
+  "rule": "avg",
+  "H": 500,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 2225.5,
+  "comm_wait_total": 1920.6,
+  "gb_total": 48.0,
+  "final_loss": 0.013652948196977377
+ },
+ {
+  "link": "wan",
+  "rule": "nesterov",
+  "H": 50,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 9811.700000000004,
+  "comm_wait_total": 19206.0,
+  "gb_total": 480.0,
+  "final_loss": 0.011374106165021658
+ },
+ {
+  "link": "wan",
+  "rule": "nesterov",
+  "H": 200,
+  "reached": 2,
+  "seeds": 2,
+  "time_to_target": 4256.15,
+  "comm_wait_total": 4801.5,
+  "gb_total": 120.0,
+  "final_loss": 0.01329649006947875
+ },
+ {
+  "link": "wan",
+  "rule": "nesterov",
+  "H": 500,
+  "reached": 0,
+  "seeds": 2,
+  "time_to_target": NaN,
+  "comm_wait_total": 1920.6,
+  "gb_total": 48.0,
+  "final_loss": 0.015052137430757284
+ }
+]
