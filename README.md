@@ -1,5 +1,9 @@
 # Workshop
 
+[The Manufacture of Participation](https://standardgalactic.github.io/workshop/manufacture-of-participation.pdf)
+
+* [How Algorithms Turned Creators Into Inventory](https://standardgalactic.github.io/workshop/)
+
 [Hierarchical Synchronization](https://standardgalactic.github.io/workshop/hierarchical-synchronization.pdf)
 
 * [How Local Training Warps Global AI](https://standardgalactic.github.io/workshop/hierarchical-synchronization-visualizer.html)
